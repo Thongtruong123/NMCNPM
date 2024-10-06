@@ -1,2 +1,0 @@
-# NMCNPM
-Bài tập lớn
