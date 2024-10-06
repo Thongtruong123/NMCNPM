@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <title> Trang chủ </title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="css/template.css">
+  <link rel="stylesheet" href="css/quan-ly-khoan-thu-content.css">
+  <link rel='stylesheet' href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css'>
+</head>
+<body>
+  <div th:replace="~{/fragments/sidebar :: sidebar}" class="sidebar"> <!-- Sidebar placeholder --> </div>
+
+  <div class="mainboard">
+    <div class="main-content" id="maincontent">
+      <h1> Quản lý khoản thu </h1> <br>
+      <h2> Bảng các khoản thu </h2>
+      <button class="payment-button"> <a th:href="@{/form-qlkt}"> Tạo khoản thu </a> </button>
+
+      <div class="searchbar">
+        <input type="search" placeholder="Tìm kiếm" id="keyword" name="keyword" required>
+        <button class="search-button" type="submit"> <i class='bx bx-search' ></i> </button>
+      </div>
+
+      <table class="payment-table">
+        <thead>
+          <tr>
+            <th> STT </th>
+            <th> Tên khoản thu </th>
+            <th> Số tiền </th>
+            <th> Ngày bắt đầu </th>
+            <th> Ngày kết thúc </th>
+            <th> Người thu </th>
+            <th> Trạng thái </th>
+            <th> Mô tả </th>
+            <th> Hành động </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td> 1 </td>
+            <td> Khoản thu demo 1 </td>
+            <td> 500.000 </td>
+            <td> 01/10/2024 </td>
+            <td> 02/10/2024 </td>
+            <td> Bàn tiếp tân tại sảnh </td>
+            <td> Đã kết thúc </td>
+            <td> Không có mô tả </td>
+            <td>
+              <button class="edit"> <i class='bx bxs-edit-alt'></i> </button>
+              <button class="delete"> <i class='bx bxs-trash-alt' ></i> </button>
+            </td>
+          </tr>
+
+          <tr>
+            <td> 2 </td>
+            <td> Khoản thu demo 2 </td>
+            <td> 500.000 </td>
+            <td> 01/10/2024 </td>
+            <td> 02/10/2024 </td>
+            <td> Bàn tiếp tân tại sảnh </td>
+            <td> Đã kết thúc </td>
+            <td> Không có mô tả </td>
+            <td>
+              <button class="edit"> <i class='bx bxs-edit-alt'></i> </button>
+              <button class="delete"> <i class='bx bxs-trash-alt' ></i> </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+</body>
+
+<script src="js/menu-toggle.js"> </script>
+</html>
