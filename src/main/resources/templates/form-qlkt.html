@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <title> Trang chủ </title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="css/template.css">
+  <link rel="stylesheet" href="css/quan-ly-khoan-thu-form.css">
+  <link rel='stylesheet' href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css'>
+</head>
+<body>
+  <div th:replace="~{/fragments/sidebar :: sidebar}" class="sidebar"> <!-- Sidebar placeholder --> </div>
+
+  <div class="mainboard">
+    <div class="main-content" id="maincontent">
+      <h1> Quản lý khoản thu </h1> <br>
+      <h2> Tạo khoản thu </h2> <br>
+
+      <form>
+        <div class="upper">
+          <div class="leftside">
+            <div class="ten">
+              <label for="payment-name"> Tên khoản thu: </label>
+              <input type="text" id="payment-name" name="payment-name" required>
+            </div> <br>
+            <div class="tien">
+              <label> Số tiền: </label> <br>
+              <input type="radio" id="voluntary" name="payment-option" class="dot" value="voluntary" required>
+              <label for="voluntary"> Tự nguyện </label> <br>
+              <input type="radio" id="specific" name="payment-option" class="dot" value="specific" required>
+              <input type="number" id="amount" name="amount">
+            </div> <br>
+            <div class="nguoi-thu">
+              <label for="payment-receiver"> Người thu: </label>
+              <input type="text" id="payment-receiver" name="payment-receiver" required>
+            </div> <br>
+          </div>
+
+          <div class="rightside">
+            <div class="ngay-batdau">
+              <label for="payment-start"> Ngày bắt đầu: </label>
+              <input type="date" id="payment-start" name="payment-start" required>
+            </div> <br>
+            <div class="ngay-ketthuc">
+              <label for="payment-end"> Ngày kết thúc: </label>
+              <input type="date" id="payment-end" name="payment-end" required>
+            </div> <br>
+            <div class="lap-lai">
+              <label> Lặp lại: </label> <br>
+              <input type="radio" id="no-repeat" name="repeat-option" class="dot" value="no-repeat" required>
+              <label for="no-repeat"> Không lặp lại </label> <br>
+              <input type="radio" id="1-month" name="repeat-option" class="dot" value="1-month" required>
+              <label for="1-month"> Hàng tháng </label> <br>
+              <input type="radio" id="3-month" name="repeat-option" class="dot" value="3-month" required>
+              <label for="3-month"> 3 tháng </label> <br>
+              <input type="radio" id="6-month" name="repeat-option" class="dot" value="6-month" required>
+              <label for="6-month"> 6 tháng </label> <br>
+              <input type="radio" id="1-year" name="repeat-option" class="dot" value="1-year" required>
+              <label for="1-year"> Hàng năm </label> <br>
+            </div> <br>
+          </div> <br>
+
+        </div>
+
+        <div class="lower">
+          <label for="detail"> Mô tả: </label> <br> <br>
+          <textarea id="detail" name="detail" class="detail"> </textarea>
+        </div> <br> <br>
+        <button type="submit" class="submit-button"> <i class='bx bx-save' ></i> Lưu </button>
+      </form>
+
+    </div>
+  </div>
+
+</body>
+
+<script src="js/menu-toggle.js"> </script>
+</html>

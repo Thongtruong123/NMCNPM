@@ -1,0 +1,92 @@
+.mainboard {
+    position: relative;
+    top: 0;
+    left: 100px;
+    transition: all 0.5s ease;
+    width: calc(100% - 100px);
+    padding: 20px;
+    align-items: center;
+    justify-content: center;
+    background-color: #ADD8E6;
+    overflow: auto;
+}
+
+.main-content {
+    height: 100%;
+    width: 100%;
+    min-width: 1500px;
+    border-radius: 10px;
+    background-color: white;
+    padding: 20px;
+}
+
+.upper {
+   display: flex;
+   width: 100%;
+   font-size: 18px;
+   margin-top: 20px;
+   white-space: nowrap;
+}
+
+.leftside{
+    width: 50%;
+    margin-left: 50px;
+    padding-left: 50px;
+}
+
+.rightside{
+    width: 50%;
+    margin-right: 50px;
+    padding-left: 50px;
+}
+
+.lower {
+    margin-left: 100px;
+    font-size: 18px;
+}
+
+label {
+    font-weight: bold;
+    margin-right: 10px;
+    display: inline-block;
+    width: 130px;
+}
+
+input {
+    font-size: 18px;
+    height: 40px;
+    width: 400px;
+    padding: 3px;
+    border-radius: 5px;
+    border-color: #DCDCDC;
+}
+
+.dot {
+    height: 20px;
+    width: 20px;
+    margin: 5px 10px 5px 110px;
+}
+
+.detail {
+    height: 300px;
+    width: 1300px;
+    padding: 10px;
+    overflow-y: auto;
+    vertical-align: top;
+    resize: none;
+}
+
+.submit-button {
+    float: right;
+    font-size: 18px;
+    background-color: #4169E1;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    margin-right: 100px;
+    font-size: 18px;
+    font-weight: bold;
+    height: 35px;
+    width: 80px;
+    cursor: pointer;
+}

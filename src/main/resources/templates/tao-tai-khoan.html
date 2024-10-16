@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <title> Trang chủ </title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="css/template.css">
+  <link rel="stylesheet" href="css/tao-tai-khoan-form.css">
+  <link rel='stylesheet' href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css'>
+</head>
+<body>
+  <div th:replace="~{/fragments/sidebar :: sidebar}" class="sidebar"> <!-- Sidebar placeholder --> </div>
+
+  <div class="mainboard">
+    <div class="main-content" id="maincontent">
+      <h1> Tạo tài khoản </h1> <br> <br>
+
+      <form>
+        <div class="ten">
+          <label for="ten"> Tên </label> <br>
+          <input type="text" id="ten" name="ten" required>
+        </div>
+        <div class="ho">
+          <label for="ho"> Họ </label> <br>
+          <input type="text" id="ho" name="ho" required>
+        </div> <br>
+        <label for="username"> Tên tài khoản </label> <br>
+        <input type="text" id="username" name="username" required> <br>
+        <label for="email"> Email </label> <br>
+        <input type="email" id="email" name="email" required> <br>
+        <label for="sdt"> Số điện thoại </label> <br>
+        <input type="tel" id="sdt" name="sdt" required> <br>
+        <label for="password"> Mật khẩu </label> <br>
+        <input type="password" id="password" name="password" required> <br>
+        <label for="role"> Chức vụ </label> <br>
+        <input class="role" list="role-list" id="role" name="role" required> <br>
+        <datalist id="role-list">
+          <option> Quản lý tầng </option>
+          <option> Quản lý tòa </option>
+          <option> Admin </option>
+        </datalist>
+        <button type="submit" class="register-button"> Đăng ký </button>
+      </form>
+    </div>
+  </div>
+
+</body>
+
+<script src="js/menu-toggle.js"> </script>
+</html>
