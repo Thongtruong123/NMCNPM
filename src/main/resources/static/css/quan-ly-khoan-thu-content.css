@@ -12,8 +12,10 @@
 .main-content {
     height: 100%;
     width: 100%;
+    min-width: 900px;
     border-radius: 10px;
     background-color: white;
+    overflow: auto;
     padding: 20px;
 }
 
@@ -67,6 +69,10 @@
     width: 100%;
     border-collapse: collapse;
     margin-top: 20px;
+}
+
+.table-top{
+    position: sticky;
 }
 
 th,td {

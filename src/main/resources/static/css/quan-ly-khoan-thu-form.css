@@ -14,7 +14,8 @@
 .main-content {
     height: 100%;
     width: 100%;
-    min-width: 1500px;
+    min-width: 1280px;
+    min-height: 950px;
     border-radius: 10px;
     background-color: white;
     padding: 20px;
@@ -69,7 +70,8 @@ input {
 
 .detail {
     height: 300px;
-    width: 1300px;
+    width: 90%;
+    min-width: 1130px;
     padding: 10px;
     overflow-y: auto;
     vertical-align: top;
@@ -83,7 +85,7 @@ input {
     color: white;
     border: none;
     border-radius: 5px;
-    margin-right: 100px;
+    margin-right: 120px;
     font-size: 18px;
     font-weight: bold;
     height: 35px;

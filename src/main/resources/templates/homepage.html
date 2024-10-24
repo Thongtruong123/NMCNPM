@@ -12,11 +12,23 @@
   <div th:replace="~{/fragments/sidebar :: sidebar}" class="sidebar"> <!-- Sidebar placeholder --> </div>
 
   <div class="mainboard">
-    <div class="main-content" id="maincontent">
+    <div class="header-content">
       <h1> Trang chủ </h1> <br>
+    </div>
+    <div class="main-content" id="maincontent">
       <p> Xin chào, <span th:text="${username}"></span> <br>Chào mừng đến với trang chủ của Web Quản lý Chung cư BlueMoon </p>
       <hr>
       <div class="update-info">
+        <p style="font-size: 24px; font-weight: bold;"> Bản cập nhật 1.1.1 ngày 16/10/2024:  </p>
+        <ul>
+          <li> Cập nhật giao diện homepage, quản lý khoản thu</li>
+          <li> Cập nhật tính năng tạo tài khoản </li>
+        </ul>
+        <p style="font-size: 24px; font-weight: bold;"> Bản cập nhật 1.1.0 ngày 16/10/2024:  </p>
+        <ul>
+          <li> Cập nhật tính năng xác thực người dùng bằng Spring security, với danh sách người dùng lấy từ database trên AWS</li>
+        </ul>
+        <br>
         <p style="font-size: 24px; font-weight: bold;"> Bản cập nhật 1.0.3 ngày 5/10/2024:  </p>
         <ul>
           <li> Cập nhật giao diện login lần 3</li>

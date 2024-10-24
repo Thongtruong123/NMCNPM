@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="vi">
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
 <head>
   <title> Trang chủ </title>
   <meta charset="UTF-8">
@@ -12,14 +12,19 @@
   <div th:replace="~{/fragments/sidebar :: sidebar}" class="sidebar"> <!-- Sidebar placeholder --> </div>
 
   <div class="mainboard">
-    <div class="main-content" id="maincontent">
+    <div class="header-content">
       <h1> Quản lý khoản thu </h1> <br>
-      <h2> Bảng các khoản thu </h2>
-      <button class="payment-button"> <a th:href="@{/form-qlkt}"> Tạo khoản thu </a> </button>
+    </div>
+    <div class="main-content" id="maincontent">
+      <div class="table-top">
+        <h2> Bảng các khoản thu </h2> <br>
+        <hr>
+        <button class="payment-button"> <a th:href="@{/form-qlkt}"> Tạo khoản thu </a> </button>
 
-      <div class="searchbar">
-        <input type="search" placeholder="Tìm kiếm" id="keyword" name="keyword" required>
-        <button class="search-button" type="submit"> <i class='bx bx-search' ></i> </button>
+        <div class="searchbar">
+          <input type="search" placeholder="Tìm kiếm" id="keyword" name="keyword" required>
+          <button class="search-button" type="submit"> <i class='bx bx-search' ></i> </button>
+        </div>
       </div>
 
       <table class="payment-table">

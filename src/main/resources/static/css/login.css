@@ -2,8 +2,9 @@ body {
     font-family: 'Helvetica';
     margin: 0;
     height: 100vh;
-    min-width: 1900px;
-    min-height: 950px;
+    width: 100vw;
+    min-width: 1280px;
+    min-height: 800px;
     display: flex;
     background-color: #ADD8E6;;
     align-items: center;
@@ -13,8 +14,8 @@ body {
 
 .logo-side {
     background-color: white;
-    width: 850px;
-    height: 850px;
+    width: 45%;
+    height: 90%;
     align-items: center;
     box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.5);
     border-top-left-radius: 20px;
@@ -46,8 +47,8 @@ body {
 
 .login-side {
     background: linear-gradient(to bottom, #00CED1, #191970);
-    width: 850px;
-    height: 850px;
+    width: 45%;
+    height: 90%;
     display: flex;
     align-items: center;
     box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.5);
