@@ -4,16 +4,89 @@
     left: 100px;
     transition: all 0.5s ease;
     width: calc(100% - 100px);
-    padding: 20px;
+    padding: 20px 350px;
+    display: flex;
     align-items: center;
     justify-content: center;
     background-color: #ADD8E6;
+    overflow: auto;
 }
 
 .main-content {
-    height: 100%;
-    width: 100%;
+    height: auto;
+    width: 700px;
     border-radius: 10px;
     background-color: white;
     padding: 20px;
+}
+
+label {
+    font-size: 20px;
+    font-weight: bold;
+    margin-left: 25px;
+}
+
+input, select {
+    font-size: 18px;
+    height: 40px;
+    width: 600px;
+    margin: 25px;
+    padding: 3px;
+    border-radius: 5px;
+    border-color: #DCDCDC;
+}
+
+.due-amounts-scroll {
+    width: 600px; /* Độ rộng cố định */
+    height: 100px; /* Chiều cao cố định cho khung cuộn */
+    overflow-y: auto; /* Kích hoạt cuộn dọc */
+    border: 1px solid #DCDCDC; /* Đường viền khung */
+    margin: 25px;
+    padding: 0; /* Khoảng cách trong khung */
+    box-sizing: border-box; /* Đảm bảo padding không ảnh hưởng đến chiều rộng tổng thể */
+}
+
+.due-item {
+    display: flex; /* Đặt flex để căn giữa các phần tử theo hàng ngang */
+    justify-content: space-between; /* Đẩy các phần tử sang hai bên */
+    align-items: center; /* Căn giữa các phần tử theo chiều dọc */
+}
+
+.due-item span {
+    font-size: 16px;
+    display: inline-flex; /* Làm cho văn bản gọn hơn */
+    padding-top: 0;
+    padding-right: 30px;
+}
+
+.due-item input[type="checkbox"] {
+    width: 16px;
+    height: 16px;
+    margin: 3px; /* Xóa margin nếu có */
+    padding-top: 0;
+}
+
+
+.register-button, .generate-invoice-button {
+    height: 50px;
+    width: 600px;
+    margin: 25px;
+    border-radius: 10px;
+    background: linear-gradient(to right, #FFD700, #FF8C00);
+    color: #4169E1;
+    font-size: 18px;
+    font-weight: bold;
+    cursor: pointer;
+}
+h1 {
+    margin-bottom: 20px;
+}
+
+form div:first-of-type {
+    margin-top: 20px;
+}
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }

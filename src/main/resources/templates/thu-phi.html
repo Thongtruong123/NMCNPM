@@ -1,23 +1,92 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-  <title> Trang chủ </title>
+  <title>Tạo Hóa Đơn Thu Phí</title>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="css/template.css">
-  <link rel="stylesheet" href="css/thu-phi-content.css">
+  <link rel="stylesheet" href="/css/template.css">
+  <link rel="stylesheet" href="/css/thu-phi-content.css">
   <link rel='stylesheet' href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css'>
 </head>
 <body>
-  <div th:replace="~{/fragments/sidebar :: sidebar}" class="sidebar"> <!-- Sidebar placeholder --> </div>
+<div th:replace="~{/fragments/sidebar :: sidebar}" class="sidebar"> <!-- Sidebar placeholder --> </div>
 
-  <div class="mainboard">
-    <div class="main-content" id="maincontent">
-      <h1> Thu phí </h1>
-    </div>
+<div class="mainboard">
+  <div class="main-content" id="maincontent">
+    <h1>Tạo Hóa Đơn Thu Phí</h1>
+
+    <!-- Form nhập thông tin hóa đơn -->
+    <form action="/create-invoice" method="POST" id="invoiceForm">
+      <div>
+        <label for="roomNumber">Người nộp:</label>
+        <input type="text" id="roomNumber" name="roomNumber" required>
+      </div>
+      <div>
+        <label for="roomNumber">Số điện thoại:</label>
+        <input type="number" id="roomNumber" name="roomNumber" required>
+      </div>
+      <div>
+        <label for="familyInfo">Số phòng:</label>
+        <input type="text" id="familyInfo" name="familyInfo" required>
+      </div>
+      <div>
+        <label for="familyInfo">Thông tin hộ gia đình:</label>
+        <input type="text" id="familyInfo" name="familyInfo" required>
+      </div>
+
+      <div>
+        <label for="dueAmounts">Các khoản chưa đóng:</label>
+        <div id="dueAmounts" class="due-amounts-scroll">
+          <div class="due-item">
+            <span>Khoản thu 1</span>
+            <input type="checkbox" name="dueAmounts" value="water">
+          </div>
+          <div class="due-item">
+            <span>Khoản thu 2</span>
+            <input type="checkbox" name="dueAmounts" value="electricity">
+          </div>
+          <div class="due-item">
+            <span>Khoản thu 3</span>
+            <input type="checkbox" name="dueAmounts" value="maintenance">
+          </div>
+          <div class="due-item">
+            <span>Khoản thu 1</span>
+            <input type="checkbox" name="dueAmounts" value="water">
+          </div>
+          <div class="due-item">
+            <span>Khoản thu 1</span>
+            <input type="checkbox" name="dueAmounts" value="water">
+          </div>
+          <div class="due-item">
+            <span>Khoản thu 1</span>
+            <input type="checkbox" name="dueAmounts" value="water">
+          </div>
+          <div class="due-item">
+            <span>Khoản thu 1</span>
+            <input type="checkbox" name="dueAmounts" value="water">
+          </div>
+          <!-- Thêm các khoản khác nếu cần -->
+        </div>
+      </div>
+      <div>
+        <label for="paymentAmount">Số tiền phải đóng:</label>
+        <input type="number" id="paymentAmount" name="paymentAmount" required>
+      </div>
+
+      <button type="submit" class="generate-invoice-button">Tạo Hóa Đơn</button>
+    </form>
+
+    <!-- Nút xuất hóa đơn ra file PDF -->
+    <button onclick="exportPDF()" class="register-button">Xuất ra PDF</button>
   </div>
-
-</body>
+</div>
 
 <script src="js/menu-toggle.js"> </script>
+<script>
+  function exportPDF() {
+    // Logic để xuất file PDF từ dữ liệu hóa đơn
+    alert("Xuất hóa đơn ra file PDF");
+  }
+</script>
+</body>
 </html>
