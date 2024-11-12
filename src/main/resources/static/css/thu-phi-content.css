@@ -90,3 +90,12 @@ form div:first-of-type {
     padding: 0;
     box-sizing: border-box;
 }
+.invoice-display {
+    width: 100%;
+    max-width: 600px; /* Giới hạn chiều rộng để căn giữa */
+    margin: 20px auto; /* Căn giữa và cách đều các cạnh trên/dưới */
+    padding: 20px;
+    border: 1px solid #ccc;
+    background-color: #fff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Tạo hiệu ứng bóng */
+}
