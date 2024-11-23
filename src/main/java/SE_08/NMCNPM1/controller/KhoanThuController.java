@@ -15,13 +15,13 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 @Controller
-@RequestMapping("/quan-ly-khoan-thu/list")
+
 public class KhoanThuController {
 
     @Autowired
     private KhoanthuRepository repo;
 
-    @GetMapping({"", "/"})
+    @GetMapping({"/khoanthu"})
     public String showKhoanthuList(Model model) {
         // Lấy danh sách Khoanthu từ database
         List<Khoanthu> ds_khoanthu = repo.findAll(Sort.by(Sort.Direction.ASC, "id"));
