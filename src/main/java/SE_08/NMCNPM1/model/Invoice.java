@@ -15,8 +15,8 @@ public class Invoice {
     @Column(name = "room_number", nullable = false)
     private String roomNumber;
 
-    @Column(name = "owner_name", nullable = true) // Tùy chọn, có thể là null
-    private String ownerName;
+    @Column(name = "payer_name", nullable = true) // Tùy chọn, có thể là null
+    private String payerName;
 
     @Column(name = "phone_number", nullable = true) // Tùy chọn, có thể là null
     private String phoneNumber;
@@ -53,12 +53,12 @@ public class Invoice {
         this.roomNumber = roomNumber;
     }
 
-    public String getOwnerName() {
-        return ownerName;
+    public String getPayerName() {
+        return payerName;
     }
 
-    public void setOwnerName(String ownerName) {
-        this.ownerName = ownerName;
+    public void setPayerName(String ownerName) {
+        this.payerName = ownerName;
     }
 
     public String getPhoneNumber() {

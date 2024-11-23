@@ -14,48 +14,44 @@
 
 </head>
 <body>
-<div th:replace="~{/fragments/sidebar :: sidebar}" class="sidebar"> <!-- Sidebar placeholder --> </div>
+<div th:replace="~{/fragments/sidebar :: sidebar}" class="sidebar"></div>
 
 <div class="mainboard">
+  <h1>Thu phí</h1>
   <div class="main-content" id="maincontent">
-    <h1>Tạo Hóa Đơn Thu Phí</h1>
+    <h2>Tạo Hóa Đơn Thu Phí</h2>
 
-    <!-- Form nhập thông tin hóa đơn -->
     <form action="/create-invoice" method="POST" id="invoiceForm">
-      <div>
+      <div class="form-row">
         <label for="payerName">Người nộp (tùy chọn):</label>
-        <input type="text" id="payerName" name="payerName">
+        <input type="text" id="payerName" name="payerName" placeholder="Nhập tên người nộp">
       </div>
-      <div>
+      <div class="form-row">
         <label for="phoneNumber">Số điện thoại (tùy chọn):</label>
-        <input type="number" id="phoneNumber" name="phoneNumber">
+        <input type="tel" id="phoneNumber" name="phoneNumber" placeholder="Nhập số điện thoại">
       </div>
-      <div>
+      <div class="form-row">
         <label for="roomNumber">Số phòng:</label>
-        <input type="text" id="roomNumber" name="roomNumber" required>
+        <input type="text" id="roomNumber" name="roomNumber" placeholder="Nhập số phòng" required>
       </div>
-      <div>
+      <div class="form-row">
         <label for="ownerName">Tên chủ hộ:</label>
         <input type="text" id="ownerName" name="ownerName" readonly>
       </div>
-      <div>
+      <div class="form-row">
         <label for="dueAmounts">Các khoản chưa đóng:</label>
-        <div id="dueAmounts" class="due-amounts-scroll">
-          <!-- Nội dung sẽ được điền tự động bằng JavaScript -->
-        </div>
+        <div id="dueAmounts" class="due-amounts-scroll"></div>
       </div>
       <div>
         <label for="paymentAmount">Số tiền phải đóng:</label>
-        <input type="number" id="paymentAmount" name="paymentAmount" readonly>
+        <input type="text" id="paymentAmount" name="paymentAmount" readonly>
       </div>
-
       <button type="button" class="generate-invoice-button">Tạo Hóa Đơn</button>
     </form>
   </div>
 </div>
 
-<script src="js/menu-toggle.js"> </script>
-<script src="js/thu-phi.js"> </script>
-
+<script src="js/menu-toggle.js"></script>
+<script src="js/thu-phi.js"></script>
 </body>
 </html>

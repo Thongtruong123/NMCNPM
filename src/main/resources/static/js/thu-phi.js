@@ -1,4 +1,4 @@
-// Lấy các khoản chưa đóng khi nhập số phòng và nhấn Enter
+// Lấy danh sách khoản chưa đóng
 document.getElementById('roomNumber').addEventListener('keydown', async function(event) {
     if (event.key === 'Enter') {
         event.preventDefault();
@@ -7,32 +7,33 @@ document.getElementById('roomNumber').addEventListener('keydown', async function
             try {
                 const response = await fetch(`/api/family/${roomNumber}`);
                 if (!response.ok) throw new Error("Không tìm thấy thông tin hộ gia đình.");
-
-                const contentType = response.headers.get("content-type");
-                if (!contentType || !contentType.includes("application/json")) {
-                    throw new Error("Phản hồi không đúng định dạng JSON.");
-                }
-
                 const familyData = await response.json();
                 document.getElementById('ownerName').value = familyData.ownerName || "Không có thông tin chủ hộ";
 
                 const dueAmountsDiv = document.getElementById('dueAmounts');
                 dueAmountsDiv.innerHTML = '';
-
                 if (familyData.dueAmounts && familyData.dueAmounts.length > 0) {
                     familyData.dueAmounts.forEach(due => {
-                        dueAmountsDiv.innerHTML += `
-                            <div class="due-item">
-                                <span>${due.name} - ${due.amount}</span>
-                                <input type="checkbox" data-id="${due.id}" value="${due.amount}" class="due-checkbox">
-                            </div>
-                        `;
+                        const dueItem = document.createElement('div');
+                        dueItem.className = 'due-item';
+
+                        const dueInfo = document.createElement('p');
+                        dueInfo.textContent = `Khoản thu: ${due.name} - ${due.amount.toLocaleString()} VNĐ`;
+
+                        const dueCheckbox = document.createElement('input');
+                        dueCheckbox.type = 'checkbox';
+                        dueCheckbox.className = 'due-checkbox';
+                        dueCheckbox.dataset.id = due.id;
+                        dueCheckbox.value = due.amount;
+
+                        dueItem.appendChild(dueInfo);
+                        dueItem.appendChild(dueCheckbox);
+                        dueAmountsDiv.appendChild(dueItem);
                     });
                 } else {
                     dueAmountsDiv.innerHTML = '<p>Không có khoản thu nào chưa đóng.</p>';
                 }
             } catch (error) {
-                console.error("Error fetching family data:", error);
                 alert(error.message);
             }
         } else {
@@ -41,29 +42,24 @@ document.getElementById('roomNumber').addEventListener('keydown', async function
     }
 });
 
-// Cập nhật tổng tiền khi tích chọn
+// Cập nhật tổng tiền
 document.getElementById('dueAmounts').addEventListener('change', function() {
     const checkboxes = document.querySelectorAll('.due-checkbox');
-    let totalAmount = 0;
-    checkboxes.forEach(checkbox => {
-        if (checkbox.checked) {
-            totalAmount += parseFloat(checkbox.value);
-        }
-    });
-    document.getElementById('paymentAmount').value = totalAmount;
+    const totalAmount = Array.from(checkboxes)
+        .filter(checkbox => checkbox.checked)
+        .reduce((sum, checkbox) => sum + parseFloat(checkbox.value), 0);
+    document.getElementById('paymentAmount').value = totalAmount.toLocaleString();
 });
 
-// Xử lý khi nhấn nút tạo hóa đơn
+// Xử lý tạo hóa đơn
 const csrfToken = document.querySelector('meta[name="_csrf"]').getAttribute('content');
 const csrfHeader = document.querySelector('meta[name="_csrf_header"]').getAttribute('content');
-
 document.querySelector('.generate-invoice-button').addEventListener('click', async function(event) {
     event.preventDefault();
-
     const roomNumber = document.getElementById('roomNumber').value.trim();
-    const ownerName = document.getElementById('payerName').value.trim() || null;
-    const phoneNumber = document.getElementById('phoneNumber').value.trim() || null;
-    const totalAmount = parseFloat(document.getElementById('paymentAmount').value);
+    const payerName = document.getElementById('payerName').value.trim();
+    const phoneNumber = document.getElementById('phoneNumber').value.trim();
+    const totalAmount = parseFloat(document.getElementById('paymentAmount').value.replace(/,/g, ''));
 
     if (!roomNumber || !totalAmount) {
         alert("Vui lòng nhập đủ thông tin và chọn khoản cần thanh toán.");
@@ -75,14 +71,7 @@ document.querySelector('.generate-invoice-button').addEventListener('click', asy
         amount: parseFloat(cb.value)
     }));
 
-    const invoiceData = {
-        roomNumber,
-        ownerName,
-        phoneNumber,
-        totalAmount,
-        selectedDueAmounts: selectedDues
-    };
-    console.log(invoiceData);
+    const invoiceData = { roomNumber, payerName, phoneNumber, totalAmount, selectedDueAmounts: selectedDues };
 
     try {
         const response = await fetch('/api/family/invoice', {
@@ -91,27 +80,20 @@ document.querySelector('.generate-invoice-button').addEventListener('click', asy
                 'Content-Type': 'application/json',
                 [csrfHeader]: csrfToken
             },
-            body: JSON.stringify(invoiceData),
-            credentials: 'include'
+            body: JSON.stringify(invoiceData)
         });
-
         if (!response.ok) throw new Error("Không thể tạo hóa đơn.");
 
-        const contentType = response.headers.get("content-type");
-        if (!contentType || !contentType.includes("application/json")) {
-            throw new Error("Phản hồi không đúng định dạng JSON.");
-        }
-
         const createdInvoice = await response.json();
-        openInvoiceInNewPage(createdInvoice); // Mở hóa đơn trong trang mới
+        openInvoiceInNewPage(createdInvoice);
     } catch (error) {
-        console.error("Error creating invoice:", error);
-        alert("Lỗi khi tạo hóa đơn. Vui lòng kiểm tra lại.");
+        alert("Lỗi khi tạo hóa đơn. Vui lòng thử lại.");
     }
 });
 
 // Mở hóa đơn trong trang mới
 function openInvoiceInNewPage(invoice) {
+    console.log(invoice)
     const newWindow = window.open('', '_blank');
     newWindow.document.write(`
         <html>
@@ -133,7 +115,8 @@ function openInvoiceInNewPage(invoice) {
                 <div class="invoice-container">
                     <h2>Hóa Đơn Thu Phí Chung Cư</h2>
                     <div class="invoice-info">
-                        <p>Người nộp: ${invoice.ownerName || "Không có"}</p>
+                        <p>Người nộp: ${invoice.payerName || "Không có"}</p>
+                        <p>Số điện thoại: ${invoice.phoneNumber || "Không có"}</p>
                         <p>Số phòng: ${invoice.roomNumber}</p>
                         <p>Ngày tạo: ${new Date(invoice.createdAt).toLocaleString()}</p>
                         <p>Người tạo hóa đơn: ${invoice.createdBy}</p>

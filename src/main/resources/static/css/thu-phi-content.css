@@ -4,98 +4,90 @@
     left: 100px;
     transition: all 0.5s ease;
     width: calc(100% - 100px);
-    padding: 20px 350px;
+    padding: 20px;
     display: flex;
+    flex-direction: column;
     align-items: center;
-    justify-content: center;
     background-color: #ADD8E6;
     overflow: auto;
 }
 
 .main-content {
-    height: auto;
-    width: 700px;
+    width: 80%;
+    max-width: 1200px;
     border-radius: 10px;
     background-color: white;
     padding: 20px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
 
 label {
-    font-size: 20px;
+    font-size: 18px;
     font-weight: bold;
-    margin-left: 25px;
+    margin-bottom: 5px;
 }
 
 input, select {
-    font-size: 18px;
+    font-size: 16px;
     height: 40px;
-    width: 600px;
-    margin: 25px;
-    padding: 3px;
+    width: 100%;
+    max-width: 600px;
+    margin-bottom: 15px;
+    padding: 8px;
     border-radius: 5px;
-    border-color: #DCDCDC;
+    border: 1px solid #DCDCDC;
+    background-color: #f9f9f9;
 }
 
 .due-amounts-scroll {
-    width: 600px; /* Độ rộng cố định */
-    height: 100px; /* Chiều cao cố định cho khung cuộn */
-    overflow-y: auto; /* Kích hoạt cuộn dọc */
-    border: 1px solid #DCDCDC; /* Đường viền khung */
-    margin: 25px;
-    padding: 0; /* Khoảng cách trong khung */
-    box-sizing: border-box; /* Đảm bảo padding không ảnh hưởng đến chiều rộng tổng thể */
+    width: 100%;
+    max-width: 600px;
+    height: auto;
+    overflow-y: auto;
+    border: 1px solid #DCDCDC;
+    margin-bottom: 15px;
+    padding: 10px;
+    border-radius: 5px;
 }
 
 .due-item {
-    display: flex; /* Đặt flex để căn giữa các phần tử theo hàng ngang */
-    justify-content: space-between; /* Đẩy các phần tử sang hai bên */
-    align-items: center; /* Căn giữa các phần tử theo chiều dọc */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 0;
+    border-bottom: 1px solid #eee;
 }
 
-.due-item span {
-    font-size: 16px;
-    display: inline-flex; /* Làm cho văn bản gọn hơn */
-    padding-top: 0;
-    padding-right: 30px;
+.due-item:last-child {
+    border-bottom: none;
+}
+
+.due-item p {
+    font-size: 14px;
+    margin: 0;
+    line-height: 1.5;
 }
 
 .due-item input[type="checkbox"] {
-    width: 16px;
-    height: 16px;
-    margin: 3px; /* Xóa margin nếu có */
-    padding-top: 0;
+    width: 18px;
+    height: 18px;
+    margin-left: 10px;
 }
 
-
-.register-button, .generate-invoice-button {
+.generate-invoice-button {
     height: 50px;
-    width: 600px;
-    margin: 25px;
+    width: 100%;
+    max-width: 600px;
+    margin-top: 20px;
     border-radius: 10px;
-    background: linear-gradient(to right, #FFD700, #FF8C00);
-    color: #4169E1;
+    background: linear-gradient(to right, #007e99, #005f6b);
+    color: white;
     font-size: 18px;
     font-weight: bold;
     cursor: pointer;
-}
-h1 {
-    margin-bottom: 20px;
+    border: none;
 }
 
-form div:first-of-type {
-    margin-top: 20px;
-}
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-.invoice-display {
-    width: 100%;
-    max-width: 600px; /* Giới hạn chiều rộng để căn giữa */
-    margin: 20px auto; /* Căn giữa và cách đều các cạnh trên/dưới */
-    padding: 20px;
-    border: 1px solid #ccc;
-    background-color: #fff;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Tạo hiệu ứng bóng */
+.generate-invoice-button:hover {
+    background: linear-gradient(to right, #005f6b, #003f4a);
 }
