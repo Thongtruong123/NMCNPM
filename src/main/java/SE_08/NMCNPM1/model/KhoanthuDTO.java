@@ -1,47 +1,33 @@
 package SE_08.NMCNPM1.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import jakarta.persistence.*;
+import jakarta.persistence.Column;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
+
 import java.time.LocalDateTime;
 
-@Entity
-@Table(name = "khoan_thu", schema = "account")
-
-
-public class Khoanthu {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
-    private int id;
-
-    @Column(name = "tenkhoanthu")
+public class KhoanthuDTO {
+    @NotEmpty(message = "Trường tên khoản thu không được để trống")
     private String tenkhoanthu;
-    @Column(name = "sotien")
+
+    @NotNull(message = "Trường số tiền không được để trống")
+    @Min(value = 1, message = "Số tiền phải lớn hơn 0")
+
     private int sotien;
 
-    @JsonFormat(pattern = "yyyy-MM-dd'T'HH-mm-ss SSSSSS", shape = JsonFormat.Shape.STRING)
-    @Column(name = "ngaytao")
-    private LocalDateTime ngaytao;
+    @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss.SSSSSS", shape = JsonFormat.Shape.STRING)
 
-    @JsonFormat(pattern = "yyyy-MM-dd'T'HH-mm-ss SSSSSS", shape = JsonFormat.Shape.STRING)
-    @Column(name = "hanchot")
     private LocalDateTime hanchot;
 
-    @Column(name = "batbuoc")
+    @NotEmpty(message = "Trường bắt buộc không được để trống")
     private String batbuoc;
 
-    @Column(name = "nguoitao")
+    @NotEmpty(message = "Trường người tạo không được để trống")
     private String nguoitao;
 
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int ID) {
-        this.id = ID;
-    }
-
+    // Getter và Setter
     public String getTenkhoanthu() {
         return tenkhoanthu;
     }
@@ -56,14 +42,6 @@ public class Khoanthu {
 
     public void setSotien(int sotien) {
         this.sotien = sotien;
-    }
-
-    public LocalDateTime getNgaytao() {
-        return ngaytao;
-    }
-
-    public void setNgaytao(LocalDateTime ngaytao) {
-        this.ngaytao = ngaytao;
     }
 
     public LocalDateTime getHanchot() {
@@ -90,4 +68,3 @@ public class Khoanthu {
         this.nguoitao = nguoitao;
     }
 }
-
