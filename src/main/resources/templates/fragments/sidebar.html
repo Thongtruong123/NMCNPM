@@ -57,7 +57,9 @@
         </div>
 
         <div class="ul-bot">
-            <hr class="sidebar-divider">
+            <hr class="sidebar-divider" sec:authorize="hasRole('ROLE_ADMIN')" style="margin-top: 28vh; margin-bottom: 20px;" />
+            <hr class="sidebar-divider" sec:authorize="!hasRole('ROLE_ADMIN')" style="margin-top: 34vh; margin-bottom: 20px;" />
+
             <ul>
                 <li>
                     <a th:href="@{/thong-tin-tai-khoan}">
@@ -65,13 +67,6 @@
                         <span class="nav-item"> Thông tin tài khoản </span>
                     </a>
                     <span class="tooltip"> Thông tin tài khoản </span>
-                </li>
-                <li>
-                    <a th:href="@{/tao-tai-khoan}">
-                        <i class='bx bx-user-plus' ></i>
-                        <span class="nav-item"> Tạo tài khoản </span>
-                    </a>
-                    <span class="tooltip"> Tạo tài khoản </span>
                 </li>
                 <li>
                     <a th:href="@{/logout}">

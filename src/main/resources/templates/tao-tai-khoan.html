@@ -44,14 +44,14 @@
         <label for="password"> Mật khẩu </label> <br>
         <input type="password" id="password" th:field="*{password}" required> <br>
 
-        <label for="role"> Chức vụ </label> <br>
-        <input class="role" list="role-list" id="role" th:field="*{role}" required> <br>
-        <datalist id="role-list">
-          <option> LOW_MANAGER </option>
-          <option> HIGH_MANAGER </option>
-          <option> ADMIN </option>
-        </datalist>
-        <button type="submit" class="register-button"> Đăng ký </button>
+        <label for="role">Chức vụ</label><br>
+        <select name="role" id="role" th:field="*{role}" required>
+          <option value="LOW_MANAGER" th:text="'Quản lý cấp thấp'" th:selected="${RegisterFormDTO.role == 'LOW_MANAGER'}"></option>
+          <option value="HIGH_MANAGER" th:text="'Quản lý cấp cao'" th:selected="${RegisterFormDTO.role == 'HIGH_MANAGER'}"></option>
+          <option value="ADMIN" th:text="'Quản trị viên'" th:selected="${RegisterFormDTO.role == 'ADMIN'}"></option>
+        </select>
+        <button type="button" th:onclick="|window.location.href='@{/quan-ly-tai-khoan}'|" class="redirect-button">Quay lại</button>
+        <button type="submit" class="register-button"> Tạo tài khoản </button>
       </form>
     </div>
 
@@ -62,7 +62,7 @@
         <p> Bạn đã tạo tài khoản [[${RegisterFormDTO.username}]] thành công</p> <br>
         <div class="popup-redirect">
           <a th:href="@{/tao-tai-khoan}"> Đăng ký tiếp</a>
-          <a th:href="@{/homepage}"> Quay về trang chủ</a>
+          <a th:href="@{/quan-ly-tai-khoan}"> Quay lại</a>
         </div>
       </div>
     </div>

@@ -51,15 +51,37 @@ input {
     width: 280px;
 }
 
-.role {
+select {
+    display: block;
+    font-size: 18px;
+    height: 40px;
     width: 280px;
+    margin: 25px;
+    padding: 3px;
+    border-radius: 5px;
+}
+
+.redirect-button {
+    display: inline-block;
+    height: 50px;
+    width: 150px;
+    margin: 25px 10px 25px 300px;
+    border-radius: 10px;
+    border: none;
+    background: linear-gradient(to right, #FFD700, #FF8C00);
+    color: #4169E1;
+    font-size: 18px;
+    font-weight: bold;
+    cursor: pointer;
 }
 
 .register-button {
     height: 50px;
-    width: 600px;
-    margin: 25px;
+    width: 150px;
+    margin-top: 25px;
+    margin-bottom: 25px;
     border-radius: 10px;
+    border: none;
     background: linear-gradient(to right, #FFD700, #FF8C00);
     color: #4169E1;
     font-size: 18px;

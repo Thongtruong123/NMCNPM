@@ -21,6 +21,24 @@
     overflow: auto;
 }
 
+.register-button {
+    background: linear-gradient(to right, #FFD700, #FF8C00);
+    height: 45px;
+    width: 150px;
+    margin: 20px 800px 20px 0;
+    border-radius: 5px;
+    display: inline-block;
+    border: none;
+    cursor: pointer;
+}
+
+.register-button a {
+    text-decoration: none;
+    color: #4169E1;
+    font-size: 18px;
+    font-weight: bold;
+}
+
 .user-table {
     width: 100%;
     border-collapse: collapse;
