@@ -1,7 +1,6 @@
 package SE_08.NMCNPM1.model;
 
 import jakarta.persistence.*;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import java.io.Serializable;
 
@@ -16,38 +15,38 @@ public class DueAmount implements Serializable {
 
     @Id
     @Column(name = "fee_id", nullable = false)
-    private Long feeId; // Khóa chính thứ hai
+    private int feeId; // Khóa chính thứ hai
 
     @Column(name = "invoice_id", nullable = true)
-    private Long invoiceId; // Liên kết tới hóa đơn
+    private Integer invoiceId; // Liên kết tới hóa đơn
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "room_number", insertable = false, updatable = false)
     private Family family;
 
     // Getters và Setters
+    public int getFeeId() {
+        return feeId;
+    }
+
+    public void setFeeId(int feeId) {
+        this.feeId = feeId;
+    }
+
+    public Integer getInvoiceId() {
+        return invoiceId;
+    }
+
+    public void setInvoiceId(Integer invoiceId) {
+        this.invoiceId = invoiceId;
+    }
+
     public String getRoomNumber() {
         return roomNumber;
     }
 
     public void setRoomNumber(String roomNumber) {
         this.roomNumber = roomNumber;
-    }
-
-    public Long getFeeId() {
-        return feeId;
-    }
-
-    public void setFeeId(Long feeId) {
-        this.feeId = feeId;
-    }
-
-    public Long getInvoiceId() {
-        return invoiceId;
-    }
-
-    public void setInvoiceId(Long invoiceId) {
-        this.invoiceId = invoiceId;
     }
 }
 

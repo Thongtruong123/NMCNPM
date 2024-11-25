@@ -13,7 +13,7 @@ public class KhoanThu {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
-    private Long id;
+    private int id;
 
     @Column(name = "tenkhoanthu")
     private String tenkhoanthu;
@@ -34,11 +34,11 @@ public class KhoanThu {
     @Column(name = "nguoitao")
     private String nguoitao;
 
-    public Long getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(int id) {
         this.id = id;
     }
 

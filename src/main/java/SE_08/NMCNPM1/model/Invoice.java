@@ -10,7 +10,7 @@ public class Invoice {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private int id;
 
     @Column(name = "room_number", nullable = false)
     private String roomNumber;
@@ -37,11 +37,12 @@ public class Invoice {
 
     // Getters và Setters
 
-    public Long getId() {
+
+    public int getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(int id) {
         this.id = id;
     }
 

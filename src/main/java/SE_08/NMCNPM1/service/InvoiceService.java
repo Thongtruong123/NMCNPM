@@ -28,7 +28,7 @@ public class InvoiceService {
         List<DueAmount> selectedDues = invoice.getSelectedDueAmounts();
         if (selectedDues != null && !selectedDues.isEmpty()) {
             for (DueAmount due : selectedDues) {
-                if (due.getRoomNumber() != null && due.getFeeId() != null) {
+                if (due.getRoomNumber() != null && due.getFeeId() > 0) {
                     // Lấy khoản thu từ database dựa trên room_number và fee_id
                     DueAmount managedDue = dueAmountRepository.findByRoomNumberAndFeeId(due.getRoomNumber(), due.getFeeId())
                             .orElseThrow(() -> new RuntimeException("Không tìm thấy khoản thu với room_number: "

@@ -30,7 +30,7 @@ public class DueAmountService {
         return dueAmountRepository.findById(dueAmountKey); // Sử dụng phương thức findById của repository
     }
     // Tìm khoản thu dựa trên roomNumber và feeId
-    public Optional<DueAmount> findByRoomNumberAndFeeId(String roomNumber, Long feeId) {
+    public Optional<DueAmount> findByRoomNumberAndFeeId(String roomNumber, Integer feeId) {
         return dueAmountRepository.findByRoomNumberAndFeeId(roomNumber, feeId);
     }
 

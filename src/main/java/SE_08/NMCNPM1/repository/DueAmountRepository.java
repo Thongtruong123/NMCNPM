@@ -12,7 +12,7 @@ import java.util.Optional;
 public interface DueAmountRepository extends JpaRepository<DueAmount, DueAmountKey> {
 
     // Tìm khoản thu dựa trên room_number và fee_id
-    Optional<DueAmount> findByRoomNumberAndFeeId(String roomNumber, Long feeId);
+    Optional<DueAmount> findByRoomNumberAndFeeId(String roomNumber, Integer feeId);
 
     // Tìm tất cả các khoản thu chưa thanh toán của một phòng
     List<DueAmount> findByRoomNumberAndInvoiceIdIsNull(String roomNumber);

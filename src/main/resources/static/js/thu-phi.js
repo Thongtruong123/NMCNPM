@@ -8,6 +8,7 @@ document.getElementById('roomNumber').addEventListener('keydown', async function
                 const response = await fetch(`/api/family/${roomNumber}`);
                 if (!response.ok) throw new Error("Không tìm thấy thông tin hộ gia đình.");
                 const familyData = await response.json();
+                console.log(response);
 
                 // Hiển thị tên chủ hộ
                 document.getElementById('ownerName').value = familyData.family.ownerName || "Không có thông tin chủ hộ";

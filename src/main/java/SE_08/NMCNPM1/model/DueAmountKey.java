@@ -6,12 +6,12 @@ import java.util.Objects;
 public class DueAmountKey implements Serializable {
 
     private String roomNumber;
-    private Long feeId;
+    private int feeId;
 
     // Constructors
     public DueAmountKey() {}
 
-    public DueAmountKey(String roomNumber, Long feeId) {
+    public DueAmountKey(String roomNumber, int feeId) {
         this.roomNumber = roomNumber;
         this.feeId = feeId;
     }
@@ -25,11 +25,11 @@ public class DueAmountKey implements Serializable {
         this.roomNumber = roomNumber;
     }
 
-    public Long getFeeId() {
+    public int getFeeId() {
         return feeId;
     }
 
-    public void setFeeId(Long feeId) {
+    public void setFeeId(int feeId) {
         this.feeId = feeId;
     }
 

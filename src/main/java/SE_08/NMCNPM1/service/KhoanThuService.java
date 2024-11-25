@@ -14,8 +14,8 @@ public class KhoanThuService {
     private KhoanThuRepository khoanThuRepository;
 
     // Tìm thông tin KhoanThu theo ID
-    public KhoanThu findById(Long id) {
-        Optional<KhoanThu> optionalKhoanThu = khoanThuRepository.findById(Math.toIntExact(id));
+    public KhoanThu findById(int id) {
+        Optional<KhoanThu> optionalKhoanThu = khoanThuRepository.findById(id);
         return optionalKhoanThu.orElse(null); // Trả về null nếu không tìm thấy
     }
 }
