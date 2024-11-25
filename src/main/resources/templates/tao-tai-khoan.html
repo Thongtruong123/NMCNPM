@@ -4,8 +4,8 @@
   <title> Trang chủ </title>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="css/template.css">
-  <link rel="stylesheet" href="css/tao-tai-khoan-form.css">
+  <link rel="stylesheet" href="/css/template.css">
+  <link rel="stylesheet" href="/css/tao-tai-khoan-form.css">
   <link rel='stylesheet' href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css'>
 </head>
 <body>
@@ -15,7 +15,7 @@
     <div class="main-content" id="maincontent">
       <h1> Tạo tài khoản </h1> <br> <br>
 
-      <form th:action="@{/register}" method="post" th:object="${RegisterFormDTO}">
+      <form th:action="@{/quan-ly-tai-khoan/register}" method="post" th:object="${RegisterFormDTO}">
         <div class="ten">
           <label for="ten"> Tên </label> <br>
           <input type="text" id="ten" th:field="*{first_name}" required>
@@ -61,7 +61,7 @@
         <h1> Đăng ký thành công</h1> <br>
         <p> Bạn đã tạo tài khoản [[${RegisterFormDTO.username}]] thành công</p> <br>
         <div class="popup-redirect">
-          <a th:href="@{/tao-tai-khoan}"> Đăng ký tiếp</a>
+          <a th:href="@{/quan-ly-tai-khoan/tao-tai-khoan}"> Đăng ký tiếp</a>
           <a th:href="@{/quan-ly-tai-khoan}"> Quay lại</a>
         </div>
       </div>
@@ -70,7 +70,7 @@
 
 </body>
 
-<script src="js/menu-toggle.js"> </script>
-<script src="js/popup-toggle.js"></script>
+<script src="/js/menu-toggle.js"> </script>
+<script src="/js/popup-toggle.js"></script>
 
 </html>

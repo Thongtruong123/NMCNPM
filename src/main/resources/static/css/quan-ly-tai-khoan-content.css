@@ -29,14 +29,10 @@
     border-radius: 5px;
     display: inline-block;
     border: none;
-    cursor: pointer;
-}
-
-.register-button a {
-    text-decoration: none;
     color: #4169E1;
     font-size: 18px;
     font-weight: bold;
+    cursor: pointer;
 }
 
 .user-table {

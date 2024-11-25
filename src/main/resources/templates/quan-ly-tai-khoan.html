@@ -4,8 +4,8 @@
     <title> Trang chủ </title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="css/quan-ly-tai-khoan-content.css">
-    <link rel="stylesheet" href="css/template.css">
+    <link rel="stylesheet" href="/css/quan-ly-tai-khoan-content.css">
+    <link rel="stylesheet" href="/css/template.css">
     <link rel='stylesheet' href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css'>
 </head>
 <body>
@@ -19,7 +19,7 @@
         <div class="table-top">
             <h2> Danh sách tài khoản </h2> <br>
             <hr> <br>
-            <button class="register-button"> <a th:href="@{/tao-tai-khoan}"> Tạo tài khoản </a> </button>
+            <button class="register-button" th:onclick="|window.location.href='@{/quan-ly-tai-khoan/tao-tai-khoan}'|"> Tạo tài khoản </button>
         </div>
         <table class="user-table">
             <thead>
@@ -44,7 +44,6 @@
                     <td class="info" th:text="${user.email}">Email</td>
                     <td class="info" th:text="${user.phone_number}">SĐT</td>
 
-                    <!-- Các cột quyền (như đã hướng dẫn ở trên) -->
                     <td class="permissions">
                         <i th:classappend="${user.role == 'ADMIN' || user.role == 'HIGH_MANAGER' ? 'bx bx-check green' : 'bx bx-x red'}"></i>
                     </td>
