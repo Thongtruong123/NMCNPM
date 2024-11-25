@@ -4,7 +4,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class Nmcnpm1Application {
+public class 	Nmcnpm1Application {
 
 	public static void main(String[] args) {
 		SpringApplication.run(Nmcnpm1Application.class, args);

@@ -2,14 +2,12 @@ package SE_08.NMCNPM1.service;
 
 import SE_08.NMCNPM1.model.DueAmount;
 import SE_08.NMCNPM1.model.Invoice;
+import SE_08.NMCNPM1.repository.DueAmountRepository;
 import SE_08.NMCNPM1.repository.InvoiceRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.PersistenceContext;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -18,21 +16,32 @@ public class InvoiceService {
     @Autowired
     private InvoiceRepository invoiceRepository;
 
-    @PersistenceContext
-    private EntityManager entityManager;
+    @Autowired
+    private DueAmountRepository dueAmountRepository;
 
     @Transactional
     public Invoice saveInvoice(Invoice invoice) {
-        List<DueAmount> managedDues = new ArrayList<>();
-        for (DueAmount due : invoice.getSelectedDueAmounts()) {
-            if (due.getId() != null) { // Nếu DueAmount đã tồn tại (có ID)
-                DueAmount managedDue = entityManager.find(DueAmount.class, due.getId());
-                managedDues.add(managedDue); // Nạp từ database để được quản lý
-            } else {
-                managedDues.add(due); // Nếu là mới, cứ thêm vào bình thường
+        // 1. Lưu hóa đơn trước để tạo `invoice_id`
+        Invoice savedInvoice = invoiceRepository.save(invoice);
+
+        // 2. Cập nhật `invoice_id` cho các khoản thu đã chọn
+        List<DueAmount> selectedDues = invoice.getSelectedDueAmounts();
+        if (selectedDues != null && !selectedDues.isEmpty()) {
+            for (DueAmount due : selectedDues) {
+                if (due.getRoomNumber() != null && due.getFeeId() != null) {
+                    // Lấy khoản thu từ database dựa trên room_number và fee_id
+                    DueAmount managedDue = dueAmountRepository.findByRoomNumberAndFeeId(due.getRoomNumber(), due.getFeeId())
+                            .orElseThrow(() -> new RuntimeException("Không tìm thấy khoản thu với room_number: "
+                                    + due.getRoomNumber() + ", fee_id: " + due.getFeeId()));
+
+                    // Cập nhật `invoice_id`
+                    managedDue.setInvoiceId(savedInvoice.getId());
+                    dueAmountRepository.save(managedDue);
+                }
             }
         }
-        invoice.setSelectedDueAmounts(managedDues);
-        return invoiceRepository.save(invoice); // Lưu invoice cùng với các dueAmounts
+
+        return savedInvoice; // Trả về hóa đơn đã lưu
     }
 }
+

@@ -31,7 +31,7 @@ public class Invoice {
     private String createdBy;
 
     // Mối quan hệ One-to-Many với DueAmount
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany(cascade = CascadeType.MERGE)
     @JoinColumn(name = "invoice_id")  // Khóa ngoại trong bảng due_amounts trỏ đến bảng invoices
     private List<DueAmount> selectedDueAmounts;
 

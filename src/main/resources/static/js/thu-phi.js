@@ -8,22 +8,28 @@ document.getElementById('roomNumber').addEventListener('keydown', async function
                 const response = await fetch(`/api/family/${roomNumber}`);
                 if (!response.ok) throw new Error("Không tìm thấy thông tin hộ gia đình.");
                 const familyData = await response.json();
-                document.getElementById('ownerName').value = familyData.ownerName || "Không có thông tin chủ hộ";
 
+                // Hiển thị tên chủ hộ
+                document.getElementById('ownerName').value = familyData.family.ownerName || "Không có thông tin chủ hộ";
+
+                // Hiển thị danh sách các khoản chưa đóng
                 const dueAmountsDiv = document.getElementById('dueAmounts');
-                dueAmountsDiv.innerHTML = '';
+                dueAmountsDiv.innerHTML = ''; // Xóa nội dung cũ
                 if (familyData.dueAmounts && familyData.dueAmounts.length > 0) {
                     familyData.dueAmounts.forEach(due => {
                         const dueItem = document.createElement('div');
                         dueItem.className = 'due-item';
 
+                        // Tạo thông tin khoản thu
                         const dueInfo = document.createElement('p');
                         dueInfo.textContent = `Khoản thu: ${due.name} - ${due.amount.toLocaleString()} VNĐ`;
 
+                        // Checkbox cho khoản thu
                         const dueCheckbox = document.createElement('input');
                         dueCheckbox.type = 'checkbox';
                         dueCheckbox.className = 'due-checkbox';
-                        dueCheckbox.dataset.id = due.id;
+                        dueCheckbox.dataset.id = due.id; // ID của khoản thu
+                        dueCheckbox.dataset.feeId = due.feeId; // fee_id để theo dõi khoản thu
                         dueCheckbox.value = due.amount;
 
                         dueItem.appendChild(dueInfo);
@@ -47,9 +53,14 @@ document.getElementById('dueAmounts').addEventListener('change', function() {
     const checkboxes = document.querySelectorAll('.due-checkbox');
     const totalAmount = Array.from(checkboxes)
         .filter(checkbox => checkbox.checked)
-        .reduce((sum, checkbox) => sum + parseFloat(checkbox.value), 0);
+        .reduce((sum, checkbox) => {
+            const amount = parseFloat(checkbox.value);
+            return sum + (isNaN(amount) ? 0 : amount);
+        }, 0);
     document.getElementById('paymentAmount').value = totalAmount.toLocaleString();
 });
+
+
 
 // Xử lý tạo hóa đơn
 const csrfToken = document.querySelector('meta[name="_csrf"]').getAttribute('content');
@@ -66,12 +77,21 @@ document.querySelector('.generate-invoice-button').addEventListener('click', asy
         return;
     }
 
+    // Lấy danh sách khoản thu đã chọn
     const selectedDues = Array.from(document.querySelectorAll('.due-checkbox:checked')).map(cb => ({
-        id: cb.dataset.id,
+        id: cb.dataset.id, // ID của khoản thu
+        feeId: cb.dataset.feeId, // fee_id để theo dõi khoản thu
         amount: parseFloat(cb.value)
     }));
 
-    const invoiceData = { roomNumber, payerName, phoneNumber, totalAmount, selectedDueAmounts: selectedDues };
+    const invoiceData = {
+        roomNumber,
+        payerName,
+        phoneNumber,
+        totalAmount,
+        selectedDueAmounts: selectedDues
+    };
+    console.log("Dữ liệu gửi lên:", invoiceData);
 
     try {
         const response = await fetch('/api/family/invoice', {
@@ -82,19 +102,37 @@ document.querySelector('.generate-invoice-button').addEventListener('click', asy
             },
             body: JSON.stringify(invoiceData)
         });
-        if (!response.ok) throw new Error("Không thể tạo hóa đơn.");
-
+        console.log(response);
+       if (!response.ok) {
+           try {
+               const errorData = await response.json();
+               console.error("Lỗi từ server:", errorData);
+               alert(errorData.error || "Lỗi không xác định khi tạo hóa đơn.");
+           } catch {
+               alert("Lỗi không xác định từ server.");
+           }
+           return;
+       }
         const createdInvoice = await response.json();
+
+        // Hiển thị hóa đơn sau khi tạo thành công
         openInvoiceInNewPage(createdInvoice);
+
+        // Xóa dữ liệu sau khi tạo hóa đơn
+        document.getElementById('dueAmounts').innerHTML = '';
+        document.getElementById('paymentAmount').value = '';
     } catch (error) {
         alert("Lỗi khi tạo hóa đơn. Vui lòng thử lại.");
     }
 });
 
+
 // Mở hóa đơn trong trang mới
 function openInvoiceInNewPage(invoice) {
-    console.log(invoice)
+    console.log("Phản hồi từ server:", invoice);
     const newWindow = window.open('', '_blank');
+    const dueAmounts = invoice.selectedDueAmounts || []; // Xử lý khi null/undefined
+    console.log("Dữ liệu khoản thu (dueAmounts):", dueAmounts);
     newWindow.document.write(`
         <html>
             <head>
@@ -122,21 +160,21 @@ function openInvoiceInNewPage(invoice) {
                         <p>Người tạo hóa đơn: ${invoice.createdBy}</p>
                     </div>
                     <div class="invoice-details">
-                        <h3>Chi Tiết Các Khoản Chưa Đóng</h3>
+                        <h3>Chi Tiết Các Khoản Thu</h3>
                         <table>
                             <thead>
                                 <tr><th>Tên Khoản Thu</th><th>Số Tiền</th></tr>
                             </thead>
                             <tbody>
-                                ${invoice.selectedDueAmounts.map(due => `
-                                    <tr><td>${due.name}</td><td>${due.amount}</td></tr>
+                                ${dueAmounts.map(due => `
+                                    <tr><td>${due.name || "Không xác định"}</td><td>${(due.amount || 0).toLocaleString()} VNĐ</td></tr>
                                 `).join('')}
                             </tbody>
                         </table>
                     </div>
                     <div class="invoice-total">
                         <h3>Tổng Cộng</h3>
-                        <p>Tổng Tiền: ${invoice.totalAmount}</p>
+                        <p>Tổng Tiền: ${invoice.totalAmount.toLocaleString()} VNĐ</p>
                     </div>
                     <div class="invoice-signature">
                         <div class="signature-block">

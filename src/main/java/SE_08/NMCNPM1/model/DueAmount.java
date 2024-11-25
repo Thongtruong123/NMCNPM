@@ -3,84 +3,52 @@ package SE_08.NMCNPM1.model;
 import jakarta.persistence.*;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-
+import java.io.Serializable;
 
 @Entity
 @Table(name = "due_amounts")
-public class DueAmount {
+@IdClass(DueAmountKey.class) // Đặt composite key
+public class DueAmount implements Serializable {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @Column(name = "room_number", nullable = false)
+    private String roomNumber; // Khóa chính thứ nhất
 
-    @Column(name = "name", nullable = false)
-    private String name;
+    @Id
+    @Column(name = "fee_id", nullable = false)
+    private Long feeId; // Khóa chính thứ hai
 
-    @Column(name = "amount", nullable = false)
-    private double amount;
+    @Column(name = "invoice_id", nullable = true)
+    private Long invoiceId; // Liên kết tới hóa đơn
 
-    @Column(name = "is_paid", nullable = false)
-    private boolean isPaid; // Đổi tên thành isPaid để chỉ trạng thái thanh toán
-
-    // Mối quan hệ Many-to-One với Family
-    @ManyToOne
-    @JoinColumn(name = "family_id", nullable = false) // Khóa ngoại trỏ đến bảng families
-    @JsonIgnore // Thêm @JsonIgnore nếu gặp lỗi vòng lặp JSON
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "room_number", insertable = false, updatable = false)
     private Family family;
 
-    // Mối quan hệ Many-to-One với Invoice (nếu muốn gắn khoản thu vào hóa đơn khi được thanh toán)
-    @ManyToOne
-    @JoinColumn(name = "invoice_id", nullable = true) // Khóa ngoại trỏ đến bảng invoices, có thể là null
-    @JsonIgnore
-    private Invoice invoice;
-
     // Getters và Setters
-    public Long getId() {
-        return id;
+    public String getRoomNumber() {
+        return roomNumber;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setRoomNumber(String roomNumber) {
+        this.roomNumber = roomNumber;
     }
 
-    public String getName() {
-        return name;
+    public Long getFeeId() {
+        return feeId;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setFeeId(Long feeId) {
+        this.feeId = feeId;
     }
 
-    public double getAmount() {
-        return amount;
+    public Long getInvoiceId() {
+        return invoiceId;
     }
 
-    public void setAmount(double amount) {
-        this.amount = amount;
+    public void setInvoiceId(Long invoiceId) {
+        this.invoiceId = invoiceId;
     }
-
-    public boolean isPaid() {
-        return isPaid;
-    }
-
-    public void setPaid(boolean isPaid) {
-        this.isPaid = isPaid;
-    }
-
-    public Family getFamily() {
-        return family;
-    }
-
-    public void setFamily(Family family) {
-        this.family = family;
-    }
-
-    public Invoice getInvoice() {
-        return invoice;
-    }
-
-    public void setInvoice(Invoice invoice) {
-        this.invoice = invoice;
-    }
-
 }
+
+

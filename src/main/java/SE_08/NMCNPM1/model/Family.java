@@ -7,11 +7,10 @@ import java.util.List;
 @Entity
 @Table(name = "families")
 public class Family {
+
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
     @Column(name = "room_number", nullable = false)
-    private String roomNumber;
+    private String roomNumber; // room_number là khóa chính
 
     @Column(name = "owner_name", nullable = false)
     private String ownerName;
@@ -22,6 +21,8 @@ public class Family {
     // Các khoản nợ
     @OneToMany(mappedBy = "family", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<DueAmount> dueAmounts;
+
+    // Getters và Setters
 
     public String getRoomNumber() {
         return roomNumber;
@@ -54,12 +55,4 @@ public class Family {
     public void setDueAmounts(List<DueAmount> dueAmounts) {
         this.dueAmounts = dueAmounts;
     }
-
-    public Long getId() {
-        return id;
-    }
-    public void setId(Long id) {
-        this.id = id;
-    }
-
 }
