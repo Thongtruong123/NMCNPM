@@ -22,8 +22,9 @@ document.getElementById('roomNumber').addEventListener('keydown', async function
                         dueItem.className = 'due-item';
 
                         // Tạo thông tin khoản thu
-                        const dueInfo = document.createElement('p');
-                        dueInfo.textContent = `Khoản thu: ${due.name} - ${due.amount.toLocaleString()} VNĐ`;
+                        //const dueInfo = document.createElement('p');
+                        const label = document.createElement('label');
+                        label.textContent = `Khoản thu: ${due.name} - ${due.amount.toLocaleString()} VNĐ`;
 
                         // Checkbox cho khoản thu
                         const dueCheckbox = document.createElement('input');
@@ -32,9 +33,18 @@ document.getElementById('roomNumber').addEventListener('keydown', async function
                         dueCheckbox.dataset.id = due.id; // ID của khoản thu
                         dueCheckbox.dataset.feeId = due.feeId; // fee_id để theo dõi khoản thu
                         dueCheckbox.value = due.amount;
+                        dueCheckbox.id = due.id;
 
-                        dueItem.appendChild(dueInfo);
-                        dueItem.appendChild(dueCheckbox);
+                        //Gán id duy nhất và liên kết với label
+                        const uniqueId = `checkbox-${due.feeId}`;
+                        dueCheckbox.id=uniqueId;
+                        label.htmlFor = uniqueId;
+
+                        // Thêm checkbox vào label
+                        label.appendChild(dueCheckbox);
+
+                        dueItem.appendChild(label);
+                        //dueItem.appendChild(dueCheckbox);
                         dueAmountsDiv.appendChild(dueItem);
                     });
                 } else {
