@@ -14,6 +14,7 @@
 
 .main-content {
     align-self: center;
+    height:80%;
     width: 80%; /* Chiếm 80% chiều rộng của phần tử cha */
     border-radius: 10px; /* Làm tròn các góc với bán kính 10px */
     background-color: white; /* Đặt nền màu trắng */
@@ -28,6 +29,7 @@ form {
 }
 h2 {
     text-align: center;
+    margin-bottom: 10px;
 }
 
 label {
