@@ -138,6 +138,32 @@ body {
     margin-bottom: 20px;
 }
 
+.user {
+    display: flex;
+    align-items: center;
+    margin: 18px 0;
+    width: 100%;
+}
+
+.user-avatar {
+    width: 50px;
+    border-radius: 100%;
+    border: 1px solid white;
+}
+
+.user-name {
+    font-weight: bold;
+    margin: 18px 0;
+}
+
+.user-role {
+    font-size: 12px;
+    margin: 18px 0;
+}
+
+.user .nav-item {
+    margin-left: 10px;
+}
 
 
 

@@ -49,12 +49,14 @@
     <hr class="sidebar-divider">
 
     <ul>
-        <li>
+        <li class="user">
             <a th:href="@{/thong-tin-tai-khoan}">
-                <i class='bx bxs-user-account' ></i>
-                <span class="nav-item"> Thông tin tài khoản </span>
+                <img src="/image/avatar/default-avatar.jpg" class="user-avatar">
+                <div class="nav-item">
+                    <p class="user-name" th:text="${username}"></p>
+                    <p class="user-role" th:text="${#authentication.authorities}"></p>
+                </div>
             </a>
-            <span class="tooltip"> Thông tin tài khoản </span>
         </li>
         <li>
             <a th:href="@{/tao-tai-khoan}">
