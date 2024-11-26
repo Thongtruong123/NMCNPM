@@ -52,4 +52,12 @@ public class UserService implements UserDetailsService {
     public boolean usernameExist(String username) {
         return userRepository.findByUsername(username) != null;
     }
+
+    public User getUserByUsername(String username) {
+        User user = userRepository.findByUsername(username);
+        if (user == null) {
+            throw new UsernameNotFoundException("User not found");
+        }
+        else return user;
+    }
 }
