@@ -24,14 +24,4 @@ public class DueAmountService {
     public void updateDueAmount(DueAmount dueAmount) {
         dueAmountRepository.save(dueAmount); // Gọi save từ instance của repository
     }
-
-    // Phương thức tìm khoản thu dựa trên composite key
-    public Optional<DueAmount> findById(DueAmountKey dueAmountKey) {
-        return dueAmountRepository.findById(dueAmountKey); // Sử dụng phương thức findById của repository
-    }
-    // Tìm khoản thu dựa trên roomNumber và feeId
-    public Optional<DueAmount> findByRoomNumberAndFeeId(String roomNumber, Integer feeId) {
-        return dueAmountRepository.findByRoomNumberAndFeeId(roomNumber, feeId);
-    }
-
 }

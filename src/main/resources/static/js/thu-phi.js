@@ -59,6 +59,7 @@ document.getElementById('dueAmounts').addEventListener('change', function() {
             return sum + (isNaN(amount) ? 0 : amount);
         }, 0);
     document.getElementById('paymentAmount').value = totalAmount.toLocaleString();
+    console.log(totalAmount);
 });
 
 
@@ -71,7 +72,8 @@ document.querySelector('.generate-invoice-button').addEventListener('click', asy
     const roomNumber = document.getElementById('roomNumber').value.trim();
     const payerName = document.getElementById('payerName').value.trim();
     const phoneNumber = document.getElementById('phoneNumber').value.trim();
-    const totalAmount = parseFloat(document.getElementById('paymentAmount').value.replace(/,/g, ''));
+    const totalAmount = parseFloat(document.getElementById('paymentAmount').value.replace(/\./g, '').replace(/,/g, '.'));
+    console.log(totalAmount);
 
     if (!roomNumber || !totalAmount) {
         alert("Vui lòng nhập đủ thông tin và chọn khoản cần thanh toán.");
