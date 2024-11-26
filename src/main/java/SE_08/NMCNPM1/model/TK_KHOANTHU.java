@@ -10,8 +10,20 @@ public class TK_KHOANTHU {
     private int TIENDANOP;
     private String tenkhoanthu;
     private int TONGPHAITHU;
+    private int HODANOP;
+    private int HOPHAITHU;
 
     // Getters and setters
+    public int getHODANOP() {
+
+        return HODANOP;
+    }
+
+    public int getHOPHAITHU() {
+
+        return HOPHAITHU;
+    }
+
     public int getId() {
         return fee_id;
     }
@@ -30,5 +42,6 @@ public class TK_KHOANTHU {
 
         return tenkhoanthu;
     }
+
 }
 

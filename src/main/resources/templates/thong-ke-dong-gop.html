@@ -7,43 +7,117 @@
   <link rel="stylesheet" href="/css/template.css">
   <link rel="stylesheet" href="/css/thong-ke-dong-gop-content.css">
   <link rel='stylesheet' href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css'>
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      height: 100vh;
+      margin: 0;
+      padding: 20px;
+    }
+    .container {
+      display: flex;
+      justify-content: space-between;
+      width: 80%;
+    }
+    .chart-container {
+      width: 45%;
+      height: 300px;
+    }
+    .text-container {
+      width: 45%;
+      padding: 20px;
+    }
+    h2 {
+      color: #333;
+    }
+    p {
+      color: #555;
+      line-height: 1.6;
+    }
+  </style>
+
 </head>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
+
+
 <body>
 <div th:replace="~{/fragments/sidebar :: sidebar}" class="sidebar"> <!-- Sidebar placeholder --> </div>
 
 <div class="mainboard">
+  <h1> Thống kê đóng góp </h1>
+  <form action="/thong-ke-dong-gop" method="get">
+    <select class="drop_down_list_khoanthu" id="idSelector" name="id" onchange="this.form.submit()">
+      <option value="">Chọn Khoản thu</option>
+      <th:block th:each="record : ${records}">
+        <option th:value="${record.getId()}" th:text="${record.getNAME()}"></option>
+      </th:block>
+    </select>
+  </form>
+
   <div class="main-content" id="maincontent">
-    <h1> Thống kê đóng góp </h1>
-    <canvas id="myChart" style="width:100%;max-width:600px"></canvas>
+
+
+
+    <div class="chart-container">
+      <canvas id="myChart"> </canvas>
+    </div>
+    <div class="text-container">
+      <p>Số hộ đã nộp: <span th:text="${hodanop}"></span> </p>
+      <p>Số hộ chưa nộp: <span th:text="${hophaithu}-${hodanop}"></span></p>
+      <p>Tổng số hộ: <span th:text="${hophaithu}"></span></p>
+      <p>Tổng tiền đã nộp: <span th:text="${tiendanop} + ' VNĐ'"></span></p>
+      <p>Tổng tiền chưa nộp: <span th:text="${tongphaithu}-${tiendanop} + ' VNĐ'"></span></p>
+      <p>Tổng tiền phải thu: <span th:text="${tongphaithu} + ' VNĐ'"></span></p>
+    </div>
+
+
   </div>
+
+
+
 </div>
+
+
+<script>
+  document.getElementById('idSelector').addEventListener('change', function() {
+    var selectedId = this.value;
+    window.location.href = '/thong-ke-dong-gop?id=' + selectedId;
+  });
+</script>
 
 <script src="js/menu-toggle.js"></script>
 <script>
-  var Val = ([[${tiendanop}]] / [[${tongphaithu}]]) * 100;
-  Val = Val.toFixed(2);
-  Val = Math.max(0, Math.min(100, Val));
+  var danop= [[${tiendanop}]];
+  var phaithu= [[${tongphaithu}]];
+  var Val = ( danop / phaithu) * 100;
+    Val = Val.toFixed(2);
+    Val = Math.max(0, Math.min(100, Val));
 
-  var yValues = [Val, 100 - Val];
-  var barColors = ["#b91d47", "#00aba9"];
+    var yValues = [Val, 100 - Val];
+    var barColors = ["#b91d47", "#00aba9"];
 
-  new Chart("myChart", {
-    type: "pie",
-    data: {
-      datasets: [{
-        backgroundColor: barColors,
-        data: yValues
-      }],
-      labels: ["Đã nộp", "Chưa nộp"]
-    },
-    options: {
-      title: {
-        display: true,
-        text: "[[${name}]]"
+    new Chart("myChart", {
+      type: "pie",
+      data: {
+        datasets: [{
+          backgroundColor: barColors,
+          data: yValues
+        }],
+        labels: ["Tổng tiền đã nộp", "Tổng tiền chưa nộp"]
+      },
+      options: {
+        title: {
+          display: true,
+          text: "[[${name}]]"
+        }
       }
-    }
-  });
+    });
+
+
 </script>
 </body>
 </html>
