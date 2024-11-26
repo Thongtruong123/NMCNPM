@@ -56,10 +56,11 @@
             </ul>
         </div>
 
-        <div class="ul-bot">
-            <hr class="sidebar-divider" sec:authorize="hasRole('ROLE_ADMIN')" style="margin-top: 28vh; margin-bottom: 20px;" />
-            <hr class="sidebar-divider" sec:authorize="!hasRole('ROLE_ADMIN')" style="margin-top: 34vh; margin-bottom: 20px;" />
+        <div class="sidebar-divider" sec:authorize="hasRole('ROLE_ADMIN')" style="min-height: 28vh;"></div>
+        <div class="sidebar-divider" sec:authorize="!hasRole('ROLE_ADMIN')" style="min-height: 34vh;"></div>
 
+        <div class="ul-bot">
+            <hr>
             <ul>
                 <li>
                     <a th:href="@{/thong-tin-tai-khoan}">
