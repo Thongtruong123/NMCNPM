@@ -5,10 +5,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
 public class NavigationController {
-    @GetMapping("/homepage")
-    public String getHomePage() {
-        return "homepage";
-    }
 
     @GetMapping("/quan-ly-khoan-thu")
     public String getQLKT() {

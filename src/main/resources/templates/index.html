@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="vi">
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
 <head>
     <title> Đăng nhập</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -19,7 +19,7 @@
     <div class="login-side">
         <div class="loginform">
             <h2 style="font-size: 40px; font-weight: bold;"> Đăng nhập </h2>
-            <form id="login-form" action="/homepage" method="post">
+            <form id="login-form" th:action="@{/login}" method="post">
                 <label for="username"> Tên tài khoản </label> <br> <br>
                 <input type="text" placeholder="Tài khoản" id="username" name="username" required> <br> <br>
                 <label for="password"> Mật khẩu </label> <br> <br>
