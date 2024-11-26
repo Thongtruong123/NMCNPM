@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Quản lý khoản thu</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/template.css">
+    <link rel="stylesheet" href="css/quan-ly-khoan-thu-form.css">
+    <link rel="stylesheet" href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css">
+    <style>
+        .form-group {
+            display: flex;           /* Sử dụng flexbox để các phần tử nằm ngang */
+            align-items: center;     /* Canh giữa các phần tử con theo chiều dọc */
+            margin-bottom: 15px;     /* Khoảng cách giữa các phần tử */
+        }
+
+        .form-label {
+            width: 400px;            /* Đặt độ rộng cố định cho nhãn */
+            margin-right: 15px;      /* Khoảng cách giữa nhãn và ô nhập */
+            text-align: right;       /* Canh chữ của nhãn sang phải */
+        }
+
+        .form-control {
+            flex: 1;                 /* Ô nhập sẽ chiếm phần còn lại của không gian */
+            padding: 8px;            /* Padding trong ô nhập */
+            font-size: 1rem;         /* Kích thước chữ trong ô nhập */
+        }
+    </style>
+</head>
+<body>
+<!-- Sidebar -->
+<div th:replace="~{/fragments/sidebar :: sidebar}" class="sidebar"></div>
+
+<!-- Main Content -->
+<div class="mainboard">
+    <div class="main-content" id="maincontent">
+        <h1 class="text-center my-4" style="text-align: center; margin: 0 auto;">Chỉnh sửa khoản thu</h1>
+        <br>
+        <br>
+        <form action="#" th:action="@{/edit(id=${khoanthu_edit.id})}" th:object="${khoanthu_edit}" method="post">
+            <!-- Tên khoản thu -->
+            <div class="form-group">
+                <label for="tenkhoanthu" class="form-label">Tên khoản thu:</label>
+                <input type="text" id="tenkhoanthu" class="form-control" th:field="*{tenkhoanthu}">
+            </div>
+
+            <!-- Số tiền -->
+            <div class="form-group">
+                <label for="sotien-input" class="form-label">Số tiền:</label>
+                <input class="form-control" type="number" min="0" step="1000" th:field="*{sotien}" id="sotien-input">
+            </div>
+
+            <!-- Bắt buộc -->
+            <div class="form-group">
+                <label for="batbuoc-select" class="form-label">Bắt buộc:</label>
+                <select class="form-select" th:field="*{batbuoc}" id="batbuoc-select">
+                    <option value="Có">Có</option>
+                    <option value="Không">Không</option>
+                </select>
+            </div>
+
+            <!-- Hạn chót -->
+            <div class="form-group">
+                <label for="hanchot" class="form-label">Hạn chót:</label>
+                <input id="hanchot" class="form-control" type="datetime-local" th:field="*{hanchot}"
+                       min="${#temporals.format(#temporals.now(), 'yyyy-MM-dd\'T\'HH:mm')}">
+            </div>
+
+            <!-- Người tạo -->
+            <div class="form-group">
+                <label for="nguoitao" class="form-label">Người tạo:</label>
+                <input readonly type="text" id="nguoitao" class="form-control" th:field="*{nguoitao}">
+            </div>
+
+            <!-- Nút hành động -->
+            <div class="form-group">
+                <button type="submit" class="btn btn-primary">Lưu khoản thu</button>
+                <button type="button" onclick="window.location.href='/quan-ly-khoan-thu'" class="btn btn-secondary">Quay lại</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+        const batBuocSelect = document.getElementById('batbuoc-select');
+        const soTienInput = document.getElementById('sotien-input');
+
+        batBuocSelect.addEventListener('change', () => {
+            if (batBuocSelect.value === 'Không') {
+                soTienInput.value = ''; // Clear input
+                soTienInput.setAttribute('disabled', 'true'); // Disable input
+            } else {
+                soTienInput.removeAttribute('disabled'); // Enable input
+            }
+        });
+
+        // Trigger change event to set correct state when the page loads
+        batBuocSelect.dispatchEvent(new Event('change'));
+    });
+</script>
+
+<script src="js/menu-toggle.js"></script>
+</body>
+</html>
