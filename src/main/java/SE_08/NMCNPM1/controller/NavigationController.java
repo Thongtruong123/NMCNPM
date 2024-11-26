@@ -31,11 +31,6 @@ public class NavigationController {
         return "thong-tin-tai-khoan";
     }
 
-    @GetMapping("/tao-tai-khoan")
-    public String getTaoTK() {
-        return "tao-tai-khoan";
-    }
-
     @GetMapping("/logout")
     public String getDX() {
         return "index";

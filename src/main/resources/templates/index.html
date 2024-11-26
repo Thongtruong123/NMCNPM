@@ -25,7 +25,11 @@
                 <label for="password"> Mật khẩu </label> <br> <br>
                 <input type="password" placeholder="Mật khẩu" id="password" name="password" required> <br> <br>
                 <button type="submit" class="login-button"> Đăng nhập </button>
+                <div th:if="${param.error}">
+                    <p style="color:red;">Tên tài khoản hoặc mật khẩu sai</p>
+                </div>
             </form>
+
             <button class="forgotpassword-button"> Quên mật khẩu? </button>
         </div>
 
