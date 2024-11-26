@@ -14,7 +14,6 @@ public class KhoanthuDTO {
 
     @NotNull(message = "Trường số tiền không được để trống")
     @Min(value = 1, message = "Số tiền phải lớn hơn 0")
-
     private int sotien;
 
     @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss.SSSSSS", shape = JsonFormat.Shape.STRING)

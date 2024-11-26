@@ -89,5 +89,7 @@ public class Khoanthu {
     public void setNguoitao(String nguoitao) {
         this.nguoitao = nguoitao;
     }
+
+
 }
 

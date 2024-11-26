@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 
@@ -21,7 +22,7 @@ public class KhoanThuController {
     @Autowired
     private KhoanthuRepository repo;
 
-    @GetMapping({"/khoanthu"})
+    @GetMapping({"/quan-ly-khoan-thu"})
     public String showKhoanthuList(Model model) {
         // Lấy danh sách Khoanthu từ database
         List<Khoanthu> ds_khoanthu = repo.findAll(Sort.by(Sort.Direction.ASC, "id"));
@@ -35,10 +36,10 @@ public class KhoanThuController {
         }
 
         model.addAttribute("khoanthu_list", ds_khoanthu);
-        return "khoanthu";
+        return "quan-ly-khoan-thu";
     }
 
-    @GetMapping("/form-qlkt")
+    @GetMapping("/create")
     public String showCreatePage(Model model) {
         System.out.println("Truy cập vào trang tạo mới Khoan Thu.");
 
@@ -83,14 +84,100 @@ public class KhoanThuController {
         repo.save(khoanthu);
 
         System.out.println("Khoan Thu đã được lưu vào cơ sở dữ liệu.");
-        return "redirect:/quan-ly-khoan-thu/list";
+        return "redirect:/quan-ly-khoan-thu";
+
     }
 
     // Xử lý nút Cancel
-    @GetMapping("/cancel")
-    public String cancelCreate() {
-        System.out.println("Người dùng hủy việc tạo Khoan Thu.");
-        // Chuyển hướng về danh sách khoản thu
-        return "redirect:/quan-ly-khoan-thu/list";
+//    @GetMapping("/cancel")
+//    public String cancelCreate() {
+//        System.out.println("Người dùng hủy việc tạo Khoan Thu.");
+//        // Chuyển hướng về danh sách khoản thu
+//        return "redirect:/khoanthu";
+//    }
+    @GetMapping("/edit")
+    public String showEditPage(
+            Model model,
+            @RequestParam int id
+    ) {
+        try {
+            // Tìm khoản thu theo ID sử dụng Optional
+            Khoanthu khoanthu = repo.findById(id).orElse(null);  // Chuyển từ Optional sang Khoanthu nếu tìm thấy
+
+            if (khoanthu == null) {
+                // Nếu không tìm thấy, chuyển hướng về trang quản lý khoản thu
+                return "redirect:/quan-ly-khoan-thu";
+            }
+
+            // Tạo KhoanthuDTO từ Entity để sử dụng cho form
+            KhoanthuDTO khoanthuDto = new KhoanthuDTO();
+            khoanthuDto.setTenkhoanthu(khoanthu.getTenkhoanthu());
+            khoanthuDto.setSotien(khoanthu.getSotien());
+            khoanthuDto.setBatbuoc(khoanthu.getBatbuoc());
+            khoanthuDto.setHanchot(khoanthu.getHanchot());
+            khoanthuDto.setNguoitao(khoanthu.getNguoitao());
+
+            // Đưa DTO vào model để render form
+            model.addAttribute("khoanthuDto", khoanthuDto);
+            model.addAttribute("id", id); // Truyền ID để sử dụng trong form
+            return "form-qlkt";
+        } catch (Exception ex) {
+            System.out.println("Exception: " + ex.getMessage());
+            return "redirect:/quan-ly-khoan-thu";
+        }
     }
+
+    @PostMapping("/edit")
+    public String updateKhoanthu(
+            Model model,
+            @RequestParam int id,
+            @Valid @ModelAttribute("khoanthuDto") KhoanthuDTO khoanthuDto,
+            BindingResult result) {
+        try {
+            // Tìm khoản thu theo ID
+            Optional<Khoanthu> optionalKhoanthu = repo.findById(id);
+            if (optionalKhoanthu.isEmpty()) {
+                // Nếu không tìm thấy, chuyển hướng về trang quản lý khoản thu
+                return "redirect:/quan-ly-khoan-thu";
+            }
+
+            // Lấy đối tượng Khoanthu từ Optional
+            Khoanthu khoanthu = optionalKhoanthu.get();
+
+            // Kiểm tra lỗi validate
+            if (result.hasErrors()) {
+                // Trả lại form với lỗi
+                model.addAttribute("id", id); // Đảm bảo ID vẫn có trong model
+                return "form-qlkt";
+            }
+
+            // Cập nhật dữ liệu từ DTO sang Entity
+            khoanthu.setTenkhoanthu(khoanthuDto.getTenkhoanthu());
+            khoanthu.setSotien(khoanthuDto.getSotien());
+            khoanthu.setBatbuoc(khoanthuDto.getBatbuoc());
+            khoanthu.setHanchot(khoanthuDto.getHanchot());
+            khoanthu.setNguoitao(khoanthuDto.getNguoitao());
+
+            // Lưu vào cơ sở dữ liệu
+            repo.save(khoanthu);
+            System.out.println("Khoan Thu đã được lưu vào cơ sở dữ liệu.");
+
+            return "redirect:/quan-ly-khoan-thu";  // Chuyển hướng về trang quản lý khoản thu
+        } catch (Exception ex) {
+            System.out.println("Exception: " + ex.getMessage());
+            return "redirect:/quan-ly-khoan-thu";
+        }
+    }
+
+    @GetMapping("/delete")
+    public String deleteKhoanthu(
+        @RequestParam int id
+    ){
+
+            repo.deleteById(id);
+
+
+        return "redirect:/quan-ly-khoan-thu";
+    }
+
 }
