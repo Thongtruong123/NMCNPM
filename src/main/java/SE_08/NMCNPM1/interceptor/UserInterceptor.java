@@ -8,6 +8,11 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.util.Base64;
+
 @Component
 public class UserInterceptor implements HandlerInterceptor {
 
@@ -18,20 +23,27 @@ public class UserInterceptor implements HandlerInterceptor {
     }
 
     @Override
-    public void postHandle(
-            HttpServletRequest request,
-            HttpServletResponse response,
-            Object handler,
-            ModelAndView modelAndView) throws Exception {
+    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
+        return true;
+    }
 
-        if (modelAndView != null && request.getUserPrincipal() != null) {
-            String username = request.getUserPrincipal().getName();
-            User user = userService.getUserByUsername(username);
-            if (user != null) {
-                modelAndView.addObject("currentUsername", user.getUsername());
-                modelAndView.addObject("currentAvatar", user.getAvatar_path());
+    @Override
+    public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView) throws Exception {
+        String currentUsername = (String) request.getSession().getAttribute("username");
+
+        if (currentUsername != null) {
+            User user = userService.getUserByUsername(currentUsername);
+
+            String avatarUrl;
+            if (user.getAvatar() == null) {
+                avatarUrl = "/image/default-avatar.jpg";
+            } else {
+                avatarUrl = user.getAvatar();
             }
 
+            request.setAttribute("currentAvatar", avatarUrl);
+            request.setAttribute("currentUsername", currentUsername);
         }
     }
+
 }

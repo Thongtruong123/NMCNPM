@@ -51,9 +51,10 @@
     <ul>
         <li class="user">
             <a th:href="@{/thong-tin-tai-khoan}">
-                <img src="/image/avatar/default-avatar.jpg" class="user-avatar">
+                <img th:src="${currentAvatar}" class="user-avatar">
+
                 <div class="nav-item">
-                    <p class="user-name" th:text="${username}"></p>
+                    <p class="user-name" th:text="${currentUsername}"></p>
                     <p class="user-role" th:text="${#authentication.authorities}"></p>
                 </div>
             </a>

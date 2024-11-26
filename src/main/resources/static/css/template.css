@@ -146,23 +146,25 @@ body {
 }
 
 .user-avatar {
-    width: 50px;
+    width: 60px;
+    height: 60px;
     border-radius: 100%;
     border: 1px solid white;
 }
 
 .user-name {
     font-weight: bold;
-    margin: 18px 0;
+    font-size: 24px;
+    margin: 10px auto;
 }
 
 .user-role {
     font-size: 12px;
-    margin: 18px 0;
+    margin: 10px auto;
 }
 
 .user .nav-item {
-    margin-left: 10px;
+    margin-left: 20px;
 }
 
 

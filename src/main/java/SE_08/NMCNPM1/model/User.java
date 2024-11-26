@@ -17,7 +17,7 @@ public class User {
     private String first_name;
     private String last_name;
     private String phone_number;
-    private String avatar_path;
+    private String avatar;
 
     // Getters and setters
     public Long getId() { return id; }
@@ -80,8 +80,8 @@ public class User {
         this.phone_number = phone_number;
     }
 
-    public String getAvatar_path() { return avatar_path; }
+    public String getAvatar() { return avatar; }
 
-    public void setAvatar_path(String avatar_path) { this.avatar_path = avatar_path; }
+    public void setAvatar(String avatar_path) { this.avatar = avatar; }
 }
 
