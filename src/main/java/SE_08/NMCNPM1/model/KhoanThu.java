@@ -38,15 +38,15 @@ public class KhoanThu {
         return id;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setId(int ID) {
+        this.id = ID;
     }
 
     public String getTenkhoanthu() {
         return tenkhoanthu;
     }
 
-    public void setTenKhoanThu(String tenkhoanthu) {
+    public void setTenkhoanthu(String tenkhoanthu) {
         this.tenkhoanthu = tenkhoanthu;
     }
 
@@ -89,4 +89,7 @@ public class KhoanThu {
     public void setNguoitao(String nguoitao) {
         this.nguoitao = nguoitao;
     }
+
+
 }
+

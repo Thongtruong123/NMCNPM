@@ -4,7 +4,7 @@ import SE_08.NMCNPM1.model.*;
 import SE_08.NMCNPM1.service.DueAmountService;
 import SE_08.NMCNPM1.service.FamilyService;
 import SE_08.NMCNPM1.service.InvoiceService;
-import SE_08.NMCNPM1.service.KhoanThuService; // Service để lấy thông tin KhoanThu
+import SE_08.NMCNPM1.service.KhoanThuService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
