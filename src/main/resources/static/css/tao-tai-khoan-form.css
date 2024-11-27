@@ -1,14 +1,14 @@
 .mainboard {
     position: relative;
     top: 0;
-    left: 100px;
+    left: 120px;
+    height: 100vh;
     transition: all 0.5s ease;
-    width: calc(100% - 100px);
-    display: flex;
+    width: calc(100% - 120px);
+    padding: 20px;
     align-items: center;
     justify-content: center;
     background-color: #ADD8E6;
-    overflow: auto;
 }
 
 .main-content {
@@ -18,7 +18,8 @@
     background-color: white;
     margin: 20px 350px;
     padding: 20px;
-
+    z-index: -1;
+    overflow: auto;
 }
 
 .ten {
