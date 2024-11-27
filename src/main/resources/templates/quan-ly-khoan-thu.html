@@ -76,7 +76,6 @@
 
 
         <a th:href="@{/create}" title="Tạo khoản thu mới" style="text-decoration: none; padding: 10px 20px; background-color: #007bff; color: white; border-radius: 5px; display: inline-block;">Tạo khoản thu</a>
-
         <table class="table">
         <thead>
         <tr>
@@ -140,12 +139,45 @@
         </tbody>
     </table>
 <!--</div>-->
+<!--        <div th:if="${totalPages > 1}">-->
+<!--            <div class="row col-sm-10">-->
+<!--                <div class="col-sm-2">-->
+<!--                    Tổng số khoản thu hiện có: <span th:text="${totalItems}"></span>-->
+<!--                </div>-->
+<!--                <div class="col-sm-1">-->
+<!--                        <span th:each="i : ${#numbers.sequence(1, totalPages)}">-->
+<!--                            <a th:if="${currentPage != i}"-->
+<!--                               th:href="@{'/quan-ly-khoan-thu/page/' + ${i} + '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir} + '&keyword=' + ${keyword}}">-->
+<!--                               [[${i}]]-->
+<!--                            </a>-->
+<!--                            <span th:unless="${currentPage != i}">[[${i}]]</span>-->
+<!--                            &nbsp;&nbsp;-->
+<!--                        </span>-->
+<!--                </div>-->
+<!--                <div class="col-sm-1">-->
+<!--                    <a th:if="${currentPage < totalPages}"-->
+<!--                       th:href="@{'/quan-ly-khoan-thu/page/' + ${currentPage + 1} + '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir} + '&keyword=' + ${keyword}}">-->
+<!--                        Next-->
+<!--                    </a>-->
+<!--                    <span th:unless="${currentPage < totalPages}">Next</span>-->
+<!--                </div>-->
+
+<!--                <div class="col-sm-1">-->
+<!--                    <a th:if="${currentPage < totalPages}"-->
+<!--                       th:href="@{'/quan-ly-khoan-thu/page/' + ${totalPages} + '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir} + '&keyword=' + ${keyword}}">-->
+<!--                        Last-->
+<!--                    </a>-->
+<!--                    <span th:unless="${currentPage < totalPages}">Last</span>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        Phan trang nhma đang fix</div>-->
     </div>
 </div>
 <!--<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>-->
 
-</body>
+
 <script src="js/menu-toggle.js"> </script>
+</body>
 </html>
 
 

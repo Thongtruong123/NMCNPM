@@ -9,6 +9,5 @@ import java.util.Optional;
 
 @Repository
 public interface KhoanthuRepository extends JpaRepository<Khoanthu, Integer> {
-    List<Khoanthu> findAll();
-    Optional<Khoanthu> findById(int id);
+
 }

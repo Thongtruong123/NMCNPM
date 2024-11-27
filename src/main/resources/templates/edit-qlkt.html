@@ -8,22 +8,37 @@
     <link rel="stylesheet" href="css/quan-ly-khoan-thu-form.css">
     <link rel="stylesheet" href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css">
     <style>
+        /* Đảm bảo các nút có chiều rộng đều nhau */
         .form-group {
-            display: flex;           /* Sử dụng flexbox để các phần tử nằm ngang */
-            align-items: center;     /* Canh giữa các phần tử con theo chiều dọc */
-            margin-bottom: 15px;     /* Khoảng cách giữa các phần tử */
+            display: flex;
+            gap: 10px; /* Khoảng cách giữa các nút */
+            width: 100%; /* Đảm bảo container bao trùm hết chiều rộng */
         }
 
-        .form-label {
-            width: 400px;            /* Đặt độ rộng cố định cho nhãn */
-            margin-right: 15px;      /* Khoảng cách giữa nhãn và ô nhập */
-            text-align: right;       /* Canh chữ của nhãn sang phải */
+        .btn {
+            flex: 1; /* Chia đều chiều rộng cho hai nút */
+            height: 40px; /* Chiều cao nút */
+            font-size: 18px; /* Cỡ chữ nút */
+            padding: 10px 20px; /* Khoảng cách xung quanh chữ */
+            border-radius: 5px; /* Bo góc cho nút */
+            border: none; /* Xóa viền mặc định */
         }
 
-        .form-control {
-            flex: 1;                 /* Ô nhập sẽ chiếm phần còn lại của không gian */
-            padding: 8px;            /* Padding trong ô nhập */
-            font-size: 1rem;         /* Kích thước chữ trong ô nhập */
+        .btn-primary {
+            background-color: #4169E1; /* Màu nền xanh */
+            color: white; /* Màu chữ trắng */
+        }
+
+        .btn-secondary {
+            background-color: white; /* Màu nền trắng */
+            color: #4169E1; /* Màu chữ xanh */
+            border: 2px solid #4169E1; /* Viền xanh cho nút trắng */
+        }
+
+        /* Hiệu ứng khi hover vào nút */
+        .btn-secondary:hover {
+            background-color: #4169E1; /* Chuyển nền sang xanh khi hover */
+            color: white; /* Chữ chuyển sang trắng */
         }
     </style>
 </head>
@@ -34,43 +49,52 @@
 <!-- Main Content -->
 <div class="mainboard">
     <div class="main-content" id="maincontent">
-        <h1 class="text-center my-4" style="text-align: center; margin: 0 auto;">Chỉnh sửa khoản thu</h1>
+        <h1 class="text-center my-4">Chỉnh sửa khoản thu</h1>
         <br>
-        <br>
-        <form action="#" th:action="@{/edit(id=${khoanthu_edit.id})}" th:object="${khoanthu_edit}" method="post">
+        <form th:action="@{/edit(id=${id})}" th:object="${khoanthuDto}" method="post">
             <!-- Tên khoản thu -->
             <div class="form-group">
                 <label for="tenkhoanthu" class="form-label">Tên khoản thu:</label>
-                <input type="text" id="tenkhoanthu" class="form-control" th:field="*{tenkhoanthu}">
+                <input type="text" id="tenkhoanthu" name="tenkhoanthu" class="form-control" th:field="*{tenkhoanthu}">
+                <p th:if="${#fields.hasErrors('tenkhoanthu')}" class="text-danger" th:errors="*{tenkhoanthu}"></p>
             </div>
+            <br>
 
             <!-- Số tiền -->
             <div class="form-group">
                 <label for="sotien-input" class="form-label">Số tiền:</label>
-                <input class="form-control" type="number" min="0" step="1000" th:field="*{sotien}" id="sotien-input">
+                <input class="form-control" type="number" min="0" step="1000" id="sotien-input" name="sotien" th:field="*{sotien}">
+                <p th:if="${#fields.hasErrors('sotien')}" class="text-danger" th:errors="*{sotien}"></p>
             </div>
+            <br>
 
             <!-- Bắt buộc -->
             <div class="form-group">
                 <label for="batbuoc-select" class="form-label">Bắt buộc:</label>
-                <select class="form-select" th:field="*{batbuoc}" id="batbuoc-select">
+                <select class="form-select" id="batbuoc-select" name="batbuoc" th:field="*{batbuoc}">
                     <option value="Có">Có</option>
                     <option value="Không">Không</option>
                 </select>
+                <p th:if="${#fields.hasErrors('batbuoc')}" class="text-danger" th:errors="*{batbuoc}"></p>
             </div>
+            <br>
 
             <!-- Hạn chót -->
             <div class="form-group">
                 <label for="hanchot" class="form-label">Hạn chót:</label>
                 <input id="hanchot" class="form-control" type="datetime-local" th:field="*{hanchot}"
                        min="${#temporals.format(#temporals.now(), 'yyyy-MM-dd\'T\'HH:mm')}">
+                <p th:if="${#fields.hasErrors('hanchot')}" class="text-danger" th:errors="*{hanchot}"></p>
             </div>
+            <br>
 
             <!-- Người tạo -->
             <div class="form-group">
                 <label for="nguoitao" class="form-label">Người tạo:</label>
-                <input readonly type="text" id="nguoitao" class="form-control" th:field="*{nguoitao}">
+                <input readonly type="text" id="nguoitao" name="nguoitao" class="form-control" th:field="*{nguoitao}">
+                <p th:if="${#fields.hasErrors('nguoitao')}" class="text-danger" th:errors="*{nguoitao}"></p>
             </div>
+            <br>
 
             <!-- Nút hành động -->
             <div class="form-group">

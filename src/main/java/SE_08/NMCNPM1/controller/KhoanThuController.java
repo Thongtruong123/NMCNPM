@@ -3,8 +3,10 @@ package SE_08.NMCNPM1.controller;
 import SE_08.NMCNPM1.model.Khoanthu;
 import SE_08.NMCNPM1.model.KhoanthuDTO;
 import SE_08.NMCNPM1.repository.KhoanthuRepository;
+import SE_08.NMCNPM1.service.KhoanthuService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -20,9 +22,11 @@ import java.util.Optional;
 public class KhoanThuController {
 
     @Autowired
+    private KhoanthuService khoanthuService;
+    @Autowired
     private KhoanthuRepository repo;
 
-    @GetMapping({"/quan-ly-khoan-thu"})
+        @GetMapping({"/quan-ly-khoan-thu"})
     public String showKhoanthuList(Model model) {
         // Lấy danh sách Khoanthu từ database
         List<Khoanthu> ds_khoanthu = repo.findAll(Sort.by(Sort.Direction.ASC, "id"));
@@ -38,6 +42,45 @@ public class KhoanThuController {
         model.addAttribute("khoanthu_list", ds_khoanthu);
         return "quan-ly-khoan-thu";
     }
+//    @GetMapping({"/quan-ly-khoan-thu", "/quan-ly-khoan-thu/page/{pageNo}"})
+//    public String showKhoanthuList(
+//            @PathVariable Optional<Integer> pageNo,
+//            @RequestParam Optional<String> sortField,
+//            @RequestParam Optional<String> sortDir,
+//            Model model) {
+//
+//        // Lấy giá trị mặc định nếu không có tham số
+//        int currentPage = pageNo.orElse(1);  // Mặc định trang đầu tiên
+//        String sortBy = sortField.orElse("id");  // Mặc định sắp xếp theo id
+//        String direction = sortDir.orElse("asc");  // Mặc định sắp xếp theo hướng tăng dần
+//        int pageSize = 8;  // Kích thước trang
+//
+//        // Lấy dữ liệu phân trang
+//        Page<Khoanthu> page = khoanthuService.findPaginated(currentPage, pageSize, sortBy, direction);
+//        List<Khoanthu> dsKhoanthu = page.getContent();  // Danh sách dữ liệu của trang hiện tại
+//
+//        // Thêm thông tin phân trang vào model
+//        model.addAttribute("currentPage", currentPage);
+//        model.addAttribute("totalPages", page.getTotalPages());
+//        model.addAttribute("totalItems", page.getTotalElements());
+//
+//        model.addAttribute("sortField", sortBy);
+//        model.addAttribute("sortDir", direction);
+//        model.addAttribute("reverseSortDir", direction.equals("asc") ? "desc" : "asc");
+//
+//        // Thêm danh sách Khoanthu vào model
+//        model.addAttribute("khoanthu_list", dsKhoanthu);
+//
+//        // Log thông tin (nếu cần)
+//        if (dsKhoanthu.isEmpty()) {
+//            System.out.println("Không có dữ liệu trong bảng.");
+//        } else {
+//            System.out.println("Danh sách Khoan Thu đã được lấy từ cơ sở dữ liệu.");
+//            System.out.println("Danh sách Khoanthu: " + dsKhoanthu);
+//        }
+//
+//        return "quan-ly-khoan-thu";  // Trả về view "quan-ly-khoan-thu"
+//    }
 
     @GetMapping("/create")
     public String showCreatePage(Model model) {
@@ -120,7 +163,7 @@ public class KhoanThuController {
             // Đưa DTO vào model để render form
             model.addAttribute("khoanthuDto", khoanthuDto);
             model.addAttribute("id", id); // Truyền ID để sử dụng trong form
-            return "form-qlkt";
+            return "edit-qlkt";
         } catch (Exception ex) {
             System.out.println("Exception: " + ex.getMessage());
             return "redirect:/quan-ly-khoan-thu";
@@ -148,7 +191,7 @@ public class KhoanThuController {
             if (result.hasErrors()) {
                 // Trả lại form với lỗi
                 model.addAttribute("id", id); // Đảm bảo ID vẫn có trong model
-                return "form-qlkt";
+                return "edit-qlkt";
             }
 
             // Cập nhật dữ liệu từ DTO sang Entity
@@ -171,13 +214,13 @@ public class KhoanThuController {
 
     @GetMapping("/delete")
     public String deleteKhoanthu(
-        @RequestParam int id
-    ){
+            @RequestParam int id
+    ) {
 
-            repo.deleteById(id);
+        repo.deleteById(id);
 
 
         return "redirect:/quan-ly-khoan-thu";
     }
-
 }
+
