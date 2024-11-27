@@ -1,8 +1,8 @@
 package SE_08.NMCNPM1.controller;
 
-import SE_08.NMCNPM1.model.Khoanthu;
+import SE_08.NMCNPM1.model.KhoanThu;
 import SE_08.NMCNPM1.model.KhoanthuDTO;
-import SE_08.NMCNPM1.repository.KhoanthuRepository;
+import SE_08.NMCNPM1.repository.KhoanThuRepository;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
@@ -20,12 +20,12 @@ import java.util.Optional;
 public class KhoanThuController {
 
     @Autowired
-    private KhoanthuRepository repo;
+    private KhoanThuRepository repo;
 
     @GetMapping({"/quan-ly-khoan-thu"})
     public String showKhoanthuList(Model model) {
         // Lấy danh sách Khoanthu từ database
-        List<Khoanthu> ds_khoanthu = repo.findAll(Sort.by(Sort.Direction.ASC, "id"));
+        List<KhoanThu> ds_khoanthu = repo.findAll(Sort.by(Sort.Direction.ASC, "id"));
 
         // Kiểm tra và log kết quả
         if (ds_khoanthu.isEmpty()) {
@@ -70,8 +70,8 @@ public class KhoanThuController {
         System.out.println("Không có lỗi trong việc nhập liệu, tiếp tục tạo Khoan Thu.");
         LocalDateTime ngaytao = LocalDateTime.now();
 
-        Khoanthu khoanthu = new Khoanthu();
-        khoanthu.setTenkhoanthu(khoanthuDto.getTenkhoanthu());
+        KhoanThu khoanthu = new KhoanThu();
+        khoanthu.setTenKhoanThu(khoanthuDto.getTenkhoanthu());
         khoanthu.setSotien(khoanthuDto.getSotien());
         khoanthu.setBatbuoc(khoanthuDto.getBatbuoc());
         khoanthu.setHanchot(khoanthuDto.getHanchot());
@@ -102,7 +102,7 @@ public class KhoanThuController {
     ) {
         try {
             // Tìm khoản thu theo ID sử dụng Optional
-            Khoanthu khoanthu = repo.findById(id).orElse(null);  // Chuyển từ Optional sang Khoanthu nếu tìm thấy
+            KhoanThu khoanthu = repo.findById(id).orElse(null);  // Chuyển từ Optional sang Khoanthu nếu tìm thấy
 
             if (khoanthu == null) {
                 // Nếu không tìm thấy, chuyển hướng về trang quản lý khoản thu
@@ -135,14 +135,14 @@ public class KhoanThuController {
             BindingResult result) {
         try {
             // Tìm khoản thu theo ID
-            Optional<Khoanthu> optionalKhoanthu = repo.findById(id);
+            Optional<KhoanThu> optionalKhoanthu = repo.findById(id);
             if (optionalKhoanthu.isEmpty()) {
                 // Nếu không tìm thấy, chuyển hướng về trang quản lý khoản thu
                 return "redirect:/quan-ly-khoan-thu";
             }
 
             // Lấy đối tượng Khoanthu từ Optional
-            Khoanthu khoanthu = optionalKhoanthu.get();
+            KhoanThu khoanthu = optionalKhoanthu.get();
 
             // Kiểm tra lỗi validate
             if (result.hasErrors()) {
@@ -152,7 +152,7 @@ public class KhoanThuController {
             }
 
             // Cập nhật dữ liệu từ DTO sang Entity
-            khoanthu.setTenkhoanthu(khoanthuDto.getTenkhoanthu());
+            khoanthu.setTenKhoanThu(khoanthuDto.getTenkhoanthu());
             khoanthu.setSotien(khoanthuDto.getSotien());
             khoanthu.setBatbuoc(khoanthuDto.getBatbuoc());
             khoanthu.setHanchot(khoanthuDto.getHanchot());
