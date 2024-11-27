@@ -1,0 +1,97 @@
+.mainboard {
+    position: relative;
+    top: 0;
+    left: 100px;
+    transition: all 0.5s ease;
+    width: calc(100% - 100px);
+    padding: 20px;
+    background-color: #ADD8E6;
+    overflow: auto;
+}
+
+.main-content {
+    height: 100%;
+    width: 100%;
+    border-radius: 10px;
+    background-color: white;
+    padding: 20px;
+}
+
+.payment-button {
+    background: linear-gradient(to right, #FFD700, #FF8C00);
+    height: 45px;
+    width: 150px;
+    margin: 20px 800px 20px 0;
+    border-radius: 5px;
+    display: inline-block;
+    border: none;
+    cursor: pointer;
+}
+
+.payment-button a {
+    text-decoration: none;
+    color: #4169E1;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.searchbar {
+    display: inline-block;
+    margin: 20px 0;
+    height: 45px;
+    width: 450px;
+}
+
+.searchbar input {
+    font-size: 18px;
+    height: 100%;
+    width: 80%;
+    padding: 3px;
+    border-radius: 5px;
+    border-color: #DCDCDC;
+}
+
+.searchbar button {
+    background-color: #4169E1;
+    height: 100%;
+    width: 45px;
+    color: white;
+    font-size: 18px;
+    font-weight: bold;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.payment-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+th,td {
+    padding: 10px;
+    text-align: left;
+    border-bottom: 2px solid #000000;
+}
+
+th {
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.edit {
+    background-color: transparent;
+    border: none;
+    font-size: 30px;
+    color: #008000;
+    cursor: pointer;
+}
+
+.delete {
+    background-color: transparent;
+    border: none;
+    font-size: 30px;
+    color: #FF0000;
+    cursor: pointer;
+}

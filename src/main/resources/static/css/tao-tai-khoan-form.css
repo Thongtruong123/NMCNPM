@@ -1,0 +1,68 @@
+.mainboard {
+    position: relative;
+    top: 0;
+    left: 100px;
+    transition: all 0.5s ease;
+    width: calc(100% - 100px);
+    padding: 20px 350px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #ADD8E6;
+    overflow: auto;
+}
+
+.main-content {
+    height: 900px;
+    width: 700px;
+    border-radius: 10px;
+    background-color: white;
+    padding: 20px;
+
+}
+
+.ten {
+    display: inline-block;
+    width: 310px;
+}
+
+.ho {
+    display: inline-block;
+    width: 310px;
+}
+
+label {
+    font-size: 20px;
+    font-weight: bold;
+    margin-left: 25px;
+}
+
+input {
+    font-size: 18px;
+    height: 40px;
+    width: 600px;
+    margin: 25px;
+    padding: 3px;
+    border-radius: 5px;
+    border-color: #DCDCDC;
+}
+
+.ten input, .ho input {
+    width: 280px;
+}
+
+.role {
+    width: 280px;
+}
+
+.register-button {
+    height: 50px;
+    width: 600px;
+    margin: 25px;
+    border-radius: 10px;
+    background: linear-gradient(to right, #FFD700, #FF8C00);
+    color: #4169E1;
+    font-size: 18px;
+    font-weight: bold;
+    cursor: pointer;
+}
