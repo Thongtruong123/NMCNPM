@@ -62,7 +62,7 @@ input {
 }
 
 button, .avatar-button {
-    background-color: #4169E1;
+    background: linear-gradient(to right, #007e99, #005f6b);
     color: white;
     border: none;
     border-radius: 5px;
@@ -73,6 +73,7 @@ button, .avatar-button {
     height: 30px;
     width: auto;
     cursor: pointer;
+
 }
 
 /*
