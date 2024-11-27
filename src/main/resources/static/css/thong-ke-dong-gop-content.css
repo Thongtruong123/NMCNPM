@@ -21,6 +21,9 @@
 }
 
 .drop_down_list_khoanthu{
-    max-height: 20px;
+    max-height: 40px;
     overflow: auto;
+    border-radius: 5px;
+    cursor: pointer;
+    background-color: #a8a7a7;
 }

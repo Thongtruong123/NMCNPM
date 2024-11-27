@@ -30,6 +30,7 @@
     .text-container {
       width: 45%;
       padding: 20px;
+      font-size: 30px;
     }
     h2 {
       color: #333;
@@ -48,16 +49,17 @@
 <div th:replace="~{/fragments/sidebar :: sidebar}" class="sidebar"> <!-- Sidebar placeholder --> </div>
 
 <div class="mainboard">
-  <h1> Thống kê đóng góp </h1>
+  <h1 class="text-center my-4" style="text-align: center; margin: 0 auto;"> Thống kê đóng góp </h1>
+  <br>
   <form action="/thong-ke-dong-gop" method="get">
-    <select class="drop_down_list_khoanthu" id="idSelector" name="id" onchange="this.form.submit()">
+    <select style="width: 200px;height: 40px; font-size: 16px; text-align: center;" class="drop_down_list_khoanthu" id="idSelector" name="id" onchange="this.form.submit()">
       <option value="">Chọn Khoản thu</option>
       <th:block th:each="record : ${records}">
         <option th:value="${record.getId()}" th:text="${record.getNAME()}"></option>
       </th:block>
     </select>
   </form>
-
+  <br>
   <div class="main-content" id="maincontent">
 
 
@@ -93,7 +95,8 @@
 <script>
   var danop= [[${tiendanop}]];
   var phaithu= [[${tongphaithu}]];
-  var Val = ( danop / phaithu) * 100;
+  if(phaithu!=0){
+    var Val = ( danop / phaithu) * 100;
     Val = Val.toFixed(2);
     Val = Math.max(0, Math.min(100, Val));
 
@@ -116,8 +119,7 @@
         }
       }
     });
-
-
+  }
 </script>
 </body>
 </html>

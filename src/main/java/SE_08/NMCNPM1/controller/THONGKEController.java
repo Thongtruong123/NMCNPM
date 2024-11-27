@@ -24,15 +24,7 @@ public class THONGKEController {
         id = id > 0 ? id : 0;
         List <TK_KHOANTHU> records = repo.findByFee_id(id);
         model.addAttribute("records", records);
-        if(id==0){
-            model.addAttribute("tiendanop", 0);
-            model.addAttribute("tongphaithu", 0);
-            model.addAttribute("name", "");
-            model.addAttribute("hophaithu", 0);
-            model.addAttribute("hodanop", 0);
-        }
-        else{
-            Optional<TK_KHOANTHU> recordOpt = repo.findById(id);
+        Optional<TK_KHOANTHU> recordOpt = repo.findById(id);
             if (recordOpt.isPresent()) {
                 TK_KHOANTHU record = recordOpt.get();
                 model.addAttribute("tiendanop", record.getTIENDANOP());
@@ -41,7 +33,13 @@ public class THONGKEController {
                 model.addAttribute("hophaithu", record.getHOPHAITHU());
                 model.addAttribute("hodanop", record.getHODANOP());
             }
-        }
+            else{
+                model.addAttribute("tiendanop", 0);
+                model.addAttribute("tongphaithu", 0);
+                model.addAttribute("name", "");
+                model.addAttribute("hophaithu", 0);
+                model.addAttribute("hodanop", 0);
+            }
         return "thong-ke-dong-gop";
     }
 }
