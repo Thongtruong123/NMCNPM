@@ -44,7 +44,7 @@
         <tr th:each="khoanthu : ${khoanthu_list}">
             <td th:text="${khoanthu.id}"></td>
             <td th:text="${khoanthu.tenkhoanthu}"></td>
-            <td th:text="${khoanthu.sotien}"></td>
+            <td class="money" th:text="${khoanthu.sotien}"></td>
 
             <td th:text="${#temporals.format(khoanthu.ngaytao, 'yyyy-MM-dd HH:mm:ss')}"></td>
             <td th:text="${#temporals.format(khoanthu.hanchot, 'yyyy-MM-dd HH:mm:ss')}"></td>
@@ -88,6 +88,15 @@
     </table>
     </div>
 </div>
+<script>
+    document.querySelectorAll('.money').forEach(function(cell) {
+        var amount = parseInt(cell.textContent.trim(), 10);
+        if (!isNaN(amount)) {
+            var formattedAmount = amount.toLocaleString();
+            cell.textContent = formattedAmount;
+        }
+    });
+</script>
 </body>
 <script src="js/menu-toggle.js"> </script>
 </html>

@@ -22,9 +22,13 @@
     min-width: 500px;
     border-radius: 10px;
     background-color: white;
-    padding: 20px;
+    padding: 0 20px 20px 20px;
     z-index: -1;
     overflow: auto;
+}
+
+.main-content h2 {
+    margin-top: 20px;
 }
 
 .searchbar {
