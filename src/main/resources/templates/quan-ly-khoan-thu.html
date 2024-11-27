@@ -13,9 +13,12 @@
 <div th:replace="~{/fragments/sidebar :: sidebar}" class="sidebar"> <!-- Sidebar placeholder --> </div>
 <!--<div class="container">-->
 <div class="mainboard">
+    <div class="header-content">
+        <h1> Quản lý khoản thu </h1> <br>
+    </div>
     <div class="main-content" id="maincontent">
-        <h1 class="text-center my-4" style="text-align: center; margin: 0 auto;">Danh sách khoản thu</h1>
-        <br>
+        <h2 class="text-center my-4">Danh sách khoản thu</h2>
+        <hr>
         <div class="searchbar" style="display: flex; justify-content: center; width: 100%;">
             <input type="search" placeholder="Tìm kiếm" id="keyword" name="keyword" required style="width: 80%; padding: 5px 10px;">
             <button class="search-button" type="submit" style="padding: 5px 10px; margin-left: 10px;"> <i class='bx bx-search'></i> </button>
@@ -24,7 +27,7 @@
 
         <a th:href="@{/create}" title="Tạo khoản thu mới" style="text-decoration: none; padding: 10px 20px; background-color: #007bff; color: white; border-radius: 5px; display: inline-block;">Tạo khoản thu</a>
 
-        <table class="table">
+        <table class="payment-table">
         <thead>
         <tr>
             <th>ID</th>
@@ -34,6 +37,7 @@
             <th>Hạn chót</th>
             <th>Bắt buộc</th>
             <th>Người tạo</th>
+            <th>Hành động</th>
         </tr>
         </thead>
         <tbody>
@@ -58,6 +62,7 @@
        text-decoration: none;
        border-radius: 4px;
        text-align: center;">
+                    <i class='bx bxs-edit-alt' style="color: white;"></i>
                     Sửa
                 </a>
 
@@ -72,6 +77,7 @@
        text-decoration: none;
        border-radius: 4px;
        text-align: center;">
+                      <i class='bx bxs-trash-alt' style="color: white;"></i>
                     Xóa
                 </a>
 

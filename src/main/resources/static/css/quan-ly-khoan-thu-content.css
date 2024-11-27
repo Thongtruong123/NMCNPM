@@ -1,40 +1,30 @@
 .mainboard {
     position: relative;
     top: 0;
-    left: 100px;
+    left: 120px;
+    height: 100vh;
     transition: all 0.5s ease;
-    width: calc(100% - 100px);
+    width: calc(100% - 120px);
     padding: 20px;
+    align-items: center;
+    justify-content: center;
     background-color: #ADD8E6;
-    overflow: auto;
+}
+
+.header-content {
+    width: 100%;
+    min-width: 500px;
 }
 
 .main-content {
-    height: 100%;
+    height: 95%;
     width: 100%;
-    min-width: 900px;
+    min-width: 500px;
     border-radius: 10px;
     background-color: white;
-    overflow: auto;
     padding: 20px;
-}
-
-.payment-button {
-    background: linear-gradient(to right, #FFD700, #FF8C00);
-    height: 45px;
-    width: 150px;
-    margin: 20px 800px 20px 0;
-    border-radius: 5px;
-    display: inline-block;
-    border: none;
-    cursor: pointer;
-}
-
-.payment-button a {
-    text-decoration: none;
-    color: #4169E1;
-    font-size: 18px;
-    font-weight: bold;
+    z-index: -1;
+    overflow: auto;
 }
 
 .searchbar {
@@ -71,8 +61,12 @@
     margin-top: 20px;
 }
 
-.table-top{
+thead {
     position: sticky;
+    top: 0;
+    z-index: 1;
+    background-color: rgba(169, 169, 169, 1); /* Màu xám đậm */
+    color: white; /* Đặt màu chữ thành trắng cho dễ đọc */
 }
 
 th,td {
@@ -84,20 +78,4 @@ th,td {
 th {
     font-size: 18px;
     font-weight: bold;
-}
-
-.edit {
-    background-color: transparent;
-    border: none;
-    font-size: 30px;
-    color: #008000;
-    cursor: pointer;
-}
-
-.delete {
-    background-color: transparent;
-    border: none;
-    font-size: 30px;
-    color: #FF0000;
-    cursor: pointer;
 }

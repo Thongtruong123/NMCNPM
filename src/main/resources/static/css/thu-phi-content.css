@@ -1,35 +1,35 @@
 .mainboard {
-    position: relative; /* Định vị tương đối để phần tử có thể dịch chuyển theo top, left, right, bottom */
-    top: 0; /* Giữ nguyên vị trí theo chiều dọc (không dịch chuyển) */
-    left: 100px; /* Dịch chuyển phần tử sang phải 100px */
-    transition: all 0.5s ease; /* Hiệu ứng chuyển đổi cho tất cả các thuộc tính, kéo dài 0.5 giây với hiệu ứng mượt */
-    width: calc(100% - 100px); /* Chiều rộng bằng 100% của cha, trừ đi 100px */
-    padding: 20px; /* Khoảng cách nội dung cách viền phần tử là 20px */
-    display: flex; /* Biến phần tử thành flex container để quản lý bố cục dễ dàng */
-    flex-direction: column; /* Sắp xếp các phần tử con theo chiều dọc (từ trên xuống) */
-    align-items: start; /* Căn giữa các phần tử con theo chiều ngang */
-    background-color: #ADD8E6; /* Đặt màu nền xanh nhạt (Light Blue) */
-    overflow: auto; /* Hiển thị thanh cuộn nếu nội dung vượt quá kích thước phần tử */
+    position: relative;
+    top: 0;
+    left: 120px;
+    height: 100vh;
+    transition: all 0.5s ease;
+    width: calc(100% - 120px);
+    padding: 20px;
+    align-items: center;
+    justify-content: center;
+    background-color: #ADD8E6;
+}
+
+.header-content {
+    width: 100%;
+    min-width: 500px;
 }
 
 .main-content {
-    align-self: center;
-    height:80%;
-    width: 80%; /* Chiếm 80% chiều rộng của phần tử cha */
-    border-radius: 10px; /* Làm tròn các góc với bán kính 10px */
-    background-color: white; /* Đặt nền màu trắng */
-    padding: 50px; /* Khoảng cách nội dung cách viền phần tử là 20px */
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Thêm bóng mờ với dịch chuyển dọc 4px, độ mờ 10px, màu đen nhạt */
-    display: block; /* Kích hoạt Flexbox */
-    justify-content: space-between; /* Các phần tử cách đều nhau */
+    height: 95%;
+    width: 100%;
+    min-width: 500px;
+    border-radius: 10px;
+    background-color: white;
+    padding: 20px;
+    z-index: -1;
+    overflow: auto;
 }
+
 form {
     width: 100%;
-    height:auto;
-}
-h2 {
-    text-align: center;
-    margin-bottom: 10px;
+    height: auto;
 }
 
 label {
