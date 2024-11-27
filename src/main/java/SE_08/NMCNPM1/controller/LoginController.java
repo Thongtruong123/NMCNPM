@@ -1,5 +1,6 @@
 package SE_08.NMCNPM1.controller;
 
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -16,9 +17,10 @@ public class LoginController {
     }
 
     @GetMapping("/homepage")
-    public String loginSuccess(Model model) {
+    public String loginSuccess(Model model, HttpServletRequest request) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String username = authentication.getName();
+        request.getSession().setAttribute("username", username);
         model.addAttribute("username", username);
 
         return "homepage";

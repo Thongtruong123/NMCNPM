@@ -71,6 +71,7 @@ public class KhoanThuController {
         LocalDateTime ngaytao = LocalDateTime.now();
 
         KhoanThu khoanthu = new KhoanThu();
+
         khoanthu.setTenkhoanthu(khoanthuDto.getTenkhoanthu());
         khoanthu.setSotien(khoanthuDto.getSotien());
         khoanthu.setBatbuoc(khoanthuDto.getBatbuoc());
@@ -152,7 +153,7 @@ public class KhoanThuController {
             }
 
             // Cập nhật dữ liệu từ DTO sang Entity
-            khoanthu.setTenkhoanthu(khoanthuDto.getTenkhoanthu());
+            khoanthu.setTenKhoanThu(khoanthuDto.getTenkhoanthu());
             khoanthu.setSotien(khoanthuDto.getSotien());
             khoanthu.setBatbuoc(khoanthuDto.getBatbuoc());
             khoanthu.setHanchot(khoanthuDto.getHanchot());

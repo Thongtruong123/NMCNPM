@@ -17,13 +17,13 @@ public class RegistrationController {
     @Autowired
     private UserService userService;
 
-    @GetMapping("/tao-tai-khoan")
+    @GetMapping("/quan-ly-tai-khoan/tao-tai-khoan")
     public String registerForm(Model model) {
         model.addAttribute("RegisterFormDTO", new RegisterFormDTO());
         return "tao-tai-khoan";
     }
 
-    @PostMapping("/register")
+    @PostMapping("/quan-ly-tai-khoan/register")
     public String register(@Valid @ModelAttribute("RegisterFormDTO") RegisterFormDTO registerFormDTO,
                             BindingResult result, Model model) {
         if (result.hasErrors()) {
