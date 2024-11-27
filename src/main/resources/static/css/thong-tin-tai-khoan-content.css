@@ -1,9 +1,10 @@
 .mainboard {
     position: relative;
     top: 0;
-    left: 100px;
+    left: 120px;
+    height: 100vh;
     transition: all 0.5s ease;
-    width: calc(100% - 100px);
+    width: calc(100% - 120px);
     padding: 20px;
     align-items: center;
     justify-content: center;
@@ -11,15 +12,18 @@
 }
 
 .main-content {
-    min-width: 100%;
+    min-width: 500px;
     border-radius: 10px;
     background-color: white;
     padding: 20px;
+    z-index: -1;
+    overflow: auto;
     display: flex;
 }
 
 .avatar-container {
     width: 35%;
+    min-width: 500px;
     margin-top: 50px;
     margin-left: 50px;
     padding: 20px;
@@ -36,6 +40,7 @@
 
 .info-container {
     width: 65%;
+    min-width: 800px;
     margin-top: 50px;
 }
 
