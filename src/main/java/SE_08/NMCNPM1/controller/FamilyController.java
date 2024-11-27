@@ -48,7 +48,7 @@ public class FamilyController {
 
             // Tăng cường dữ liệu (thêm tên và số tiền từ bảng khoan_thu)
             List<Map<String, Object>> enrichedDueAmounts = dueAmounts.stream().map(due -> {
-                KhoanThu khoanThu = khoanThuService.findById(due.getFeeId());
+                Khoanthu khoanThu = khoanThuService.findById(due.getFeeId());
                 Map<String, Object> dueDetails = new HashMap<>();
                 dueDetails.put("roomNumber", due.getRoomNumber());
                 dueDetails.put("feeId", due.getFeeId());
@@ -110,7 +110,7 @@ public class FamilyController {
             // Tăng cường thông tin cho selectedDueAmounts
             List<Map<String, Object>> detailedDueAmounts = invoice.getSelectedDueAmounts().stream().map(due -> {
                 // Lấy thông tin từ bảng KhoanThu
-                KhoanThu khoanThu = khoanThuService.findById(due.getFeeId());
+                Khoanthu khoanThu = khoanThuService.findById(due.getFeeId());
                 Map<String, Object> dueDetails = new HashMap<>();
                 dueDetails.put("feeId", due.getFeeId());
                 dueDetails.put("invoiceId", due.getInvoiceId());
