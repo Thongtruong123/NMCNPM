@@ -1,6 +1,5 @@
 package SE_08.NMCNPM1.controller;
 
-
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -27,4 +26,3 @@ public class LoginController {
         return "homepage";
     }
 }
-

@@ -6,10 +6,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Controller
 public class NavigationController {
 
-    @GetMapping("/quan-ly-khoan-thu")
-    public String getQLKT() {
-        return "quan-ly-khoan-thu";
-    }
+//    @GetMapping("/quan-ly-khoan-thu")
+//    public String getQLKT() {
+//        return "quan-ly-khoan-thu";
+//    }
 
     @GetMapping("/thu-phi")
     public String getTP() {

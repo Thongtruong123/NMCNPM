@@ -1,0 +1,87 @@
+.mainboard {
+    position: relative;
+    top: 0;
+    left: 100px;
+    transition: all 0.5s ease;
+    width: calc(100% - 100px);
+    padding: 20px;
+    align-items: center;
+    justify-content: center;
+    background-color: #ADD8E6;
+    overflow: auto;
+}
+
+.main-content {
+    height: 95%;
+    width: 100%;
+    min-width: 1020px;
+    border-radius: 10px;
+    background-color: white;
+    padding: 20px;
+    overflow: auto;
+}
+
+.register-button {
+    background: linear-gradient(to right, #FFD700, #FF8C00);
+    height: 45px;
+    width: 150px;
+    margin: 20px 800px 20px 0;
+    border-radius: 5px;
+    display: inline-block;
+    border: none;
+    color: #4169E1;
+    font-size: 18px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.user-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+thead {
+    position: sticky;
+    top: 0;
+    background-color: #f1f1f1;
+    z-index: 1;
+}
+
+th,td {
+    padding: 10px;
+    text-align: left;
+    border: 1px solid #000000;
+}
+
+th {
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.permissions {
+    text-align: center;
+    vertical-align: middle;
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.green {
+    color: #008000;
+}
+
+.red {
+    color: #FF0000;
+}
+
+.save-role {
+    font-size: 12px;
+    background-color: #4169E1;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    margin-top: 5px;
+    font-weight: bold;
+    height: 20px;
+    width: 50px;
+    cursor: pointer;
+}
