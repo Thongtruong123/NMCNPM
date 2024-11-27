@@ -71,7 +71,8 @@ public class KhoanThuController {
         LocalDateTime ngaytao = LocalDateTime.now();
 
         KhoanThu khoanthu = new KhoanThu();
-        khoanthu.setTenKhoanThu(khoanthuDto.getTenkhoanthu());
+
+        khoanthu.setTenkhoanthu(khoanthuDto.getTenkhoanthu());
         khoanthu.setSotien(khoanthuDto.getSotien());
         khoanthu.setBatbuoc(khoanthuDto.getBatbuoc());
         khoanthu.setHanchot(khoanthuDto.getHanchot());
