@@ -137,7 +137,7 @@ public class KhoanThuController {
         try {
             // Tìm khoản thu theo ID
             Optional<Khoanthu> optionalKhoanthu = repo.findById(id);
-            if (optionalKhoanthu.isEmpty()) {
+            if (optionalKhoanthu.isPresent()) {
                 // Nếu không tìm thấy, chuyển hướng về trang quản lý khoản thu
                 return "redirect:/quan-ly-khoan-thu";
             }
