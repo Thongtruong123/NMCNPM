@@ -8,7 +8,7 @@ import java.time.LocalDateTime;
 @Table(name = "khoan_thu", schema = "account")
 
 
-public class Khoanthu {
+public class KhoanThu {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -38,15 +38,15 @@ public class Khoanthu {
         return id;
     }
 
-    public void setId(int ID) {
-        this.id = ID;
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getTenkhoanthu() {
         return tenkhoanthu;
     }
 
-    public void setTenkhoanthu(String tenkhoanthu) {
+    public void setTenKhoanThu(String tenkhoanthu) {
         this.tenkhoanthu = tenkhoanthu;
     }
 
@@ -89,7 +89,4 @@ public class Khoanthu {
     public void setNguoitao(String nguoitao) {
         this.nguoitao = nguoitao;
     }
-
-
 }
-

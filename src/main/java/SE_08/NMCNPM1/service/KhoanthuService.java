@@ -1,19 +1,21 @@
-//package SE_08.NMCNPM1.service;
-//
-//import SE_08.NMCNPM1.model.Khoanthu;
-//import org.springframework.data.domain.Page;
-//import org.springframework.stereotype.Service;
-//
-//@Service
-//public interface KhoanthuService {
-//    void saveKhoanthu(Khoanthu khoanthu);
-//
-//    Iterable<Khoanthu> findKhoanthu();
-//
-//    Khoanthu getKhoanthuId(int id);
-//    void deleteEmployee(int id);
-//
-//    Page<Khoanthu> findPage(int pageNo, int pageSize, String sortBy);
-//}
-//
-//
+package SE_08.NMCNPM1.service;
+
+import SE_08.NMCNPM1.model.KhoanThu;
+import SE_08.NMCNPM1.repository.KhoanThuRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.Optional;
+
+@Service
+public class KhoanThuService {
+
+    @Autowired
+    private KhoanThuRepository khoanThuRepository;
+
+    // Tìm thông tin KhoanThu theo ID
+    public KhoanThu findById(int id) {
+        Optional<KhoanThu> optionalKhoanThu = khoanThuRepository.findById(id);
+        return optionalKhoanThu.orElse(null); // Trả về null nếu không tìm thấy
+    }
+}
