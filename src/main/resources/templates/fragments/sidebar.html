@@ -56,17 +56,21 @@
             </ul>
         </div>
 
+
         <div class="ul-bot">
             <hr class="sidebar-divider" sec:authorize="hasRole('ROLE_ADMIN')" style="margin-top: 28vh; margin-bottom: 20px;" />
             <hr class="sidebar-divider" sec:authorize="!hasRole('ROLE_ADMIN')" style="margin-top: 34vh; margin-bottom: 20px;" />
 
             <ul>
-                <li>
+                <li class="user">
                     <a th:href="@{/thong-tin-tai-khoan}">
-                        <i class='bx bxs-user-account' ></i>
-                        <span class="nav-item"> Thông tin tài khoản </span>
+                        <img th:src="${currentAvatar}" class="user-avatar">
+
+                        <div class="nav-item">
+                            <p class="user-name" th:text="${currentUsername}"></p>
+                            <p class="user-role" th:text="${#authentication.authorities}"></p>
+                        </div>
                     </a>
-                    <span class="tooltip"> Thông tin tài khoản </span>
                 </li>
                 <li>
                     <a th:href="@{/logout}">

@@ -22,15 +22,12 @@ public class User {
     private String first_name;
     private String last_name;
     private String phone_number;
+    private String avatar;
 
     // Getters and setters
-    public Long getId() {
-        return id;
-    }
+    public Long getId() { return id; }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+    public void setId(Long id) { this.id = id; }
 
     public String getUsername() {
         return username;
@@ -87,6 +84,10 @@ public class User {
     public void setPhone_number(String phone_number) {
         this.phone_number = phone_number;
     }
+
+    public String getAvatar() { return avatar; }
+
+    public void setAvatar(String avatar_path) { this.avatar = avatar; }
 
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return List.of(new SimpleGrantedAuthority("ROLE_" + role));

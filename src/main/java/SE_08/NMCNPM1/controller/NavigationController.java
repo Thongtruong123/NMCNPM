@@ -26,11 +26,6 @@ public class NavigationController {
         return "thong-tin-nhan-khau";
     }
 
-    @GetMapping("/thong-tin-tai-khoan")
-    public String getTTTK() {
-        return "thong-tin-tai-khoan";
-    }
-
     @GetMapping("/logout")
     public String getDX() {
         return "index";

@@ -133,6 +133,39 @@ body {
     display: none;
 }
 
+.sidebar-divider {
+    margin-top: 28vh;
+    margin-bottom: 20px;
+}
+
+.user {
+    display: flex;
+    align-items: center;
+    margin: 18px 0;
+    width: 100%;
+}
+
+.user-avatar {
+    width: 60px;
+    height: 60px;
+    border-radius: 100%;
+    border: 1px solid white;
+}
+
+.user-name {
+    font-weight: bold;
+    font-size: 24px;
+    margin: 10px auto;
+}
+
+.user-role {
+    font-size: 12px;
+    margin: 10px auto;
+}
+
+.user .nav-item {
+    margin-left: 20px;
+}
 
 
 
