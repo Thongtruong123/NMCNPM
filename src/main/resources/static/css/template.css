@@ -7,7 +7,7 @@
 body {
     font-family: 'Helvetica';
     height: 100vh;
-    min-height: 800px;
+    min-height: 800px;za
     margin: 0;
     display: flex;
 }
@@ -131,11 +131,6 @@ body {
 
 .sidebar.active ul li .tooltip {
     display: none;
-}
-
-.sidebar-divider {
-    margin-top: 28vh;
-    margin-bottom: 20px;
 }
 
 

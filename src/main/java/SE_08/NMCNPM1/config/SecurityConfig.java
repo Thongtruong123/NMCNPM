@@ -27,6 +27,7 @@ public class SecurityConfig {
                 .csrf().and()
                 .authorizeHttpRequests(authorize -> authorize
                         .requestMatchers("/index", "/css/**", "/js/**", "/image/**").permitAll()
+                        .requestMatchers("/quan-ly-tai-khoan").hasRole("ADMIN")
                         .requestMatchers("/api/**").authenticated()
                         .requestMatchers("/api/family/invoice").permitAll()
                         .anyRequest().authenticated()

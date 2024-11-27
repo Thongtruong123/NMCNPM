@@ -1,4 +1,4 @@
-
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
 <div th:fragment="sidebar" class="sidebar">
     <div class="header">
         <div class="logo">
@@ -9,67 +9,73 @@
     </div>
 
     <nav>
-    <ul>
-        <li>
-            <a th:href="@{/homepage}">
-                <i class='bx bxs-dashboard' ></i>
-                <span class="nav-item"> Trang chủ </span>
-            </a>
-            <span class="tooltip"> Trang chủ </span>
-        </li>
-        <li>
-            <a th:href="@{/quan-ly-khoan-thu}">
-                <i class='bx bx-receipt' ></i>
-                <span class="nav-item"> Quản lý khoản thu </span>
-            </a>
-            <span class="tooltip"> Quản lý khoản thu </span>
-        </li>
-        <li>
-            <a th:href="@{/thu-phi}">
-                <i class='bx bx-money-withdraw' ></i>
-                <span class="nav-item"> Thu phí </span>
-            </a>
-            <span class="tooltip"> Thu phí </span>
-        </li>
-        <li>
-            <a th:href="@{/thong-ke-dong-gop}">
-                <i class='bx bx-spreadsheet' ></i>
-                <span class="nav-item"> Thống kê đóng góp </span>
-            </a>
-            <span class="tooltip"> Thống kê đóng góp </span>
-        </li>
-        <li>
-            <a th:href="@{/thong-tin-nhan-khau}">
-                <i class='bx bx-buildings' ></i>
-                <span class="nav-item"> Thông tin nhân khẩu </span>
-            </a>
-            <span class="tooltip"> Thông tin nhân khẩu </span>
-        </li>
-    </ul>
-    <hr class="sidebar-divider">
+        <div class="ul-top">
+            <ul>
+                <li>
+                    <a th:href="@{/homepage}">
+                        <i class='bx bxs-dashboard' ></i>
+                        <span class="nav-item"> Trang chủ </span>
+                    </a>
+                    <span class="tooltip"> Trang chủ </span>
+                </li>
+                <li>
+                    <a th:href="@{/quan-ly-khoan-thu}">
+                        <i class='bx bx-receipt' ></i>
+                        <span class="nav-item"> Quản lý khoản thu </span>
+                    </a>
+                    <span class="tooltip"> Quản lý khoản thu </span>
+                </li>
+                <li>
+                    <a th:href="@{/thu-phi}">
+                        <i class='bx bx-money-withdraw' ></i>
+                        <span class="nav-item"> Thu phí </span>
+                    </a>
+                    <span class="tooltip"> Thu phí </span>
+                </li>
+                <li>
+                    <a th:href="@{/thong-ke-dong-gop}">
+                        <i class='bx bx-spreadsheet' ></i>
+                        <span class="nav-item"> Thống kê đóng góp </span>
+                    </a>
+                    <span class="tooltip"> Thống kê đóng góp </span>
+                </li>
+                <li>
+                    <a th:href="@{/thong-tin-nhan-khau}">
+                        <i class='bx bx-buildings' ></i>
+                        <span class="nav-item"> Thông tin nhân khẩu </span>
+                    </a>
+                    <span class="tooltip"> Thông tin nhân khẩu </span>
+                </li>
+                <li sec:authorize="hasRole('ROLE_ADMIN')">
+                    <a th:href="@{/quan-ly-tai-khoan}">
+                        <i class='bx bx-group'></i>
+                        <span class="nav-item"> Quản lý tài khoản</span>
+                    </a>
+                    <span class="tooltip"> Quản lý tài khoản </span>
+                </li>
+            </ul>
+        </div>
 
-    <ul>
-        <li>
-            <a th:href="@{/thong-tin-tai-khoan}">
-                <i class='bx bxs-user-account' ></i>
-                <span class="nav-item"> Thông tin tài khoản </span>
-            </a>
-            <span class="tooltip"> Thông tin tài khoản </span>
-        </li>
-        <li>
-            <a th:href="@{/tao-tai-khoan}">
-                <i class='bx bx-user-plus' ></i>
-                <span class="nav-item"> Tạo tài khoản </span>
-            </a>
-            <span class="tooltip"> Tạo tài khoản </span>
-        </li>
-        <li>
-            <a th:href="@{/logout}">
-                <i class='bx bx-log-out'></i>
-                <span class="nav-item"> Đăng xuất </span>
-            </a>
-            <span class="tooltip"> Đăng xuất </span>
-        </li>
-    </ul>
+        <div class="ul-bot">
+            <hr class="sidebar-divider" sec:authorize="hasRole('ROLE_ADMIN')" style="margin-top: 28vh; margin-bottom: 20px;" />
+            <hr class="sidebar-divider" sec:authorize="!hasRole('ROLE_ADMIN')" style="margin-top: 34vh; margin-bottom: 20px;" />
+
+            <ul>
+                <li>
+                    <a th:href="@{/thong-tin-tai-khoan}">
+                        <i class='bx bxs-user-account' ></i>
+                        <span class="nav-item"> Thông tin tài khoản </span>
+                    </a>
+                    <span class="tooltip"> Thông tin tài khoản </span>
+                </li>
+                <li>
+                    <a th:href="@{/logout}">
+                        <i class='bx bx-log-out'></i>
+                        <span class="nav-item"> Đăng xuất </span>
+                    </a>
+                    <span class="tooltip"> Đăng xuất </span>
+                </li>
+            </ul>
+        </div>
     </nav>
 </div>
