@@ -20,12 +20,12 @@
         <h2 class="text-center my-4">Danh sách khoản thu</h2>
         <hr>
         <div class="searchbar" style="display: flex; justify-content: center; width: 100%;">
-            <input type="search" placeholder="Tìm kiếm" id="keyword" name="keyword" required style="width: 80%; padding: 5px 10px;">
-            <button class="search-button" type="submit" style="padding: 5px 10px; margin-left: 10px;"> <i class='bx bx-search'></i> </button>
+            <input type="search" placeholder="Tìm kiếm" id="keyword" name="keyword" required>
+            <button type="submit" style=""> <i class='bx bx-search'></i> </button>
         </div>
         <br>
 
-        <a th:href="@{/create}" title="Tạo khoản thu mới" style="text-decoration: none; padding: 10px 20px; background: linear-gradient(to right, #007e99, #005f6b); color: white; border-radius: 5px; display: inline-block;">Tạo khoản thu</a>
+        <a th:href="@{/create}" class="create-button">Tạo khoản thu</a>
 
         <table class="payment-table">
         <thead>
@@ -52,36 +52,15 @@
             <td th:text="${khoanthu.batbuoc == 'Có' ? 'Có' : 'Không'}"></td>
             <td th:text="${khoanthu.nguoitao}"></td>
             <td>
-                <a th:href="@{/edit(id=${khoanthu.id})}"
-
-                   style="
-       display: inline-block;
-       padding: 8px 16px;
-       color: white;
-       background-color:#2ecc71;
-       text-decoration: none;
-       border-radius: 4px;
-       text-align: center;">
+                <a th:href="@{/edit(id=${khoanthu.id})}" class="edit-button">
                     <i class='bx bxs-edit-alt' style="color: white;"></i>
                     Sửa
                 </a>
-
-
-                  <a th:href="@{/delete(id=${khoanthu.id})}"
-                   onclick="return confirm('Bạn có chắc chắn muốn xóa khoản thu này không?')"
-                   style="
-       display: inline-block;
-       padding: 8px 16px;
-       color: white;
-       background-color: #e74c3c;
-       text-decoration: none;
-       border-radius: 4px;
-       text-align: center;">
-                      <i class='bx bxs-trash-alt' style="color: white;"></i>
+                <a th:href="@{/delete(id=${khoanthu.id})}" class="delete-button"
+                   onclick="return confirm('Bạn có chắc chắn muốn xóa khoản thu này không?')">
+                    <i class='bx bxs-trash-alt' style="color: white;"></i>
                     Xóa
                 </a>
-
-
             </td>
         </tr>
         </tbody>

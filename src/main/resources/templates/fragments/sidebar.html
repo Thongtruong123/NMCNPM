@@ -68,7 +68,11 @@
 
                         <div class="nav-item">
                             <p class="user-name" th:text="${currentUsername}"></p>
-                            <p class="user-role" th:text="${#authentication.authorities}"></p>
+                            <p class="user-role" th:each="authority : ${#authentication.authorities}">
+                                <span th:if="${authority.authority == 'ROLE_ADMIN'}">Quản trị viên</span>
+                                <span th:if="${authority.authority == 'ROLE_HIGH_MANAGER'}">Quản lý cấp cao</span>
+                                <span th:if="${authority.authority == 'ROLE_LOW_MANAGER'}">Quản lý cấp thấp</span>
+                            </p>
                         </div>
                     </a>
                 </li>

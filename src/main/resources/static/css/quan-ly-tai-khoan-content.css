@@ -34,7 +34,7 @@
 .register-button {
     background: linear-gradient(to right, #FFD700, #FF8C00);
     height: 45px;
-    width: 150px;
+    padding: 10px 20px;
     margin: 20px 800px 20px 0;
     border-radius: 5px;
     display: inline-block;
