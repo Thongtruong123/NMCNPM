@@ -181,11 +181,6 @@ body {
     border-radius: 10px;
 }
 
-* {
-    scrollbar-width: thin;
-    scrollbar-color: rgba(0, 0, 0, 0.4) transparent;
-}
-
 
 
 
