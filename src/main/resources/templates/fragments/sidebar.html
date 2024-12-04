@@ -58,8 +58,8 @@
 
 
         <div class="ul-bot">
-            <hr class="sidebar-divider" sec:authorize="hasRole('ROLE_ADMIN')" style="margin-top: 28vh; margin-bottom: 20px;" />
-            <hr class="sidebar-divider" sec:authorize="!hasRole('ROLE_ADMIN')" style="margin-top: 34vh; margin-bottom: 20px;" />
+            <hr class="sidebar-divider" sec:authorize="hasRole('ROLE_ADMIN')" style="margin-top: 20vh; margin-bottom: 20px;" />
+            <hr class="sidebar-divider" sec:authorize="!hasRole('ROLE_ADMIN')" style="margin-top: 27vh; margin-bottom: 20px;" />
 
             <ul>
                 <li class="user">
@@ -68,7 +68,11 @@
 
                         <div class="nav-item">
                             <p class="user-name" th:text="${currentUsername}"></p>
-                            <p class="user-role" th:text="${#authentication.authorities}"></p>
+                            <p class="user-role" th:each="authority : ${#authentication.authorities}">
+                                <span th:if="${authority.authority == 'ROLE_ADMIN'}">Quản trị viên</span>
+                                <span th:if="${authority.authority == 'ROLE_HIGH_MANAGER'}">Quản lý cấp cao</span>
+                                <span th:if="${authority.authority == 'ROLE_LOW_MANAGER'}">Quản lý cấp thấp</span>
+                            </p>
                         </div>
                     </a>
                 </li>

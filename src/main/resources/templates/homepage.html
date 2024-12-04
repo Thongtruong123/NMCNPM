@@ -9,43 +9,43 @@
   <link rel='stylesheet' href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css'>
 </head>
 <body>
-  <div th:replace="~{/fragments/sidebar :: sidebar}" class="sidebar"> <!-- Sidebar placeholder --> </div>
+<div th:replace="~{/fragments/sidebar :: sidebar}" class="sidebar"> <!-- Sidebar placeholder --> </div>
 
-  <div class="mainboard">
-    <div class="header-content">
-      <h1> Trang chủ </h1> <br>
-    </div>
-    <div class="main-content" id="maincontent">
-      <p> Xin chào, <span th:text="${username}"></span> <br>Chào mừng đến với trang chủ của Web Quản lý Chung cư BlueMoon </p>
-      <hr>
-      <div class="update-info">
-        <p style="font-size: 24px; font-weight: bold;"> Bản cập nhật 1.1.1 ngày 16/10/2024:  </p>
-        <ul>
-          <li> Cập nhật giao diện homepage, quản lý khoản thu</li>
-          <li> Cập nhật tính năng tạo tài khoản </li>
-        </ul>
-        <p style="font-size: 24px; font-weight: bold;"> Bản cập nhật 1.1.0 ngày 16/10/2024:  </p>
-        <ul>
-          <li> Cập nhật tính năng xác thực người dùng bằng Spring security, với danh sách người dùng lấy từ database trên AWS</li>
-        </ul>
-        <br>
-        <p style="font-size: 24px; font-weight: bold;"> Bản cập nhật 1.0.3 ngày 5/10/2024:  </p>
-        <ul>
-          <li> Cập nhật giao diện login lần 3</li>
-          <li> Thiết kế lại từ web tĩnh sang web động</li>
-          <li> Thêm controller login bản demo và controller điều hướng</li>
-          <li> Module hóa sidebar</li>
-          <li> Demo giao diện form đăng ký tài khoản</li>
-        </ul>
-        <br>
-        <p style="font-size: 24px; font-weight: bold;"> Bản cập nhật 1.0.2 ngày 29/9/2024:  </p>
-        <ul>
-          <li> Cập nhật giao diện login lần 2</li>
-          <li> Demo giao diện quản lý khoản thu + form tạo khoản thu</li>
-        </ul>
-      </div>
+<div class="mainboard">
+  <div class="header-content">
+    <h1> Trang chủ </h1> <br>
+  </div>
+  <div class="main-content" id="maincontent">
+    <p> Xin chào, <span th:text="${username}"></span> <br>Chào mừng đến với trang chủ của Web Quản lý Chung cư BlueMoon </p>
+    <hr>
+    <div class="update-info">
+      <p style="font-size: 24px; font-weight: bold;"> Bản cập nhật 1.1.1 ngày 16/10/2024:  </p>
+      <ul>
+        <li> Cập nhật giao diện homepage, quản lý khoản thu</li>
+        <li> Cập nhật tính năng tạo tài khoản </li>
+      </ul>
+      <p style="font-size: 24px; font-weight: bold;"> Bản cập nhật 1.1.0 ngày 16/10/2024:  </p>
+      <ul>
+        <li> Cập nhật tính năng xác thực người dùng bằng Spring security, với danh sách người dùng lấy từ database trên AWS</li>
+      </ul>
+      <br>
+      <p style="font-size: 24px; font-weight: bold;"> Bản cập nhật 1.0.3 ngày 5/10/2024:  </p>
+      <ul>
+        <li> Cập nhật giao diện login lần 3</li>
+        <li> Thiết kế lại từ web tĩnh sang web động</li>
+        <li> Thêm controller login bản demo và controller điều hướng</li>
+        <li> Module hóa sidebar</li>
+        <li> Demo giao diện form đăng ký tài khoản</li>
+      </ul>
+      <br>
+      <p style="font-size: 24px; font-weight: bold;"> Bản cập nhật 1.0.2 ngày 29/9/2024:  </p>
+      <ul>
+        <li> Cập nhật giao diện login lần 2</li>
+        <li> Demo giao diện quản lý khoản thu + form tạo khoản thu</li>
+      </ul>
     </div>
   </div>
+</div>
 
 </body>
 

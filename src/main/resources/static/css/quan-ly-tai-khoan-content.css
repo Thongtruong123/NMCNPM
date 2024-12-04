@@ -22,15 +22,19 @@
     min-width: 500px;
     border-radius: 10px;
     background-color: white;
-    padding: 20px;
+    padding: 0 20px 20px 20px;
     z-index: -1;
     overflow: auto;
+}
+
+.main-content h2 {
+    margin-top: 20px;
 }
 
 .register-button {
     background: linear-gradient(to right, #FFD700, #FF8C00);
     height: 45px;
-    width: 150px;
+    padding: 10px 20px;
     margin: 20px 800px 20px 0;
     border-radius: 5px;
     display: inline-block;

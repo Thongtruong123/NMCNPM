@@ -66,14 +66,13 @@ input, select {
 .btn {
     float: right;
     font-size: 18px;
-    background-color: #4169E1;
+    background: linear-gradient(to right, #007e99, #005f6b);
     color: white;
     border: none;
     border-radius: 5px;
     font-size: 18px;
     font-weight: bold;
-    height: 35px;
-    padding: 5px;
+    padding: 10px 20px;
     margin-right: 10px;
     cursor: pointer;
 }

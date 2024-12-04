@@ -142,32 +142,42 @@ body {
     display: none;
 }
 
-.user {
-    height: 80px;
-    width: 100%;
+.sidebar ul li.user {
+    height: 100px;
+    width: 80%;
 }
 
-.user-avatar {
-    width: 54px;
-    height: 54px;
+.sidebar.active ul li.user {
+    width: 95%;
+}
+
+.sidebar ul li.user a {
+    height: 100px;
+}
+
+.sidebar ul li.user .user-avatar {
+    display: inline-block;
+    line-height: 100px;
+    width: 52px;
+    height: 52px;
     border-radius: 100%;
     border: 1px solid white;
 }
 
-.user-name {
+.sidebar ul li.user .user-name {
     font-weight: bold;
     font-size: 24px;
     margin: 10px auto;
 }
 
-.user-role {
-    font-size: 12px;
+.sidebar ul li.user .user-role {
+    font-size: 14px;
     margin: 10px auto;
 }
 
-.user .nav-item {
+.sidebar ul li.user .nav-item {
     width: 60%;
-    margin-left: 15px;
+    padding-left: 15px;
     margin-right: 50px;
 }
 
@@ -179,11 +189,6 @@ body {
 ::-webkit-scrollbar-thumb {
     background: rgba(0, 0, 0, 0.4);
     border-radius: 10px;
-}
-
-* {
-    scrollbar-width: thin;
-    scrollbar-color: rgba(0, 0, 0, 0.4) transparent;
 }
 
 
