@@ -9,7 +9,8 @@
   <link rel='stylesheet' href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css'>
 </head>
 <body>
-  <div th:replace="~{/fragments/sidebar :: sidebar}" class="sidebar"> <!-- Sidebar placeholder --> </div>
+<div th:replace="~{/fragments/sidebar :: sidebar}" class="sidebar"> <!-- Sidebar placeholder --> </div>
+
 
   <div class="mainboard">
     <div class="header-content">
@@ -85,9 +86,11 @@
           </li>
         </ul>
       </div>
+
     </div>
 
   </div>
+
 <script>
   document.querySelectorAll('.money').forEach(function(cell) {
     var amount = parseFloat(cell.textContent.trim().replace(/,/g, ''));  // Sử dụng parseFloat và loại bỏ dấu phẩy nếu có
@@ -96,6 +99,7 @@
         cell.textContent = formattedAmount;
     }
   });
+
 
 </script>
 </body>
