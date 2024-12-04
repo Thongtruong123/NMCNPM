@@ -15,9 +15,24 @@
     <div class="header-content">
       <h1> Trang chủ </h1> <br>
     </div>
-    <div class="upper" id="maincontent">
+    <div class="upper">
       <p> Xin chào, <span th:text="${currentUsername}"></span> <br>Chào mừng đến với trang chủ của Web Quản lý Chung cư BlueMoon </p>
       <hr>
+      <div class="slider">
+        <ul class="slider-list">
+          <li th:each="khoanthu : ${top5khoanthu}" class="item" th:data-loaikhoanthu="${khoanthu.loaikhoanthu}">
+            <div class="overlay">
+              <p th:text="${khoanthu.tenkhoanthu}"></p>
+              <p>Số tiền: <span th:text="${khoanthu.sotien}"></span> VNĐ</p>
+              <p>Hạn chót: <span th:text="${#temporals.format(khoanthu.hanchot, 'yyyy-MM-dd HH:mm:ss')}"></span></p>
+            </div>
+          </li>
+        </ul>
+        <div class="slider-button">
+          <button class="prev" onclick="moveLeft()">&#8592;</button>
+          <button class="next" onclick="moveRight()">&#8594;</button>
+        </div>
+      </div>
     </div>
 
     <div class="lower">
@@ -60,4 +75,5 @@
 </body>
 
 <script src="js/menu-toggle.js"> </script>
+<script src="js/homepage-slider.js"> </script>
 </html>

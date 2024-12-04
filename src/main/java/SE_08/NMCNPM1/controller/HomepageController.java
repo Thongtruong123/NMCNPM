@@ -1,5 +1,7 @@
 package SE_08.NMCNPM1.controller;
 
+import SE_08.NMCNPM1.model.Khoanthu;
+import SE_08.NMCNPM1.repository.KhoanThuRepository;
 import SE_08.NMCNPM1.service.NewsService;
 import SE_08.NMCNPM1.service.WeatherService;
 import jakarta.servlet.http.HttpServletRequest;
@@ -9,8 +11,8 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
 
@@ -19,6 +21,9 @@ public class HomepageController {
 
     private final WeatherService weatherService;
     private final NewsService newsService;
+
+    @Autowired
+    private KhoanThuRepository khoanThuRepository;
 
     @Autowired
     public HomepageController(WeatherService weatherService, NewsService newsService) {
@@ -41,12 +46,10 @@ public class HomepageController {
         List<Map<String, String>> articles = newsService.getArticles();
         model.addAttribute("articles", articles);
 
+        List<Khoanthu> top5khoanthu = khoanThuRepository.findTop5ByHanchotGreaterThanOrderByHanchotAsc(LocalDateTime.now());
+        model.addAttribute("top5khoanthu", top5khoanthu);
+
         return "homepage";
     }
 
-    @GetMapping("/homepage/news")
-    public String getHomepageNews(@RequestParam String url, Model model) {
-        model.addAttribute("url", url);
-        return "homepage-news";
-    }
 }
