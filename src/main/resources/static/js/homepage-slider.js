@@ -1,6 +1,16 @@
 let currentIndex = 0;
 let itemWidth;
 let itemMargin;
+let visibleItems = 3; // Giá trị mặc định
+
+function updateVisibleItems() {
+    const sliderWidth = document.querySelector('.slider').offsetWidth;
+    if (sliderWidth <= 1200) {
+        visibleItems = 2;  // Hiển thị 2 phần tử khi chiều rộng slider <= 1200px
+    } else {
+        visibleItems = 3;  // Hiển thị 3 phần tử khi chiều rộng slider > 1200px
+    }
+}
 
 function updateItemDimensions() {
     const item = document.querySelector('.item');
@@ -9,9 +19,13 @@ function updateItemDimensions() {
     itemWidth = item.offsetWidth; // Lấy chiều rộng của item
     const styles = getComputedStyle(item);
     itemMargin = parseInt(styles.marginLeft) + parseInt(styles.marginRight); // Lấy tổng margin
+
+    updateVisibleItems(); // Cập nhật số lượng phần tử hiển thị
 }
 
-window.addEventListener('resize', updateItemDimensions);
+window.addEventListener('resize', function() {
+    updateItemDimensions();
+});
 updateItemDimensions(); // Cập nhật giá trị ban đầu
 
 function moveLeft() {
@@ -30,13 +44,13 @@ function moveRight() {
     const totalItems = document.querySelectorAll('.item').length;
     if (!sliderList || itemWidth === 0 || totalItems === 0) return;
 
-    const visibleItems = 3; // Hiển thị tối đa 3 phần tử
     if (currentIndex < totalItems - visibleItems) {
         currentIndex++;
         const offset = (itemWidth + itemMargin) * currentIndex;
         sliderList.style.transform = `translateX(-${offset}px)`;
     }
 }
+
 
 function setBackgroundImage(item) {
     const loaikhoanthu = item.getAttribute('data-loaikhoanthu');
