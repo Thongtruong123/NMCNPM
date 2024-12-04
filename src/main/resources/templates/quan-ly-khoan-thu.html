@@ -28,43 +28,43 @@
         <a th:href="@{/create}" class="create-button">Tạo khoản thu</a>
 
         <table class="payment-table">
-        <thead>
-        <tr>
-            <th>ID</th>
-            <th>Tên khoản thu</th>
-            <th>Số tiền</th>
-            <th>Ngày tạo</th>
-            <th>Hạn chót</th>
-            <th>Bắt buộc</th>
-            <th>Người tạo</th>
-            <th>Hành động</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr th:each="khoanthu : ${khoanthu_list}">
-            <td th:text="${khoanthu.id}"></td>
-            <td th:text="${khoanthu.tenkhoanthu}"></td>
-            <td class="money" th:text="${khoanthu.sotien}"></td>
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>Tên khoản thu</th>
+                <th>Số tiền</th>
+                <th>Ngày tạo</th>
+                <th>Hạn chót</th>
+                <th>Bắt buộc</th>
+                <th>Người tạo</th>
+                <th>Hành động</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="khoanthu : ${khoanthu_list}">
+                <td th:text="${khoanthu.id}"></td>
+                <td th:text="${khoanthu.tenkhoanthu}"></td>
+                <td class="money" th:text="${khoanthu.sotien}"></td>
 
-            <td th:text="${#temporals.format(khoanthu.ngaytao, 'yyyy-MM-dd HH:mm:ss')}"></td>
-            <td th:text="${#temporals.format(khoanthu.hanchot, 'yyyy-MM-dd HH:mm:ss')}"></td>
+                <td th:text="${#temporals.format(khoanthu.ngaytao, 'yyyy-MM-dd HH:mm:ss')}"></td>
+                <td th:text="${#temporals.format(khoanthu.hanchot, 'yyyy-MM-dd HH:mm:ss')}"></td>
 
-            <td th:text="${khoanthu.batbuoc == 'Có' ? 'Có' : 'Không'}"></td>
-            <td th:text="${khoanthu.nguoitao}"></td>
-            <td>
-                <a th:href="@{/edit(id=${khoanthu.id})}" class="edit-button">
-                    <i class='bx bxs-edit-alt' style="color: white;"></i>
-                    Sửa
-                </a>
-                <a th:href="@{/delete(id=${khoanthu.id})}" class="delete-button"
-                   onclick="return confirm('Bạn có chắc chắn muốn xóa khoản thu này không?')">
-                    <i class='bx bxs-trash-alt' style="color: white;"></i>
-                    Xóa
-                </a>
-            </td>
-        </tr>
-        </tbody>
-    </table>
+                <td th:text="${khoanthu.batbuoc == 'Có' ? 'Có' : 'Không'}"></td>
+                <td th:text="${khoanthu.nguoitao}"></td>
+                <td>
+                    <a th:href="@{/edit(id=${khoanthu.id})}" class="edit-button">
+                        <i class='bx bxs-edit-alt' style="color: white;"></i>
+                        Sửa
+                    </a>
+                    <a th:href="@{/delete(id=${khoanthu.id})}" class="delete-button"
+                       onclick="return confirm('Bạn có chắc chắn muốn xóa khoản thu này không?')">
+                        <i class='bx bxs-trash-alt' style="color: white;"></i>
+                        Xóa
+                    </a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
     </div>
 </div>
 <script>

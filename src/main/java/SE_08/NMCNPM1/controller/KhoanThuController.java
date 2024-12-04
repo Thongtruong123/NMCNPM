@@ -172,10 +172,10 @@ public class KhoanThuController {
 
     @GetMapping("/delete")
     public String deleteKhoanthu(
-        @RequestParam int id
+            @RequestParam int id
     ){
 
-            repo.deleteById(id);
+        repo.deleteById(id);
 
 
         return "redirect:/quan-ly-khoan-thu";
