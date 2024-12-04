@@ -1,30 +1,40 @@
 .mainboard {
     position: relative;
     top: 0;
-    left: 100px;
+    left: 120px;
+    height: 100vh;
     transition: all 0.5s ease;
-    width: calc(100% - 100px);
+    width: calc(100% - 120px);
     padding: 20px;
     align-items: center;
     justify-content: center;
     background-color: #ADD8E6;
-    overflow: auto;
+}
+
+.header-content {
+    width: 100%;
+    min-width: 500px;
 }
 
 .main-content {
     height: 95%;
     width: 100%;
-    min-width: 1020px;
+    min-width: 500px;
     border-radius: 10px;
     background-color: white;
-    padding: 20px;
+    padding: 0 20px 20px 20px;
+    z-index: -1;
     overflow: auto;
+}
+
+.main-content h2 {
+    margin-top: 20px;
 }
 
 .register-button {
     background: linear-gradient(to right, #FFD700, #FF8C00);
     height: 45px;
-    width: 150px;
+    padding: 10px 20px;
     margin: 20px 800px 20px 0;
     border-radius: 5px;
     display: inline-block;
@@ -43,8 +53,9 @@
 thead {
     position: sticky;
     top: 0;
-    background-color: #f1f1f1;
     z-index: 1;
+    background-color: rgba(169, 169, 169, 1); /* Màu xám đậm */
+    color: white; /* Đặt màu chữ thành trắng cho dễ đọc */
 }
 
 th,td {

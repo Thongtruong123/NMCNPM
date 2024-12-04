@@ -19,7 +19,7 @@
         <div class="table-top">
             <h2> Danh sách tài khoản </h2> <br>
             <hr> <br>
-            <button class="register-button" th:onclick="|window.location.href='@{/quan-ly-tai-khoan/tao-tai-khoan}'|"> Tạo tài khoản </button>
+            <button style="background: linear-gradient(to right, #007e99, #005f6b); color: white" class="register-button" th:onclick="|window.location.href='@{/quan-ly-tai-khoan/tao-tai-khoan}'|"> Tạo tài khoản </button>
         </div>
         <table class="user-table">
             <thead>
@@ -37,43 +37,43 @@
             </tr>
             </thead>
             <tbody>
-                <tr th:each="user : ${userList}">
-                    <td class="info" th:text="${user.username}">Username</td>
-                    <td class="info" th:text="${user.first_name}">Họ</td>
-                    <td class="info" th:text="${user.last_name}">Tên</td>
-                    <td class="info" th:text="${user.email}">Email</td>
-                    <td class="info" th:text="${user.phone_number}">SĐT</td>
+            <tr th:each="user : ${userList}">
+                <td class="info" th:text="${user.username}">Username</td>
+                <td class="info" th:text="${user.first_name}">Họ</td>
+                <td class="info" th:text="${user.last_name}">Tên</td>
+                <td class="info" th:text="${user.email}">Email</td>
+                <td class="info" th:text="${user.phone_number}">SĐT</td>
 
-                    <td class="permissions">
-                        <i th:classappend="${user.role == 'ADMIN' || user.role == 'HIGH_MANAGER' ? 'bx bx-check green' : 'bx bx-x red'}"></i>
-                    </td>
-                    <td class="permissions">
-                        <i th:classappend="${user.role == 'ADMIN' || user.role == 'HIGH_MANAGER' || user.role == 'LOW_MANAGER' ? 'bx bx-check green' : 'bx bx-x red'}"></i>
-                    </td>
-                    <td class="permissions">
-                        <i th:classappend="${user.role == 'ADMIN' || user.role == 'HIGH_MANAGER' ? 'bx bx-check green' : 'bx bx-x red'}"></i>
-                    </td>
-                    <td class="permissions">
-                        <i th:classappend="${user.role == 'ADMIN' ? 'bx bx-check green' : 'bx bx-x red'}"></i>
-                    </td>
+                <td class="permissions">
+                    <i th:classappend="${user.role == 'ADMIN' || user.role == 'HIGH_MANAGER' ? 'bx bx-check green' : 'bx bx-x red'}"></i>
+                </td>
+                <td class="permissions">
+                    <i th:classappend="${user.role == 'ADMIN' || user.role == 'HIGH_MANAGER' || user.role == 'LOW_MANAGER' ? 'bx bx-check green' : 'bx bx-x red'}"></i>
+                </td>
+                <td class="permissions">
+                    <i th:classappend="${user.role == 'ADMIN' || user.role == 'HIGH_MANAGER' ? 'bx bx-check green' : 'bx bx-x red'}"></i>
+                </td>
+                <td class="permissions">
+                    <i th:classappend="${user.role == 'ADMIN' ? 'bx bx-check green' : 'bx bx-x red'}"></i>
+                </td>
 
-                    <td class="roles">
-                        <form th:action="@{/quan-ly-tai-khoan}" method="post">
-                            <input type="hidden" th:value="${user.id}" name="userId"/>
-                            <label>
-                                <select name="role"
-                                        onchange="showSaveButton(this)"
-                                        th:data-current-role="${user.role}"
-                                        th:disabled="${user.role == 'ADMIN'}">
-                                    <option th:value="ADMIN" th:text="'Quản trị viên'" th:selected="${user.role == 'ADMIN'}"></option>
-                                    <option th:value="HIGH_MANAGER" th:text="'Quản lý cấp cao'" th:selected="${user.role == 'HIGH_MANAGER'}"></option>
-                                    <option th:value="LOW_MANAGER" th:text="'Quản lý cấp thấp'" th:selected="${user.role == 'LOW_MANAGER'}"></option>
-                                </select>
-                            </label>
-                            <button type="submit" class="save-role" style="display: none;">Lưu</button>
-                        </form>
-                    </td>
-                </tr>
+                <td class="roles">
+                    <form th:action="@{/quan-ly-tai-khoan}" method="post">
+                        <input type="hidden" th:value="${user.id}" name="userId"/>
+                        <label>
+                            <select name="role"
+                                    onchange="showSaveButton(this)"
+                                    th:data-current-role="${user.role}"
+                                    th:disabled="${user.role == 'ADMIN'}">
+                                <option th:value="ADMIN" th:text="'Quản trị viên'" th:selected="${user.role == 'ADMIN'}"></option>
+                                <option th:value="HIGH_MANAGER" th:text="'Quản lý cấp cao'" th:selected="${user.role == 'HIGH_MANAGER'}"></option>
+                                <option th:value="LOW_MANAGER" th:text="'Quản lý cấp thấp'" th:selected="${user.role == 'LOW_MANAGER'}"></option>
+                            </select>
+                        </label>
+                        <button type="submit" class="save-role" style="display: none;">Lưu</button>
+                    </form>
+                </td>
+            </tr>
             </tbody>
         </table>
     </div>

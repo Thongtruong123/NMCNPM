@@ -1,40 +1,34 @@
 .mainboard {
     position: relative;
     top: 0;
-    left: 100px;
+    left: 120px;
+    height: 100vh;
     transition: all 0.5s ease;
-    width: calc(100% - 100px);
+    width: calc(100% - 120px);
     padding: 20px;
+    align-items: center;
+    justify-content: center;
     background-color: #ADD8E6;
-    overflow: auto;
+}
+
+.header-content {
+    width: 100%;
+    min-width: 500px;
 }
 
 .main-content {
-    height: 100%;
+    height: 95%;
     width: 100%;
-    min-width: 900px;
+    min-width: 500px;
     border-radius: 10px;
     background-color: white;
+    padding: 0 20px 20px 20px;
+    z-index: -1;
     overflow: auto;
-    padding: 20px;
 }
 
-.payment-button {
-    background: linear-gradient(to right, #FFD700, #FF8C00);
-    height: 45px;
-    width: 150px;
-    margin: 20px 800px 20px 0;
-    border-radius: 5px;
-    display: inline-block;
-    border: none;
-    cursor: pointer;
-}
-
-.payment-button a {
-    text-decoration: none;
-    color: #4169E1;
-    font-size: 18px;
-    font-weight: bold;
+.main-content h2 {
+    margin-top: 20px;
 }
 
 .searchbar {
@@ -48,13 +42,13 @@
     font-size: 18px;
     height: 100%;
     width: 80%;
-    padding: 3px;
+    padding: 5px 10px;
     border-radius: 5px;
     border-color: #DCDCDC;
 }
 
 .searchbar button {
-    background-color: #4169E1;
+    background: linear-gradient(to right, #007e99, #005f6b);
     height: 100%;
     width: 45px;
     color: white;
@@ -62,6 +56,8 @@
     font-weight: bold;
     border: none;
     border-radius: 5px;
+    padding: 5px 10px;
+    margin-left: 10px;
     cursor: pointer;
 }
 
@@ -71,8 +67,12 @@
     margin-top: 20px;
 }
 
-.table-top{
+thead {
     position: sticky;
+    top: 0;
+    z-index: 1;
+    background-color: rgba(169, 169, 169, 1); /* Màu xám đậm */
+    color: white; /* Đặt màu chữ thành trắng cho dễ đọc */
 }
 
 th,td {
@@ -86,18 +86,32 @@ th {
     font-weight: bold;
 }
 
-.edit {
-    background-color: transparent;
-    border: none;
-    font-size: 30px;
-    color: #008000;
-    cursor: pointer;
+.create-button {
+    text-decoration: none;
+    padding: 10px 20px;
+    background: linear-gradient(to right, #007e99, #005f6b);
+    color: white;
+    border-radius: 5px;
+    display: inline-block;
+    font-weight: bold;
 }
 
-.delete {
-    background-color: transparent;
-    border: none;
-    font-size: 30px;
-    color: #FF0000;
-    cursor: pointer;
+td .edit-button {
+    display: inline-block;
+    padding: 8px 16px;
+    color: white;
+    background-color:#2ecc71;
+    text-decoration: none;
+    border-radius: 4px;
+    text-align: center;
+}
+
+td .delete-button {
+    display: inline-block;
+    padding: 8px 16px;
+    color: white;
+    background-color: #e74c3c;
+    text-decoration: none;
+    border-radius: 4px;
+    text-align: center;
 }

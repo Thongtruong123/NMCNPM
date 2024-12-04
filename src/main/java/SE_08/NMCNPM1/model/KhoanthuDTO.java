@@ -27,6 +27,7 @@ public class KhoanthuDTO {
     private String nguoitao;
 
     // Getter và Setter
+
     public String getTenkhoanthu() {
         return tenkhoanthu;
     }
