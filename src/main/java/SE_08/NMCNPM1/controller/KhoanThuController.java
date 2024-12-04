@@ -3,13 +3,16 @@ package SE_08.NMCNPM1.controller;
 import SE_08.NMCNPM1.model.Khoanthu;
 import SE_08.NMCNPM1.model.KhoanthuDTO;
 import SE_08.NMCNPM1.repository.KhoanThuRepository;
+import SE_08.NMCNPM1.service.KhoanThuService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -20,12 +23,16 @@ import java.util.Optional;
 public class KhoanThuController {
 
     @Autowired
-    private KhoanThuRepository repo;
+    private KhoanThuService repo;
+
+
+
 
     @GetMapping({"/quan-ly-khoan-thu"})
-    public String showKhoanthuList(Model model) {
+    public String showKhoanthuList(Model model, @RequestParam(value = "keyword", required = false) String keyword ,
+                                   @RequestParam(value = "sort", required = false) Sort sort) {
         // Lấy danh sách Khoanthu từ database
-        List<Khoanthu> ds_khoanthu = repo.findAll(Sort.by(Sort.Direction.ASC, "id"));
+        List<Khoanthu> ds_khoanthu = repo.listAll(keyword, sort);
 
         // Kiểm tra và log kết quả
         if (ds_khoanthu.isEmpty()) {
@@ -47,6 +54,7 @@ public class KhoanThuController {
         KhoanthuDTO khoanthuDto = new KhoanthuDTO();
         model.addAttribute("khoanthuDto", khoanthuDto);
         System.out.println("Thêm đối tượng khoanthuDto vào model: " + khoanthuDto);
+
 
         return "form-qlkt";
     }
@@ -85,6 +93,7 @@ public class KhoanThuController {
         repo.save(khoanthu);
 
         System.out.println("Khoan Thu đã được lưu vào cơ sở dữ liệu.");
+        model.addAttribute("createsuccess", "Tạo khoản thu thành công!");
         return "redirect:/quan-ly-khoan-thu";
 
     }
@@ -103,7 +112,7 @@ public class KhoanThuController {
     ) {
         try {
             // Tìm khoản thu theo ID sử dụng Optional
-            Khoanthu khoanthu = repo.findById(id).orElse(null);  // Chuyển từ Optional sang Khoanthu nếu tìm thấy
+            Khoanthu khoanthu = repo.findById(id);  // Chuyển từ Optional sang Khoanthu nếu tìm thấy
 
             if (khoanthu == null) {
                 // Nếu không tìm thấy, chuyển hướng về trang quản lý khoản thu
@@ -136,7 +145,7 @@ public class KhoanThuController {
             BindingResult result) {
         try {
             // Tìm khoản thu theo ID
-            Optional<Khoanthu> optionalKhoanthu = repo.findById(id);
+            Optional<Khoanthu> optionalKhoanthu = Optional.ofNullable(repo.findById(id));
             if (optionalKhoanthu.isPresent()) {
                 // Nếu không tìm thấy, chuyển hướng về trang quản lý khoản thu
                 return "redirect:/quan-ly-khoan-thu";
@@ -171,14 +180,18 @@ public class KhoanThuController {
     }
 
     @GetMapping("/delete")
-    public String deleteKhoanthu(
-        @RequestParam int id
-    ){
-
+    public String deleteKhoanthu(@RequestParam int id, RedirectAttributes redirectAttributes) {
+        Optional<Khoanthu> khoanthu = Optional.ofNullable(repo.findById(id)); // Tìm khoản thu trước khi xóa
+        if (khoanthu.isPresent()) {
             repo.deleteById(id);
-
-
+            // Thêm thông báo xóa thành công
+            redirectAttributes.addFlashAttribute("message", "Khoản thu '" + khoanthu.get().getTenkhoanthu() + "' đã được xóa!");
+        } else {
+            // Thêm thông báo nếu không tìm thấy
+            redirectAttributes.addFlashAttribute("message", "Không tìm thấy khoản thu cần xóa!");
+        }
         return "redirect:/quan-ly-khoan-thu";
     }
+
 
 }

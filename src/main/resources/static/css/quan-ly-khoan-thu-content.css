@@ -79,3 +79,12 @@ th {
     font-size: 18px;
     font-weight: bold;
 }
+
+.notification {
+     margin-bottom: 15px;
+     color: white;
+     background-color: #4caf50;
+     padding: 10px;
+     border-radius: 4px;
+     text-align : center
+ }

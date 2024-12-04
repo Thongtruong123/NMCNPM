@@ -7,21 +7,45 @@
     <link rel="stylesheet" href="css/quan-ly-khoan-thu-content.css">
     <link rel='stylesheet' href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css'>
     <title>Quan ly Khoan thu</title>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const notification = document.querySelector('.notification');
+            if (notification) {
+                setTimeout(() => {
+                    notification.style.display = 'none';
+                }, 10000); // 10000ms = 10s
+            }
+        });
+    </script>
 </head>
 <body>
 
 <div th:replace="~{/fragments/sidebar :: sidebar}" class="sidebar"> <!-- Sidebar placeholder --> </div>
+
 <!--<div class="container">-->
 <div class="mainboard">
     <div class="header-content">
         <h1> Quản lý khoản thu </h1> <br>
     </div>
+    <div th:if="${message}" class="notification">
+        <p th:text="${message}"></p>
+    </div>
+    <div th:if="${createsuccess}" class="notification">
+        <p th:text="${createsuccess}"></p>
+    </div>
+
     <div class="main-content" id="maincontent">
         <h2 class="text-center my-4">Danh sách khoản thu</h2>
         <hr>
         <div class="searchbar" style="display: flex; justify-content: center; width: 100%;">
-            <input type="search" placeholder="Tìm kiếm" id="keyword" name="keyword" required style="width: 80%; padding: 5px 10px;">
-            <button class="search-button" type="submit" style="padding: 5px 10px; margin-left: 10px;"> <i class='bx bx-search'></i> </button>
+            <form method="get" action="/quan-ly-khoan-thu" style="display: flex; align-items: center;  width: 90%;">
+                <input type="search" placeholder="Tìm kiếm" id="keyword" name="keyword" th:value="${keyword}" required style="flex: 3; width: 90%; padding: 5px 10px;">
+                <button class="search-button" type="submit" style="padding: 5px 10px; margin-left: 10px;">
+                    <i class='bx bx-search'></i>
+                </button>
+            </form>
+
         </div>
         <br>
 
