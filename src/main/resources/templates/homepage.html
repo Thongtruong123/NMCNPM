@@ -50,7 +50,24 @@
         </div>
 
         <div class="recent-invoice">
-          <p> bang cac hoa don gan day</p>
+          <h2>Hóa đơn gần đây</h2>
+          <table class="table">
+            <thead>
+            <tr>
+              <th>Phòng</th>
+              <th>Thời gian</th>
+              <th>Số tiền</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="hoadon : ${top5hoadon}">
+              <td th:text="${hoadon.roomNumber}"></td>
+              <td th:text="${#temporals.format(hoadon.createdAt, 'yyyy-MM-dd HH:mm:ss')}"></td>
+              <td class="money" th:text="${hoadon.totalAmount}"></td>
+            </tr>
+            </tbody>
+          </table>
+
         </div>
       </div>
 
@@ -71,7 +88,16 @@
     </div>
 
   </div>
+<script>
+  document.querySelectorAll('.money').forEach(function(cell) {
+    var amount = parseFloat(cell.textContent.trim().replace(/,/g, ''));  // Sử dụng parseFloat và loại bỏ dấu phẩy nếu có
+    if (!isNaN(amount)) {
+        var formattedAmount = amount.toLocaleString();  // Định dạng lại số
+        cell.textContent = formattedAmount;
+    }
+  });
 
+</script>
 </body>
 
 <script src="js/menu-toggle.js"> </script>

@@ -1,6 +1,8 @@
 package SE_08.NMCNPM1.controller;
 
+import SE_08.NMCNPM1.model.Invoice;
 import SE_08.NMCNPM1.model.Khoanthu;
+import SE_08.NMCNPM1.repository.InvoiceRepository;
 import SE_08.NMCNPM1.repository.KhoanThuRepository;
 import SE_08.NMCNPM1.service.NewsService;
 import SE_08.NMCNPM1.service.WeatherService;
@@ -26,6 +28,9 @@ public class HomepageController {
     private KhoanThuRepository khoanThuRepository;
 
     @Autowired
+    private InvoiceRepository invoiceRepository;
+
+    @Autowired
     public HomepageController(WeatherService weatherService, NewsService newsService) {
         this.weatherService = weatherService;
         this.newsService = newsService;
@@ -48,6 +53,9 @@ public class HomepageController {
 
         List<Khoanthu> top5khoanthu = khoanThuRepository.findTop5ByHanchotGreaterThanOrderByHanchotAsc(LocalDateTime.now());
         model.addAttribute("top5khoanthu", top5khoanthu);
+
+        List<Invoice> top5hoadon = invoiceRepository.findTop5ByOrderByCreatedAtDesc();
+        model.addAttribute("top5hoadon", top5hoadon);
 
         return "homepage";
     }

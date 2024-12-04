@@ -142,8 +142,25 @@
     z-index: -1;
 }
 
+.left .recent-invoice .table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 15px;
+}
+
+.left .recent-invoice .table th,td {
+    padding: 10px;
+    text-align: left;
+    border-bottom: 2px solid #000000;
+}
+
+.left .recent-invoice .table th {
+    font-size: 18px;
+    font-weight: bold;
+}
+
 .right {
-    height: 82%;
+    height: 81%;
     width: 75%;
     min-width: 580px;
     border-radius: 10px;
