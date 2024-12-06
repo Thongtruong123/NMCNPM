@@ -30,10 +30,7 @@ public class UserService implements UserDetailsService {
         if (user == null) {
             throw new UsernameNotFoundException("User not found");
         }
-        List<GrantedAuthority> authorities = new ArrayList<>();
-        authorities.add(new SimpleGrantedAuthority("ROLE_USER"));  // Quyền USER
-        authorities.add(new SimpleGrantedAuthority("ROLE_ADMIN")); // Quyền ADMIN
-        return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(), authorities);
+        return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(), user.getAuthorities());
     }
 
     public void registerNewUser (RegisterFormDTO registerFormDTO) {
@@ -44,12 +41,20 @@ public class UserService implements UserDetailsService {
         user.setLast_name(registerFormDTO.getLast_name());
         user.setEmail(registerFormDTO.getEmail());
         user.setPhone_number(registerFormDTO.getPhone_number());
-        user.setRole("USER");
+        user.setRole(registerFormDTO.getRole());
 
         userRepository.save(user);
     }
 
     public boolean usernameExist(String username) {
         return userRepository.findByUsername(username) != null;
+    }
+
+    public User getUserByUsername(String username) {
+        User user = userRepository.findByUsername(username);
+        if (user == null) {
+            throw new UsernameNotFoundException("User not found");
+        }
+        else return user;
     }
 }

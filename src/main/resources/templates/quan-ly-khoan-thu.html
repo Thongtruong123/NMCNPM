@@ -1,82 +1,83 @@
 <!DOCTYPE html>
 <html lang="vi" xmlns:th="http://www.thymeleaf.org">
 <head>
-  <title> Trang chủ </title>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="css/template.css">
-  <link rel="stylesheet" href="css/quan-ly-khoan-thu-content.css">
-  <link rel='stylesheet' href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css'>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="css/template.css">
+    <link rel="stylesheet" href="css/quan-ly-khoan-thu-content.css">
+    <link rel='stylesheet' href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css'>
+    <title>Quan ly Khoan thu</title>
 </head>
 <body>
-  <div th:replace="~{/fragments/sidebar :: sidebar}" class="sidebar"> <!-- Sidebar placeholder --> </div>
 
-  <div class="mainboard">
+<div th:replace="~{/fragments/sidebar :: sidebar}" class="sidebar"> <!-- Sidebar placeholder --> </div>
+<!--<div class="container">-->
+<div class="mainboard">
     <div class="header-content">
-      <h1> Quản lý khoản thu </h1> <br>
+        <h1> Quản lý khoản thu </h1> <br>
     </div>
     <div class="main-content" id="maincontent">
-      <div class="table-top">
-        <h2> Bảng các khoản thu </h2> <br>
+        <h2 class="text-center my-4">Danh sách khoản thu</h2>
         <hr>
-        <button class="payment-button"> <a th:href="@{/form-qlkt}"> Tạo khoản thu </a> </button>
-
-        <div class="searchbar">
-          <input type="search" placeholder="Tìm kiếm" id="keyword" name="keyword" required>
-          <button class="search-button" type="submit"> <i class='bx bx-search' ></i> </button>
+        <div class="searchbar" style="display: flex; justify-content: center; width: 100%;">
+            <input type="search" placeholder="Tìm kiếm" id="keyword" name="keyword" required>
+            <button type="submit" style=""> <i class='bx bx-search'></i> </button>
         </div>
-      </div>
+        <br>
 
-      <table class="payment-table">
-        <thead>
-          <tr>
-            <th> STT </th>
-            <th> Tên khoản thu </th>
-            <th> Số tiền </th>
-            <th> Ngày bắt đầu </th>
-            <th> Ngày kết thúc </th>
-            <th> Người thu </th>
-            <th> Trạng thái </th>
-            <th> Mô tả </th>
-            <th> Hành động </th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td> 1 </td>
-            <td> Khoản thu demo 1 </td>
-            <td> 500.000 </td>
-            <td> 01/10/2024 </td>
-            <td> 02/10/2024 </td>
-            <td> Bàn tiếp tân tại sảnh </td>
-            <td> Đã kết thúc </td>
-            <td> Không có mô tả </td>
-            <td>
-              <button class="edit"> <i class='bx bxs-edit-alt'></i> </button>
-              <button class="delete"> <i class='bx bxs-trash-alt' ></i> </button>
-            </td>
-          </tr>
+        <a th:href="@{/create}" class="create-button">Tạo khoản thu</a>
 
-          <tr>
-            <td> 2 </td>
-            <td> Khoản thu demo 2 </td>
-            <td> 500.000 </td>
-            <td> 01/10/2024 </td>
-            <td> 02/10/2024 </td>
-            <td> Bàn tiếp tân tại sảnh </td>
-            <td> Đã kết thúc </td>
-            <td> Không có mô tả </td>
-            <td>
-              <button class="edit"> <i class='bx bxs-edit-alt'></i> </button>
-              <button class="delete"> <i class='bx bxs-trash-alt' ></i> </button>
-            </td>
-          </tr>
-        </tbody>
-      </table>
+        <table class="payment-table">
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>Tên khoản thu</th>
+                <th>Số tiền</th>
+                <th>Ngày tạo</th>
+                <th>Hạn chót</th>
+                <th>Bắt buộc</th>
+                <th>Người tạo</th>
+                <th>Hành động</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="khoanthu : ${khoanthu_list}">
+                <td th:text="${khoanthu.id}"></td>
+                <td th:text="${khoanthu.tenkhoanthu}"></td>
+                <td class="money" th:text="${khoanthu.sotien}"></td>
+
+                <td th:text="${#temporals.format(khoanthu.ngaytao, 'yyyy-MM-dd HH:mm:ss')}"></td>
+                <td th:text="${#temporals.format(khoanthu.hanchot, 'yyyy-MM-dd HH:mm:ss')}"></td>
+
+                <td th:text="${khoanthu.batbuoc == 'Có' ? 'Có' : 'Không'}"></td>
+                <td th:text="${khoanthu.nguoitao}"></td>
+                <td>
+                    <a th:href="@{/edit(id=${khoanthu.id})}" class="edit-button">
+                        <i class='bx bxs-edit-alt' style="color: white;"></i>
+                        Sửa
+                    </a>
+                    <a th:href="@{/delete(id=${khoanthu.id})}" class="delete-button"
+                       onclick="return confirm('Bạn có chắc chắn muốn xóa khoản thu này không?')">
+                        <i class='bx bxs-trash-alt' style="color: white;"></i>
+                        Xóa
+                    </a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
     </div>
-  </div>
-
+</div>
+<script>
+    document.querySelectorAll('.money').forEach(function(cell) {
+        var amount = parseInt(cell.textContent.trim(), 10);
+        if (!isNaN(amount)) {
+            var formattedAmount = amount.toLocaleString();
+            cell.textContent = formattedAmount;
+        }
+    });
+</script>
 </body>
-
 <script src="js/menu-toggle.js"> </script>
 </html>
+
+

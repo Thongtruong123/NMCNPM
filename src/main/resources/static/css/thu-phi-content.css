@@ -1,19 +1,108 @@
 .mainboard {
     position: relative;
     top: 0;
-    left: 100px;
+    left: 120px;
+    height: 100vh;
     transition: all 0.5s ease;
-    width: calc(100% - 100px);
+    width: calc(100% - 120px);
     padding: 20px;
     align-items: center;
     justify-content: center;
     background-color: #ADD8E6;
 }
 
-.main-content {
-    height: 100%;
+.header-content {
     width: 100%;
+    min-width: 500px;
+}
+
+.main-content {
+    height: 95%;
+    width: 100%;
+    min-width: 500px;
     border-radius: 10px;
     background-color: white;
     padding: 20px;
+    z-index: -1;
+    overflow: auto;
+}
+
+form {
+    width: 100%;
+    height: auto;
+}
+
+label {
+    font-size: 18px; /* Kích thước chữ là 18px */
+    font-weight: bold; /* Đặt chữ đậm */
+    margin-bottom: 5px; /* Khoảng cách dưới 5px */
+    display: flex; /* Kích hoạt Flexbox */
+    align-items: center; /* Căn chỉnh text và input theo chiều dọc */
+    gap: 10px; /* Khoảng cách giữa text và input */
+}
+
+input, select {
+    font-size: 16px; /* Kích thước chữ là 16px */
+    height: 40px; /* Chiều cao cố định là 40px */
+    width: 100%; /* Chiếm toàn bộ chiều rộng của phần tử cha */
+    /*max-width: 600px;  Chiều rộng tối đa là 600px */
+    margin-bottom: 15px; /* Khoảng cách dưới là 15px */
+    padding: 8px;  /*Khoảng cách nội dung cách viền là 8px */
+    border-radius: 5px; /* Làm tròn các góc với bán kính 5px */
+    border: 1px solid #DCDCDC; /* Viền mỏng màu xám nhạt */
+    background-color: #f9f9f9; /* Đặt nền màu xám nhạt */
+}
+
+.due-amounts-scroll {
+    width: 100%; /* Chiếm toàn bộ chiều rộng của phần tử cha */
+     /* Chiều rộng tối đa là 600px */
+    max-height: 160px; /* Chiều cao tự động dựa trên nội dung */
+    overflow-y: auto; /* Thêm thanh cuộn dọc nếu nội dung vượt quá chiều cao */
+    border: 1px solid #DCDCDC; /* Viền mỏng màu xám nhạt */
+    margin-bottom: 15px; /* Khoảng cách dưới là 15px */
+    padding: 10px; /* Khoảng cách nội dung cách viền là 10px */
+    border-radius: 5px; /* Làm tròn các góc với bán kính 5px */
+    overflow: auto;
+}
+
+.due-item {
+    display: flex; /* Biến phần tử thành flex container */
+    justify-content: space-between; /* Đặt các phần tử con ở hai đầu, cách đều nhau */
+    align-items: center; /* Căn giữa các phần tử con theo chiều dọc */
+    padding: 10px 0; /* Khoảng cách trên và dưới là 10px */
+    border-bottom: 1px solid #eee; /* Đường viền dưới mỏng màu xám rất nhạt */
+}
+
+.due-item:last-child {
+    border-bottom: none; /* Xóa viền dưới cho phần tử cuối cùng */
+}
+
+.due-item p {
+    font-size: 14px; /* Kích thước chữ là 14px */
+    margin: 0; /* Loại bỏ khoảng cách xung quanh */
+    line-height: 1.5; /* Chiều cao dòng là 1.5 lần kích thước chữ */
+}
+
+.due-item input[type="checkbox"] {
+    width: 18px; /* Chiều rộng checkbox là 18px */
+    height: 18px; /* Chiều cao checkbox là 18px */
+    margin-left: 10px; /* Khoảng cách bên trái là 10px */
+}
+.button-container {
+    display: flex;
+    justify-content: center;
+}
+
+.generate-invoice-button {
+    height: 50px; /* Chiều cao nút là 50px */
+    width: 100%; /* Chiếm toàn bộ chiều rộng của phần tử cha */
+    max-width: 600px; /* Chiều rộng tối đa là 600px */
+    margin-top: 20px; /* Khoảng cách phía trên là 20px */
+    border-radius: 10px; /* Làm tròn các góc với bán kính 10px */
+    background: linear-gradient(to right, #007e99, #005f6b); /* Nền chuyển sắc từ xanh đậm sang xanh tối */
+    color: white; /* Màu chữ trắng */
+    font-size: 18px; /* Kích thước chữ là 18px */
+    font-weight: bold; /* Chữ đậm */
+    cursor: pointer; /* Đổi con trỏ thành tay khi rê chuột vào */
+    border: none; /* Loại bỏ viền */
 }
