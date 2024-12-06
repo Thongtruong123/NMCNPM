@@ -33,7 +33,7 @@
                     <span class="tooltip"> Thu phí </span>
                 </li>
                 <li>
-                    <a th:href="@{/thong-ke-dong-gop}">
+                    <a th:href="@{/thong-ke-dong-gop?id=0}">
                         <i class='bx bx-spreadsheet' ></i>
                         <span class="nav-item"> Thống kê đóng góp </span>
                     </a>
@@ -55,7 +55,6 @@
                 </li>
             </ul>
         </div>
-
 
         <div class="ul-bot">
             <hr class="sidebar-divider" sec:authorize="hasRole('ROLE_ADMIN')" style="margin-top: 20vh; margin-bottom: 20px;" />

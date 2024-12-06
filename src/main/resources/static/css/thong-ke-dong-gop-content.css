@@ -16,4 +16,14 @@
     border-radius: 10px;
     background-color: white;
     padding: 20px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.drop_down_list_khoanthu{
+    max-height: 40px;
+    overflow: auto;
+    border-radius: 5px;
+    cursor: pointer;
+    background-color: #a8a7a7;
 }
