@@ -1,60 +1,59 @@
+// Hàm hiển thị loading
+function showLoading(message = "Đang tải, vui lòng đợi...") {
+    const overlay = document.getElementById('loadingOverlay');
+    overlay.querySelector('p').textContent = message;
+    overlay.style.display = 'flex';
+}
+
+// Hàm ẩn loading
+function hideLoading() {
+    const overlay = document.getElementById('loadingOverlay');
+    overlay.style.display = 'none';
+}
+
 // Lấy danh sách khoản chưa đóng
 document.getElementById('roomNumber').addEventListener('keydown', async function(event) {
     if (event.key === 'Enter') {
         event.preventDefault();
         const roomNumber = this.value.trim();
-        if (roomNumber) {
-            try {
-                const response = await fetch(`/api/family/${roomNumber}`);
-                if (!response.ok) throw new Error("Không tìm thấy thông tin hộ gia đình.");
-                const familyData = await response.json();
-                console.log(response);
-
-                // Hiển thị tên chủ hộ
-                document.getElementById('ownerName').value = familyData.family.ownerName || "Không có thông tin chủ hộ";
-
-                // Hiển thị danh sách các khoản chưa đóng
-                const dueAmountsDiv = document.getElementById('dueAmounts');
-                dueAmountsDiv.innerHTML = ''; // Xóa nội dung cũ
-                if (familyData.dueAmounts && familyData.dueAmounts.length > 0) {
-                    familyData.dueAmounts.forEach(due => {
-                        const dueItem = document.createElement('div');
-                        dueItem.className = 'due-item';
-
-                        // Tạo thông tin khoản thu
-                        //const dueInfo = document.createElement('p');
-                        const label = document.createElement('label');
-                        label.textContent = `Khoản thu: ${due.name} - ${due.amount.toLocaleString()} VNĐ`;
-
-                        // Checkbox cho khoản thu
-                        const dueCheckbox = document.createElement('input');
-                        dueCheckbox.type = 'checkbox';
-                        dueCheckbox.className = 'due-checkbox';
-                        dueCheckbox.dataset.id = due.id; // ID của khoản thu
-                        dueCheckbox.dataset.feeId = due.feeId; // fee_id để theo dõi khoản thu
-                        dueCheckbox.value = due.amount;
-                        dueCheckbox.id = due.id;
-
-                        //Gán id duy nhất và liên kết với label
-                        const uniqueId = `checkbox-${due.feeId}`;
-                        dueCheckbox.id=uniqueId;
-                        label.htmlFor = uniqueId;
-
-                        // Thêm checkbox vào label
-                        label.appendChild(dueCheckbox);
-
-                        dueItem.appendChild(label);
-                        //dueItem.appendChild(dueCheckbox);
-                        dueAmountsDiv.appendChild(dueItem);
-                    });
-                } else {
-                    dueAmountsDiv.innerHTML = '<p>Không có khoản thu nào chưa đóng.</p>';
-                }
-            } catch (error) {
-                alert(error.message);
-            }
-        } else {
+        if (!roomNumber) {
             alert("Vui lòng nhập số phòng hợp lệ.");
+            return;
+        }
+
+        // Hiển thị loading
+        showLoading("Đang tải danh sách khoản thu...");
+
+        try {
+            const response = await fetch(`/api/family/${roomNumber}`);
+            if (!response.ok) throw new Error("Không tìm thấy thông tin hộ gia đình.");
+            const familyData = await response.json();
+
+            // Hiển thị tên chủ hộ
+            document.getElementById('ownerName').value = familyData.family.ownerName || "Không có thông tin chủ hộ";
+
+            // Hiển thị danh sách các khoản chưa đóng
+            const dueAmountsDiv = document.getElementById('dueAmounts');
+            dueAmountsDiv.innerHTML = ''; // Xóa nội dung cũ
+            if (familyData.dueAmounts && familyData.dueAmounts.length > 0) {
+                familyData.dueAmounts.forEach(due => {
+                    const uniqueId = `checkbox-${due.feeId}`;
+                    dueAmountsDiv.innerHTML += `
+                        <div class="due-item">
+                            <label for="${uniqueId}">
+                                Khoản thu: ${due.name} - ${due.amount.toLocaleString()} VNĐ
+                                <input type="checkbox" class="due-checkbox" id="${uniqueId}" data-id="${due.id}" data-fee-id="${due.feeId}" value="${due.amount}">
+                            </label>
+                        </div>`;
+                });
+            } else {
+                dueAmountsDiv.innerHTML = '<p>Không có khoản thu nào chưa đóng.</p>';
+            }
+        } catch (error) {
+            alert(error.message);
+        } finally {
+            // Ẩn loading
+            hideLoading();
         }
     }
 });
@@ -64,36 +63,32 @@ document.getElementById('dueAmounts').addEventListener('change', function() {
     const checkboxes = document.querySelectorAll('.due-checkbox');
     const totalAmount = Array.from(checkboxes)
         .filter(checkbox => checkbox.checked)
-        .reduce((sum, checkbox) => {
-            const amount = parseFloat(checkbox.value);
-            return sum + (isNaN(amount) ? 0 : amount);
-        }, 0);
+        .reduce((sum, checkbox) => sum + parseFloat(checkbox.value), 0);
     document.getElementById('paymentAmount').value = totalAmount.toLocaleString();
-    console.log(totalAmount);
 });
-
-
 
 // Xử lý tạo hóa đơn
 const csrfToken = document.querySelector('meta[name="_csrf"]').getAttribute('content');
 const csrfHeader = document.querySelector('meta[name="_csrf_header"]').getAttribute('content');
 document.querySelector('.generate-invoice-button').addEventListener('click', async function(event) {
     event.preventDefault();
+
     const roomNumber = document.getElementById('roomNumber').value.trim();
     const payerName = document.getElementById('payerName').value.trim();
     const phoneNumber = document.getElementById('phoneNumber').value.trim();
     const totalAmount = parseFloat(document.getElementById('paymentAmount').value.replace(/\./g, '').replace(/,/g, '.'));
-    console.log(totalAmount);
 
-    if (!roomNumber || !totalAmount) {
+    if (!roomNumber || !payerName || !phoneNumber || totalAmount <= 0) {
         alert("Vui lòng nhập đủ thông tin và chọn khoản cần thanh toán.");
         return;
     }
 
-    // Lấy danh sách khoản thu đã chọn
+    // Hiển thị loading
+    showLoading("Đang tạo hóa đơn...");
+
     const selectedDues = Array.from(document.querySelectorAll('.due-checkbox:checked')).map(cb => ({
-        id: cb.dataset.id, // ID của khoản thu
-        feeId: cb.dataset.feeId, // fee_id để theo dõi khoản thu
+        id: cb.dataset.id,
+        feeId: cb.dataset.feeId,
         amount: parseFloat(cb.value)
     }));
 
@@ -104,7 +99,6 @@ document.querySelector('.generate-invoice-button').addEventListener('click', asy
         totalAmount,
         selectedDueAmounts: selectedDues
     };
-    console.log("Dữ liệu gửi lên:", invoiceData);
 
     try {
         const response = await fetch('/api/family/invoice', {
@@ -115,37 +109,28 @@ document.querySelector('.generate-invoice-button').addEventListener('click', asy
             },
             body: JSON.stringify(invoiceData)
         });
-        console.log(response);
-       if (!response.ok) {
-           try {
-               const errorData = await response.json();
-               console.error("Lỗi từ server:", errorData);
-               alert(errorData.error || "Lỗi không xác định khi tạo hóa đơn.");
-           } catch {
-               alert("Lỗi không xác định từ server.");
-           }
-           return;
-       }
+
+        if (!response.ok) throw new Error("Không thể tạo hóa đơn.");
         const createdInvoice = await response.json();
 
         // Hiển thị hóa đơn sau khi tạo thành công
         openInvoiceInNewPage(createdInvoice);
 
         // Xóa dữ liệu sau khi tạo hóa đơn
+        document.getElementById('invoiceForm').reset();
         document.getElementById('dueAmounts').innerHTML = '';
-        document.getElementById('paymentAmount').value = '';
     } catch (error) {
-        alert("Lỗi khi tạo hóa đơn. Vui lòng thử lại.");
+        alert(error.message || "Lỗi không xác định.");
+    } finally {
+        // Ẩn loading
+        hideLoading();
     }
 });
 
-
 // Mở hóa đơn trong trang mới
 function openInvoiceInNewPage(invoice) {
-    console.log("Phản hồi từ server:", invoice);
     const newWindow = window.open('', '_blank');
-    const dueAmounts = invoice.selectedDueAmounts || []; // Xử lý khi null/undefined
-    console.log("Dữ liệu khoản thu (dueAmounts):", dueAmounts);
+    const dueAmounts = invoice.selectedDueAmounts || [];
     newWindow.document.write(`
         <html>
             <head>

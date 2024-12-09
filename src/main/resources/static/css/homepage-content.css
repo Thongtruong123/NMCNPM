@@ -140,23 +140,27 @@
     background-color: white;
     padding: 20px;
     z-index: -1;
+    overflow: auto;
 }
 
 .left .recent-invoice .table {
     width: 100%;
     border-collapse: collapse;
     margin-top: 15px;
+    overflow:auto;
 }
 
 .left .recent-invoice .table th,td {
     padding: 10px;
     text-align: left;
     border-bottom: 2px solid #000000;
+    overflow:auto;
 }
 
 .left .recent-invoice .table th {
     font-size: 18px;
     font-weight: bold;
+    overflow:auto;
 }
 
 .right {
