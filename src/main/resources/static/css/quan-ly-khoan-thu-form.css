@@ -33,24 +33,23 @@ form {
 }
 
 label {
-    font-size: 18px; /* Kích thước chữ là 18px */
-    font-weight: bold; /* Đặt chữ đậm */
-    margin-bottom: 5px; /* Khoảng cách dưới 5px */
-    display: flex; /* Kích hoạt Flexbox */
-    align-items: center; /* Căn chỉnh text và input theo chiều dọc */
-    gap: 10px; /* Khoảng cách giữa text và input */
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 5px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
 }
 
 input, select {
-    font-size: 16px; /* Kích thước chữ là 16px */
-    height: 40px; /* Chiều cao cố định là 40px */
-    width: 100%; /* Chiếm toàn bộ chiều rộng của phần tử cha */
-    /*max-width: 600px;  Chiều rộng tối đa là 600px */
-    margin-bottom: 15px; /* Khoảng cách dưới là 15px */
-    padding: 8px;  /*Khoảng cách nội dung cách viền là 8px */
-    border-radius: 5px; /* Làm tròn các góc với bán kính 5px */
-    border: 1px solid #DCDCDC; /* Viền mỏng màu xám nhạt */
-    background-color: #f9f9f9; /* Đặt nền màu xám nhạt */
+    font-size: 16px;
+    height: 40px;
+    width: 100%;
+    margin-bottom: 15px;
+    padding: 8px;
+    border-radius: 5px;
+    border: 1px solid #DCDCDC;
+    background-color: #f9f9f9;
 }
 
 .detail {
@@ -76,4 +75,5 @@ input, select {
     margin-right: 10px;
     cursor: pointer;
 }
+
 

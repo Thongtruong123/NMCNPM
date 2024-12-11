@@ -58,7 +58,21 @@
 .payment-table {
     width: 100%;
     border-collapse: collapse;
-    margin-top: 20px;
+    margin-top: 10px;
+}
+.payment-table th, .payment-table td {
+        text-align: center; /* Căn giữa nội dung */
+        padding: 10px; /* Thêm khoảng cách giữa nội dung và viền */
+
+    }
+
+.payment-table th {
+    background-color: rgba(169, 169, 169, 1); /* Màu nền cho tiêu đề */
+    font-weight: bold; /* Đậm tiêu đề */
+}
+
+.payment-table tbody tr:hover {
+    background-color: #f9f9f9; /* Hiệu ứng khi rê chuột */
 }
 
 thead {
@@ -88,3 +102,6 @@ th {
      border-radius: 4px;
      text-align : center
  }
+
+
+

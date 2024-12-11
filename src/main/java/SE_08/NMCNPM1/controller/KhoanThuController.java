@@ -2,12 +2,13 @@ package SE_08.NMCNPM1.controller;
 
 import SE_08.NMCNPM1.model.Khoanthu;
 import SE_08.NMCNPM1.model.KhoanthuDTO;
-import SE_08.NMCNPM1.repository.KhoanThuRepository;
 import SE_08.NMCNPM1.service.KhoanThuService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
-import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -28,21 +29,31 @@ public class KhoanThuController {
 
 
 
-    @GetMapping({"/quan-ly-khoan-thu"})
-    public String showKhoanthuList(Model model, @RequestParam(value = "keyword", required = false) String keyword ,
-                                   @RequestParam(value = "sort", required = false) Sort sort) {
-        // Lấy danh sách Khoanthu từ database
-        List<Khoanthu> ds_khoanthu = repo.listAll(keyword, sort);
+    @GetMapping("/quan-ly-khoan-thu")
+    public String showKhoanthuList(Model model,
+                                   @RequestParam(value = "keyword", required = false) String keyword,
+                                   @RequestParam(value = "sort", required = false) String sort,
+                                   @RequestParam(value = "page", defaultValue = "0") int page) { // Nhận số trang từ yêu cầu
 
-        // Kiểm tra và log kết quả
-        if (ds_khoanthu.isEmpty()) {
-            System.out.println("Không có dữ liệu trong bảng ");
-        } else {
-            System.out.println("Danh sách Khoan Thu đã được lấy từ cơ sở dữ liệu.");
-            System.out.println("Danh sách Khoanthu: " + ds_khoanthu);  // Log toàn bộ danh sách
-        }
-        System.out.println(ds_khoanthu);
-        model.addAttribute("khoanthu_list", ds_khoanthu);
+        // Tạo Pageable với thông tin phân trang và sắp xếp
+        Pageable pageable = PageRequest.of(
+                page,
+                7,
+                Sort.by(sort != null && !sort.isEmpty() ? sort : "id").ascending()
+        );
+
+
+        // Lấy danh sách Khoanthu theo keyword và phân trang
+        Page<Khoanthu> pageResult = repo.listAll(keyword, pageable);
+        List<Khoanthu> khoanthuList = pageResult.getContent();
+
+        // Gửi dữ liệu vào model
+        model.addAttribute("khoanthu_list", khoanthuList);             // Danh sách khoản thu
+        model.addAttribute("totalPages", pageResult.getTotalPages());  // Tổng số trang
+        model.addAttribute("currentPage", page);                      // Trang hiện tại
+        model.addAttribute("keyword", keyword);                       // Từ khóa tìm kiếm (nếu có)
+        model.addAttribute("sort", sort);                             // Sắp xếp (nếu có)
+
         return "quan-ly-khoan-thu";
     }
 
@@ -63,7 +74,7 @@ public class KhoanThuController {
     public String createKhoanThu(
             @Valid @ModelAttribute("khoanthuDto") KhoanthuDTO khoanthuDto,  // Đảm bảo tên khớp với model
             BindingResult result,
-            Model model) {
+            Model model, RedirectAttributes redirectAttributes) {
 
         // Kiểm tra lỗi nhập liệu và log thông tin
         if (result.hasErrors()) {
@@ -93,18 +104,11 @@ public class KhoanThuController {
         repo.save(khoanthu);
 
         System.out.println("Khoan Thu đã được lưu vào cơ sở dữ liệu.");
-        model.addAttribute("createsuccess", "Tạo khoản thu thành công!");
+        redirectAttributes.addFlashAttribute("createsuccess", "Tạo khoản thu thành công!");
         return "redirect:/quan-ly-khoan-thu";
 
     }
 
-    // Xử lý nút Cancel
-//    @GetMapping("/cancel")
-//    public String cancelCreate() {
-//        System.out.println("Người dùng hủy việc tạo Khoan Thu.");
-//        // Chuyển hướng về danh sách khoản thu
-//        return "redirect:/khoanthu";
-//    }
     @GetMapping("/edit")
     public String showEditPage(
             Model model,
@@ -128,9 +132,9 @@ public class KhoanThuController {
             khoanthuDto.setNguoitao(khoanthu.getNguoitao());
 
             // Đưa DTO vào model để render form
-            model.addAttribute("khoanthuDto", khoanthuDto);
+            model.addAttribute("khoanthu_edit", khoanthuDto);
             model.addAttribute("id", id); // Truyền ID để sử dụng trong form
-            return "form-qlkt";
+            return "edit-qlkt";
         } catch (Exception ex) {
             System.out.println("Exception: " + ex.getMessage());
             return "redirect:/quan-ly-khoan-thu";
@@ -141,12 +145,12 @@ public class KhoanThuController {
     public String updateKhoanthu(
             Model model,
             @RequestParam int id,
-            @Valid @ModelAttribute("khoanthuDto") KhoanthuDTO khoanthuDto,
-            BindingResult result) {
+            @Valid @ModelAttribute("khoanthu_edit") KhoanthuDTO khoanthu_edit,
+            BindingResult result, RedirectAttributes redirectAttributes) {
         try {
             // Tìm khoản thu theo ID
             Optional<Khoanthu> optionalKhoanthu = Optional.ofNullable(repo.findById(id));
-            if (optionalKhoanthu.isPresent()) {
+            if (optionalKhoanthu.isEmpty()) {
                 // Nếu không tìm thấy, chuyển hướng về trang quản lý khoản thu
                 return "redirect:/quan-ly-khoan-thu";
             }
@@ -158,26 +162,28 @@ public class KhoanThuController {
             if (result.hasErrors()) {
                 // Trả lại form với lỗi
                 model.addAttribute("id", id); // Đảm bảo ID vẫn có trong model
-                return "form-qlkt";
+                model.addAttribute("khoanthu_edit", khoanthu_edit);  // Đảm bảo DTO cũng có trong model
+                return "edit-qlkt";
             }
 
             // Cập nhật dữ liệu từ DTO sang Entity
-            khoanthu.setTenkhoanthu(khoanthuDto.getTenkhoanthu());
-            khoanthu.setSotien(khoanthuDto.getSotien());
-            khoanthu.setBatbuoc(khoanthuDto.getBatbuoc());
-            khoanthu.setHanchot(khoanthuDto.getHanchot());
-            khoanthu.setNguoitao(khoanthuDto.getNguoitao());
+            khoanthu.setTenkhoanthu(khoanthu_edit.getTenkhoanthu());
+            khoanthu.setSotien(khoanthu_edit.getSotien());
+            khoanthu.setBatbuoc(khoanthu_edit.getBatbuoc());
+            khoanthu.setHanchot(khoanthu_edit.getHanchot());
+            khoanthu.setNguoitao(khoanthu_edit.getNguoitao());
 
             // Lưu vào cơ sở dữ liệu
             repo.save(khoanthu);
-            System.out.println("Khoan Thu đã được lưu vào cơ sở dữ liệu.");
-
-            return "redirect:/quan-ly-khoan-thu";  // Chuyển hướng về trang quản lý khoản thu
+            System.out.println("Khoan Thu đã sửa va và được lưu vào cơ sở dữ liệu.");
+            redirectAttributes.addFlashAttribute("editsuccess", "Sửa khoản thu thành công!");
+            return "redirect:/quan-ly-khoan-thu";
         } catch (Exception ex) {
             System.out.println("Exception: " + ex.getMessage());
             return "redirect:/quan-ly-khoan-thu";
         }
     }
+
 
     @GetMapping("/delete")
     public String deleteKhoanthu(@RequestParam int id, RedirectAttributes redirectAttributes) {
@@ -185,10 +191,9 @@ public class KhoanThuController {
         if (khoanthu.isPresent()) {
             repo.deleteById(id);
             // Thêm thông báo xóa thành công
-            redirectAttributes.addFlashAttribute("message", "Khoản thu '" + khoanthu.get().getTenkhoanthu() + "' đã được xóa!");
+            redirectAttributes.addFlashAttribute("deletesuccess", "Khoản thu '" + khoanthu.get().getTenkhoanthu() + "' đã được xóa!");
         } else {
-            // Thêm thông báo nếu không tìm thấy
-            redirectAttributes.addFlashAttribute("message", "Không tìm thấy khoản thu cần xóa!");
+            redirectAttributes.addFlashAttribute("deletesuccess", "Không tìm thấy khoản thu cần xóa!");
         }
         return "redirect:/quan-ly-khoan-thu";
     }
