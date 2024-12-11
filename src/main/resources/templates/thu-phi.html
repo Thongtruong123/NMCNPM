@@ -25,12 +25,12 @@
 
     <form action="/create-invoice" method="POST" id="invoiceForm">
       <div class="form-row">
-        <label for="payerName">Người nộp (tùy chọn):</label>
-        <input type="text" id="payerName" name="payerName" placeholder="Nhập tên người nộp">
+        <label for="payerName">Người nộp:</label>
+        <input type="text" id="payerName" name="payerName" placeholder="Nhập tên người nộp" required>
       </div>
       <div class="form-row">
-        <label for="phoneNumber">Số điện thoại (tùy chọn):</label>
-        <input type="tel" id="phoneNumber" name="phoneNumber" placeholder="Nhập số điện thoại">
+        <label for="phoneNumber">Số điện thoại:</label>
+        <input type="tel" id="phoneNumber" name="phoneNumber" placeholder="Nhập số điện thoại" required pattern="[0-9]{10}">
       </div>
       <div class="form-row">
         <label for="roomNumber">Số phòng:</label>
@@ -53,6 +53,11 @@
       </div>
     </form>
   </div>
+</div>
+<!-- Overlay hiển thị khi đang tải -->
+<div id="loadingOverlay" class="loading-overlay">
+  <div class="loading-spinner"></div>
+  <p> Đang tải dữ liệu, vui lòng đợi...</p>
 </div>
 
 <script src="js/menu-toggle.js"></script>

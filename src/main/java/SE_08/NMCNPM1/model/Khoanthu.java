@@ -34,6 +34,17 @@ public class Khoanthu {
     @Column(name = "nguoitao")
     private String nguoitao;
 
+    @Column(name = "loaikhoanthu")
+    private String loaikhoanthu;
+
+    public String getLoaikhoanthu() {
+        return loaikhoanthu;
+    }
+
+    public void setLoaikhoanthu(String loaikhoanthu) {
+        this.loaikhoanthu = loaikhoanthu;
+    }
+
     public int getId() {
         return id;
     }

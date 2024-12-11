@@ -16,10 +16,6 @@ public class NavigationController {
         return "thu-phi";
     }
 
-    @GetMapping("/thong-ke-dong-gop")
-    public String getTKDG() {
-        return "thong-ke-dong-gop";
-    }
 
     @GetMapping("/thong-tin-nhan-khau")
     public String getTTNK() {

@@ -24,3 +24,4 @@ public interface KhoanThuRepository extends PagingAndSortingRepository<Khoanthu,
 
     void deleteById(int id);
 }
+
