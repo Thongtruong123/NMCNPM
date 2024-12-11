@@ -41,8 +41,8 @@
             </tr>
             </thead>
             <tbody>
-            <tr th:each="khoanthu : ${khoanthu_list}">
-                <td th:text="${khoanthu.id}"></td>
+            <tr th:each="khoanthu, stat : ${khoanthu_list}">
+                <td th:text="${stat.index + 1}"></td>
                 <td th:text="${khoanthu.tenkhoanthu}"></td>
                 <td class="money" th:text="${khoanthu.sotien}"></td>
 

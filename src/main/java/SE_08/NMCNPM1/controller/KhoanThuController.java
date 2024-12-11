@@ -25,7 +25,7 @@ public class KhoanThuController {
     @GetMapping({"/quan-ly-khoan-thu"})
     public String showKhoanthuList(Model model) {
         // Lấy danh sách Khoanthu từ database
-        List<Khoanthu> ds_khoanthu = repo.findAll(Sort.by(Sort.Direction.ASC, "id"));
+        List<Khoanthu> ds_khoanthu = repo.findAll(Sort.by(Sort.Direction.DESC, "ngaytao"));
 
         // Kiểm tra và log kết quả
         if (ds_khoanthu.isEmpty()) {

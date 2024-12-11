@@ -24,7 +24,7 @@
           <li th:each="khoanthu : ${top5khoanthu}" class="item" th:data-loaikhoanthu="${khoanthu.loaikhoanthu}">
             <div class="overlay">
               <p th:text="${khoanthu.tenkhoanthu}"></p>
-              <p>Số tiền: <span th:text="${khoanthu.sotien}"></span> VNĐ</p>
+              <p>Số tiền: <span class="money" th:text="${khoanthu.sotien}"></span> VNĐ</p>
               <p>Hạn chót: <span th:text="${#temporals.format(khoanthu.hanchot, 'yyyy-MM-dd HH:mm:ss')}"></span></p>
             </div>
           </li>
