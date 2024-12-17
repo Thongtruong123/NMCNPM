@@ -17,7 +17,7 @@
 }
 
 .main-content {
-    height: 50%;
+    height: 95%;
     width: 100%;
     min-width: 500px;
     border-radius: 10px;
@@ -26,6 +26,7 @@
     z-index: -1;
     overflow: auto;
 }
+
 
 .container {
     display: flex;

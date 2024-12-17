@@ -130,6 +130,10 @@ document.querySelector('.generate-invoice-button').addEventListener('click', asy
 // Mở hóa đơn trong trang mới
 function openInvoiceInNewPage(invoice) {
     const newWindow = window.open('', '_blank');
+    if (!newWindow) {
+            alert("Không thể mở hóa đơn. Vui lòng kiểm tra cài đặt trình duyệt và tắt trình chặn popup.");
+            return;
+        }
     const dueAmounts = invoice.selectedDueAmounts || [];
     newWindow.document.write(`
         <html>
@@ -172,7 +176,7 @@ function openInvoiceInNewPage(invoice) {
                     </div>
                     <div class="invoice-total">
                         <h3>Tổng Cộng</h3>
-                        <p>Tổng Tiền: ${invoice.totalAmount.toLocaleString()} VNĐ</p>
+                        <p>Tổng Tiền: ${(invoice.totalAmount * 1000).toLocaleString()} VNĐ</p>
                     </div>
                     <div class="invoice-signature">
                         <div class="signature-block">
