@@ -7,9 +7,9 @@ import java.lang.String;
 public class TK_KHOANTHU {
     @Id
     private int fee_id;
-    private int TIENDANOP;
+    private Integer TIENDANOP;
     private String tenkhoanthu;
-    private int TONGPHAITHU;
+    private Integer TONGPHAITHU;
     private int HODANOP;
     private int HOPHAITHU;
 
@@ -28,12 +28,12 @@ public class TK_KHOANTHU {
         return fee_id;
     }
 
-    public int getTIENDANOP() {
+    public Integer getTIENDANOP() {
 
         return TIENDANOP;
     }
 
-    public int getTONGPHAITHU() {
+    public Integer getTONGPHAITHU() {
 
         return TONGPHAITHU;
     }

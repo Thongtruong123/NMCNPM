@@ -1,29 +1,102 @@
 .mainboard {
     position: relative;
     top: 0;
-    left: 100px;
+    left: 120px;
+    height: 100vh;
     transition: all 0.5s ease;
-    width: calc(100% - 100px);
+    width: calc(100% - 120px);
     padding: 20px;
     align-items: center;
     justify-content: center;
     background-color: #ADD8E6;
 }
 
-.main-content {
-    height: 100%;
+.header-content {
     width: 100%;
+    min-width: 500px;
+}
+
+.main-content {
+    height: 50%;
+    width: 100%;
+    min-width: 500px;
+    z-index: -1;
+}
+
+.main-content .top {
     border-radius: 10px;
     background-color: white;
     padding: 20px;
+    margin-bottom: 15px;
+}
+
+.container {
+    display: flex;
+}
+
+.left-column {
+    width: 25%;
+    height: 250px;
+    border-radius: 10px;
+    background-color: white;
+    padding: 10px;
+    overflow-y: auto;
+}
+
+.chart-container {
+    width: 25%;
+    height: 250px;
+    border-radius: 10px;
+    background-color: white;
+    padding: 10px;
+    margin-left: 10px;
+}
+
+.text-container {
+    width: 50%;
+    height: 250px;
+    padding: 60px 100px 60px 30px;
+    margin-left: 10px;
+    font-size: 20px;
+    border-radius: 10px;
+    background-color: white;
+}
+
+.text-container p {
     display: flex;
     justify-content: space-between;
 }
 
+.table-khoanthu {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.table-khoanthu th,td {
+    padding: 10px;
+    text-align: left;
+    border-bottom: 2px solid #000000;
+}
+
+.table-khoanthu th {
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.table-khoanthu tbody tr {
+    cursor: pointer;
+    font-size: 14px;
+}
+
+/*
 .drop_down_list_khoanthu{
-    max-height: 40px;
+    width: 200px;
+    height: 40px;
     overflow: auto;
+    font-size: 16px;
+    text-align: center;
+    margin-top: 10px;
     border-radius: 5px;
     cursor: pointer;
-    background-color: #a8a7a7;
-}
+    border: 1px solid #000;
+}*/

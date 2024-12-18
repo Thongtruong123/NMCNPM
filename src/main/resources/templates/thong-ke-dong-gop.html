@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="vi">
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
 <head>
   <title>Trang chủ</title>
   <meta charset="UTF-8">
@@ -8,16 +8,7 @@
   <link rel="stylesheet" href="/css/thong-ke-dong-gop-content.css">
   <link rel='stylesheet' href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css'>
 
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      display: flex;
-      justify-content: center;
-      align-items: flex-start;
-      height: 100vh;
-      margin: 0;
-      padding: 20px;
-    }
+  <!--<style>
     .container {
       display: flex;
       justify-content: space-between;
@@ -40,7 +31,7 @@
       line-height: 1.6;
     }
   </style>
-
+-->
 </head>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
 
@@ -49,46 +40,79 @@
 <div th:replace="~{/fragments/sidebar :: sidebar}" class="sidebar"> <!-- Sidebar placeholder --> </div>
 
 <div class="mainboard">
-  <h1 class="text-center my-4" style="text-align: center; margin: 0 auto;"> Thống kê đóng góp </h1>
-  <br>
-  <form action="/thong-ke-dong-gop" method="get">
-    <select style="width: 200px;height: 40px; font-size: 16px; text-align: center;" class="drop_down_list_khoanthu" id="idSelector" name="id" onchange="this.form.submit()">
-      <option value="">Chọn Khoản thu</option>
-      <th:block th:each="record : ${records}">
-        <option th:value="${record.getId()}" th:text="${record.getNAME()}"></option>
-      </th:block>
-    </select>
-  </form>
-  <br>
-  <div class="main-content" id="maincontent">
-
-
-
-    <div class="chart-container">
-      <canvas id="myChart"> </canvas>
-    </div>
-    <div class="text-container">
-      <p>Số hộ đã nộp: <span th:text="${hodanop}"></span> </p>
-      <p>Số hộ chưa nộp: <span th:text="${hophaithu}-${hodanop}"></span></p>
-      <p>Tổng số hộ: <span th:text="${hophaithu}"></span></p>
-      <p>Tổng tiền đã nộp: <span th:text="${tiendanop} + ' VNĐ'"></span></p>
-      <p>Tổng tiền chưa nộp: <span th:text="${tongphaithu}-${tiendanop} + ' VNĐ'"></span></p>
-      <p>Tổng tiền phải thu: <span th:text="${tongphaithu} + ' VNĐ'"></span></p>
-    </div>
-
-
+  <div class="header-content">
+    <h1> Thống kê đóng góp </h1> <br>
   </div>
-
-
+  <div class="main-content" id="maincontent">
+    <div class="top">
+      <h2>Thống kê theo từng khoản thu</h2>
+      <hr>
+    </div>
+    <div class="container">
+      <div class="left-column">
+        <table class="table-khoanthu">
+          <thead>
+          <tr>
+            <th>#</th>
+            <th>Chọn Khoản Thu</th>
+          </tr>
+          </thead>
+          <tbody>
+          <th:block th:each="record, stat : ${records}">
+            <tr th:data-id="${record.getId()}"
+                th:classappend="${stat.index == selectedIndex ? 'selected' : ''}"
+                onclick="selectRecord(this, '${stat.index}')">
+              <td th:text="${stat.index + 1}"></td> <!-- Chỉ số tăng dần -->
+              <td th:text="${record.getNAME()}"></td>
+            </tr>
+          </th:block>
+          </tbody>
+        </table>
+      </div>
+      <div class="chart-container">
+        <canvas id="myChart"> </canvas>
+      </div>
+      <div class="text-container">
+        <p>Số hộ đã nộp: <span th:text="${hodanop}"></span> </p>
+        <p>Số hộ chưa nộp: <span th:text="${hophaithu}-${hodanop}"></span></p>
+        <p>Tổng số hộ: <span th:text="${hophaithu}"></span></p>
+        <p>Tổng tiền đã nộp: <span th:text="${tiendanop} + ' VNĐ'"></span></p>
+        <p>Tổng tiền chưa nộp: <span th:text="${tongphaithu}-${tiendanop} + ' VNĐ'"></span></p>
+        <p>Tổng tiền phải thu: <span th:text="${tongphaithu} + ' VNĐ'"></span></p>
+      </div>
+    </div>
+  </div>
 
 </div>
 
-
 <script>
-  document.getElementById('idSelector').addEventListener('change', function() {
-    var selectedId = this.value;
-    window.location.href = '/thong-ke-dong-gop?id=' + selectedId;
-  });
+  function selectRecord(row, index) {
+    var id = row.getAttribute('data-id');
+    localStorage.setItem('selectedIndex', index);
+
+    window.location.href = '/thong-ke-dong-gop?id=' + id;
+  }
+
+  window.onload = function() {
+    var urlParams = new URLSearchParams(window.location.search);
+    var selectedId = urlParams.get('id');
+    var selectedIndex = localStorage.getItem('selectedIndex');
+
+    var rows = document.querySelectorAll('.table-khoanthu tr');
+    rows.forEach(function(row) {
+      row.style.backgroundColor = ''; // Đặt lại màu cho các dòng
+    });
+
+    if (selectedId && selectedIndex !== null && selectedId != 0) {
+      rows.forEach(function(row) {
+       if (row.getAttribute('data-id') === selectedId) {
+          row.style.backgroundColor = 'rgba(169, 169, 169, 1)';
+        } else {
+          row.style.backgroundColor = '';
+        }
+       });
+    }
+  };
 </script>
 
 <script src="js/menu-toggle.js"></script>
@@ -101,7 +125,7 @@
     Val = Math.max(0, Math.min(100, Val));
 
     var yValues = [Val, 100 - Val];
-    var barColors = ["#b91d47", "#00aba9"];
+    var barColors = ["#00aba9", "#b91d47"];
 
     new Chart("myChart", {
       type: "pie",
@@ -113,9 +137,21 @@
         labels: ["Tổng tiền đã nộp", "Tổng tiền chưa nộp"]
       },
       options: {
+        responsive: true,
+        maintainAspectRatio: false,
         title: {
           display: true,
-          text: "[[${name}]]"
+          text: "[[${name}]]",
+          fontSize: 18,
+          fontStyle: "bold",
+          align: "left"
+        },
+        legend: {
+          display: true,
+          position: "bottom",
+          labels: {
+            fontSize: 14
+          }
         }
       }
     });

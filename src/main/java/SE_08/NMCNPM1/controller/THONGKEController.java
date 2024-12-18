@@ -17,13 +17,13 @@ public class THONGKEController {
     @Autowired
     private THONGKE repo;
 
-
-
     @GetMapping("/thong-ke-dong-gop")
-    public String showTHONGKE(@RequestParam(name = "id", required = false) int id,Model model) {
+    public String showTHONGKE(@RequestParam(name = "id", required = false) Integer id,
+                              Model model) {
         id = id > 0 ? id : 0;
         List <TK_KHOANTHU> records = repo.findByFee_id(id);
         model.addAttribute("records", records);
+        model.addAttribute("id", id);
         Optional<TK_KHOANTHU> recordOpt = repo.findById(id);
             if (recordOpt.isPresent()) {
                 TK_KHOANTHU record = recordOpt.get();
