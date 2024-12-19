@@ -6,25 +6,21 @@
 
 body {
     font-family: 'Helvetica';
-    height: 100vh;
-    min-height: 1070px;
-    min-width: 900px;
     margin: 0;
-    display: flex;
-    overflow: auto;
+    overflow: hidden;
 }
-
 
 .sidebar {
     background: linear-gradient(to bottom, #00CED1, #191970);
     position: absolute;
     top: 0;
     left: 0;
-    width: 100px;
-    height: 100%;
-    min-height: 1070px;
-    padding: 12px 20px;
+    width: 120px;
+    height: 100vh;
+    padding: 12px;
     transition: all 0.5s ease;
+    overflow-y: scroll;
+    overflow-x: hidden;
 }
 
 .sidebar.active ~ .mainboard{
@@ -40,7 +36,7 @@ body {
     position: absolute;
     color: white;
     top: 6px;
-    left: 50%;
+    left: 45%;
     font-size: 35px;
     line-height: 50px;
     transform: translateX(-50%);
@@ -59,10 +55,12 @@ body {
     align-items: center;
     pointer-events: none;
     opacity: 0;
+    visibility: hidden;
 }
 
 .sidebar.active .header .logo{
     opacity: 1;
+    visibility: visible;
 }
 
 .header .logo i {
@@ -74,9 +72,16 @@ body {
     position: relative;
     list-style-type: none;
     height: 70px;
-    width: 90%;
-    margin: 10px auto;
+    width: 80%;
+    margin: 10px 20px 10px 0;
+    padding-left: 14px;
     font-size: 18px;
+    vertical-align: middle;
+}
+
+.sidebar.active ul li {
+    margin-right: 0;
+    width: 95%;
 }
 
 .sidebar ul li a {
@@ -103,40 +108,88 @@ body {
 
 .sidebar .nav-item {
     opacity: 0;
+    visibility: hidden;
 }
 
 .sidebar.active .nav-item {
     opacity: 1;
+    visibility: visible;
 }
 
 .sidebar ul li .tooltip {
     background-color: white;
-    position: absolute;
-    left: 85px;
-    top: 50%;
+    position: fixed;
+    left: 100px;
     white-space: nowrap;
     transform: translateY(-50%);
     box-shadow: 0 8px 10px rgba(0, 0, 0, 0.2);
     border-radius: 10px;
     padding: 6px 20px;
     line-height: 25px;
-    z-index: 20;
+    z-index: 1000;
     opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
 }
 
 .sidebar ul li:hover .tooltip {
     opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
 }
 
 .sidebar.active ul li .tooltip {
     display: none;
 }
 
-.sidebar-divider {
-    margin-top: 350px;
-    margin-bottom: 20px;
+.sidebar ul li.user {
+    height: 100px;
+    width: 80%;
 }
 
+.sidebar.active ul li.user {
+    width: 95%;
+}
+
+.sidebar ul li.user a {
+    height: 100px;
+}
+
+.sidebar ul li.user .user-avatar {
+    display: inline-block;
+    line-height: 100px;
+    width: 52px;
+    height: 52px;
+    border-radius: 100%;
+    border: 1px solid white;
+}
+
+.sidebar ul li.user .user-name {
+    font-weight: bold;
+    font-size: 24px;
+    margin: 10px auto;
+}
+
+.sidebar ul li.user .user-role {
+    font-size: 14px;
+    margin: 10px auto;
+}
+
+.sidebar ul li.user .nav-item {
+    width: 60%;
+    padding-left: 15px;
+    margin-right: 50px;
+}
+
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: rgba(0, 0, 0, 0.4);
+    border-radius: 10px;
+}
 
 
 

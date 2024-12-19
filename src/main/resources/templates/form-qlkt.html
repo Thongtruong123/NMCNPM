@@ -1,375 +1,58 @@
-<!--&lt;!&ndash;<!DOCTYPE html>&ndash;&gt;-->
-<!--&lt;!&ndash;<html lang="vi">&ndash;&gt;-->
-<!--&lt;!&ndash;<head>&ndash;&gt;-->
-<!--&lt;!&ndash;  <title>Trang chủ</title>&ndash;&gt;-->
-<!--&lt;!&ndash;  <meta charset="UTF-8">&ndash;&gt;-->
-<!--&lt;!&ndash;  <meta name="viewport" content="width=device-width, initial-scale=1.0">&ndash;&gt;-->
-<!--&lt;!&ndash;  <link rel="stylesheet" href="css/template.css">&ndash;&gt;-->
-<!--&lt;!&ndash;  <link rel="stylesheet" href="css/quan-ly-khoan-thu-form.css">&ndash;&gt;-->
-<!--&lt;!&ndash;  <link rel='stylesheet' href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css'>&ndash;&gt;-->
-<!--&lt;!&ndash;</head>&ndash;&gt;-->
-<!--&lt;!&ndash;<body>&ndash;&gt;-->
-<!--&lt;!&ndash;&lt;!&ndash; Sidebar &ndash;&gt;&ndash;&gt;-->
-<!--&lt;!&ndash;<div th:replace="~{/fragments/sidebar :: sidebar}" class="sidebar"> &lt;!&ndash; Sidebar placeholder &ndash;&gt; </div>&ndash;&gt;-->
-
-<!--&lt;!&ndash;&lt;!&ndash; Main Content &ndash;&gt;&ndash;&gt;-->
-<!--&lt;!&ndash;<div class="mainboard">&ndash;&gt;-->
-<!--&lt;!&ndash;  <div class="main-content" id="maincontent">&ndash;&gt;-->
-<!--&lt;!&ndash;    <h1>Quản lý khoản thu</h1>&ndash;&gt;-->
-<!--&lt;!&ndash;    <br>&ndash;&gt;-->
-<!--&lt;!&ndash;    <h2>Tạo khoản thu</h2>&ndash;&gt;-->
-<!--&lt;!&ndash;    <br>&ndash;&gt;-->
-
-<!--&lt;!&ndash;    <form>&ndash;&gt;-->
-<!--&lt;!&ndash;      <div class="upper">&ndash;&gt;-->
-<!--&lt;!&ndash;        &lt;!&ndash; Left Side &ndash;&gt;&ndash;&gt;-->
-<!--&lt;!&ndash;        <div class="leftside">&ndash;&gt;-->
-<!--&lt;!&ndash;          <div class="ten">&ndash;&gt;-->
-<!--&lt;!&ndash;            <label for="payment-name">Tên khoản thu:</label>&ndash;&gt;-->
-<!--&lt;!&ndash;            <input type="text" id="payment-name" name="payment-name" required>&ndash;&gt;-->
-<!--&lt;!&ndash;          </div>&ndash;&gt;-->
-<!--&lt;!&ndash;          <br>&ndash;&gt;-->
-<!--&lt;!&ndash;          <div class="tien">&ndash;&gt;-->
-<!--&lt;!&ndash;            <label>Số tiền:</label>&ndash;&gt;-->
-<!--&lt;!&ndash;            <br>&ndash;&gt;-->
-<!--&lt;!&ndash;            <input type="radio" id="voluntary" name="payment-option" class="dot" value="voluntary" required>&ndash;&gt;-->
-<!--&lt;!&ndash;            <label for="voluntary">Bắt Buộc</label>&ndash;&gt;-->
-<!--&lt;!&ndash;            <br>&ndash;&gt;-->
-<!--&lt;!&ndash;            <input type="radio" id="specific" name="payment-option" class="dot" value="specific" required>&ndash;&gt;-->
-<!--&lt;!&ndash;            <input type="number" id="amount" name="amount">&ndash;&gt;-->
-<!--&lt;!&ndash;          </div>&ndash;&gt;-->
-<!--&lt;!&ndash;          <br>&ndash;&gt;-->
-<!--&lt;!&ndash;          <div class="nguoi-thu">&ndash;&gt;-->
-<!--&lt;!&ndash;            <label for="payment-receiver">Người tạo:</label>&ndash;&gt;-->
-<!--&lt;!&ndash;            <input type="text" id="payment-receiver" name="payment-receiver" required>&ndash;&gt;-->
-<!--&lt;!&ndash;          </div>&ndash;&gt;-->
-<!--&lt;!&ndash;          <br>&ndash;&gt;-->
-<!--&lt;!&ndash;        </div>&ndash;&gt;-->
-
-<!--&lt;!&ndash;        &lt;!&ndash; Right Side &ndash;&gt;&ndash;&gt;-->
-<!--&lt;!&ndash;        &lt;!&ndash; Commented Right Side Fields &ndash;&gt;&ndash;&gt;-->
-<!--&lt;!&ndash;        &lt;!&ndash;&ndash;&gt;-->
-<!--&lt;!&ndash;        <div class="rightside">&ndash;&gt;-->
-<!--&lt;!&ndash;          <div class="ngay-batdau">&ndash;&gt;-->
-<!--&lt;!&ndash;            <label for="payment-start">Ngày bắt đầu:</label>&ndash;&gt;-->
-<!--&lt;!&ndash;            <input type="date" id="payment-start" name="payment-start" required>&ndash;&gt;-->
-<!--&lt;!&ndash;          </div>&ndash;&gt;-->
-<!--&lt;!&ndash;          <br>&ndash;&gt;-->
-<!--&lt;!&ndash;        &ndash;&gt;&ndash;&gt;-->
-<!--&lt;!&ndash;        <div class="ngay-ketthuc">&ndash;&gt;-->
-<!--&lt;!&ndash;          <label for="payment-end">Hạn chót:</label>&ndash;&gt;-->
-<!--&lt;!&ndash;          <input type="date" id="payment-end" name="payment-end" required>&ndash;&gt;-->
-<!--&lt;!&ndash;        </div>&ndash;&gt;-->
-<!--&lt;!&ndash;        <br>&ndash;&gt;-->
-<!--&lt;!&ndash;        &lt;!&ndash;&ndash;&gt;-->
-<!--&lt;!&ndash;          <div class="lap-lai">&ndash;&gt;-->
-<!--&lt;!&ndash;            <label>Lặp lại:</label>&ndash;&gt;-->
-<!--&lt;!&ndash;            <br>&ndash;&gt;-->
-<!--&lt;!&ndash;            <input type="radio" id="no-repeat" name="repeat-option" class="dot" value="no-repeat" required>&ndash;&gt;-->
-<!--&lt;!&ndash;            <label for="no-repeat">Không lặp lại</label>&ndash;&gt;-->
-<!--&lt;!&ndash;            <br>&ndash;&gt;-->
-<!--&lt;!&ndash;            <input type="radio" id="1-month" name="repeat-option" class="dot" value="1-month" required>&ndash;&gt;-->
-<!--&lt;!&ndash;            <label for="1-month">Hàng tháng</label>&ndash;&gt;-->
-<!--&lt;!&ndash;            <br>&ndash;&gt;-->
-<!--&lt;!&ndash;            <input type="radio" id="3-month" name="repeat-option" class="dot" value="3-month" required>&ndash;&gt;-->
-<!--&lt;!&ndash;            <label for="3-month">3 tháng</label>&ndash;&gt;-->
-<!--&lt;!&ndash;            <br>&ndash;&gt;-->
-<!--&lt;!&ndash;            <input type="radio" id="6-month" name="repeat-option" class="dot" value="6-month" required>&ndash;&gt;-->
-<!--&lt;!&ndash;            <label for="6-month">6 tháng</label>&ndash;&gt;-->
-<!--&lt;!&ndash;            <br>&ndash;&gt;-->
-<!--&lt;!&ndash;            <input type="radio" id="1-year" name="repeat-option" class="dot" value="1-year" required>&ndash;&gt;-->
-<!--&lt;!&ndash;            <label for="1-year">Hàng năm</label>&ndash;&gt;-->
-<!--&lt;!&ndash;            <br>&ndash;&gt;-->
-<!--&lt;!&ndash;          </div>&ndash;&gt;-->
-<!--&lt;!&ndash;        &ndash;&gt;&ndash;&gt;-->
-<!--&lt;!&ndash;        <br>&ndash;&gt;-->
-<!--&lt;!&ndash;      </div>&ndash;&gt;-->
-
-<!--&lt;!&ndash;      &lt;!&ndash; Lower Section &ndash;&gt;&ndash;&gt;-->
-<!--&lt;!&ndash;      &lt;!&ndash;&ndash;&gt;-->
-<!--&lt;!&ndash;      <div class="lower">&ndash;&gt;-->
-<!--&lt;!&ndash;        <label for="detail">Mô tả:</label>&ndash;&gt;-->
-<!--&lt;!&ndash;        <br><br>&ndash;&gt;-->
-<!--&lt;!&ndash;        <textarea id="detail" name="detail" class="detail"></textarea>&ndash;&gt;-->
-<!--&lt;!&ndash;      </div>&ndash;&gt;-->
-<!--&lt;!&ndash;      &ndash;&gt;&ndash;&gt;-->
-<!--&lt;!&ndash;      <br><br>&ndash;&gt;-->
-
-<!--&lt;!&ndash;      &lt;!&ndash; Buttons &ndash;&gt;&ndash;&gt;-->
-<!--&lt;!&ndash;      <button type="submit" class="submit-button">&ndash;&gt;-->
-<!--&lt;!&ndash;        <i class='bx bx-save'></i> Lưu&ndash;&gt;-->
-<!--&lt;!&ndash;      </button>&ndash;&gt;-->
-<!--&lt;!&ndash;      <button type="submit" class="submit-button">&ndash;&gt;-->
-<!--&lt;!&ndash;        <i class='bx bx-trash'></i> Xóa&ndash;&gt;-->
-<!--&lt;!&ndash;      </button>&ndash;&gt;-->
-<!--&lt;!&ndash;    </form>&ndash;&gt;-->
-<!--&lt;!&ndash;  </div>&ndash;&gt;-->
-<!--&lt;!&ndash;</div>&ndash;&gt;-->
-
-<!--&lt;!&ndash;</body>&ndash;&gt;-->
-
-<!--&lt;!&ndash;<script src="js/menu-toggle.js"></script>&ndash;&gt;-->
-<!--&lt;!&ndash;</html>&ndash;&gt;-->
-
-<!--&lt;!&ndash;<!DOCTYPE html>&ndash;&gt;-->
-<!--&lt;!&ndash;<html lang="vi">&ndash;&gt;-->
-<!--&lt;!&ndash;<head>&ndash;&gt;-->
-<!--&lt;!&ndash;  <title>Trang chủ</title>&ndash;&gt;-->
-<!--&lt;!&ndash;  <meta charset="UTF-8">&ndash;&gt;-->
-<!--&lt;!&ndash;  <meta name="viewport" content="width=device-width, initial-scale=1.0">&ndash;&gt;-->
-<!--&lt;!&ndash;  <link rel="stylesheet" href="css/template.css">&ndash;&gt;-->
-<!--&lt;!&ndash;  <link rel="stylesheet" href="css/quan-ly-khoan-thu-form.css">&ndash;&gt;-->
-<!--&lt;!&ndash;  <link rel='stylesheet' href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css'>&ndash;&gt;-->
-<!--&lt;!&ndash;  <style>&ndash;&gt;-->
-<!--&lt;!&ndash;    .hidden {&ndash;&gt;-->
-<!--&lt;!&ndash;      display: none;&ndash;&gt;-->
-<!--&lt;!&ndash;    }&ndash;&gt;-->
-<!--&lt;!&ndash;  </style>&ndash;&gt;-->
-<!--&lt;!&ndash;</head>&ndash;&gt;-->
-<!--&lt;!&ndash;<body>&ndash;&gt;-->
-<!--&lt;!&ndash;&lt;!&ndash; Sidebar &ndash;&gt;&ndash;&gt;-->
-<!--&lt;!&ndash;<div th:replace="~{/fragments/sidebar :: sidebar}" class="sidebar"> &lt;!&ndash; Sidebar placeholder &ndash;&gt; </div>&ndash;&gt;-->
-
-<!--&lt;!&ndash;&lt;!&ndash; Main Content &ndash;&gt;&ndash;&gt;-->
-<!--&lt;!&ndash;<div class="mainboard">&ndash;&gt;-->
-<!--&lt;!&ndash;  <div class="main-content" id="maincontent">&ndash;&gt;-->
-<!--&lt;!&ndash;    <h1>Quản lý khoản thu</h1>&ndash;&gt;-->
-<!--&lt;!&ndash;    <br>&ndash;&gt;-->
-<!--&lt;!&ndash;    <h2>Tạo khoản thu</h2>&ndash;&gt;-->
-<!--&lt;!&ndash;    <br>&ndash;&gt;-->
-
-<!--&lt;!&ndash;    <form>&ndash;&gt;-->
-<!--&lt;!&ndash;      <div class="upper">&ndash;&gt;-->
-<!--&lt;!&ndash;        &lt;!&ndash; Left Side &ndash;&gt;&ndash;&gt;-->
-<!--&lt;!&ndash;        <div class="leftside">&ndash;&gt;-->
-<!--&lt;!&ndash;          <div class="ten">&ndash;&gt;-->
-<!--&lt;!&ndash;            <label for="payment-name">Tên khoản thu mới:</label>&ndash;&gt;-->
-<!--&lt;!&ndash;            <input type="text" id="payment-name" name="payment-name" required>&ndash;&gt;-->
-<!--&lt;!&ndash;          </div>&ndash;&gt;-->
-<!--&lt;!&ndash;          <br>&ndash;&gt;-->
-<!--&lt;!&ndash;          <div class="tien">&ndash;&gt;-->
-<!--&lt;!&ndash;            <label>Bắt buộc:</label>&ndash;&gt;-->
-<!--&lt;!&ndash;            <br>&ndash;&gt;-->
-<!--&lt;!&ndash;            <input type="radio" id="mandatory" name="payment-type" value="mandatory" onclick="togglePayment(true)" required>&ndash;&gt;-->
-<!--&lt;!&ndash;            <label for="mandatory">Có</label>&ndash;&gt;-->
-<!--&lt;!&ndash;            <br>&ndash;&gt;-->
-<!--&lt;!&ndash;            <input type="radio" id="voluntary" name="payment-type" value="voluntary" onclick="togglePayment(false)" required>&ndash;&gt;-->
-<!--&lt;!&ndash;            <label for="voluntary">Không</label>&ndash;&gt;-->
-<!--&lt;!&ndash;            <br>&ndash;&gt;-->
-<!--&lt;!&ndash;            &lt;!&ndash; Trường nhập số tiền &ndash;&gt;&ndash;&gt;-->
-<!--&lt;!&ndash;            <div id="amount-section" class="hidden">&ndash;&gt;-->
-<!--&lt;!&ndash;              <label for="amount">Nhập số tiền:</label>&ndash;&gt;-->
-<!--&lt;!&ndash;              <input type="number" id="amount" name="amount" placeholder="Nhập số tiền">&ndash;&gt;-->
-<!--&lt;!&ndash;            </div>&ndash;&gt;-->
-<!--&lt;!&ndash;            <div id="voluntary-note" class="hidden">&ndash;&gt;-->
-<!--&lt;!&ndash;              <p style="font-style: italic; color: gray;">Khoản thu này là tự nguyện.</p>&ndash;&gt;-->
-<!--&lt;!&ndash;            </div>&ndash;&gt;-->
-<!--&lt;!&ndash;          </div>&ndash;&gt;-->
-<!--&lt;!&ndash;          <br>&ndash;&gt;-->
-<!--&lt;!&ndash;          <div class="nguoi-thu">&ndash;&gt;-->
-<!--&lt;!&ndash;            <label for="payment-receiver">Người tạo:</label>&ndash;&gt;-->
-<!--&lt;!&ndash;            <input type="text" id="payment-receiver" name="payment-receiver" required>&ndash;&gt;-->
-<!--&lt;!&ndash;          </div>&ndash;&gt;-->
-<!--&lt;!&ndash;          <br>&ndash;&gt;-->
-<!--&lt;!&ndash;        </div>&ndash;&gt;-->
-
-<!--&lt;!&ndash;        &lt;!&ndash; Right Side &ndash;&gt;&ndash;&gt;-->
-<!--&lt;!&ndash;        <div class="ngay-ketthuc">&ndash;&gt;-->
-<!--&lt;!&ndash;          <label for="payment-end">Hạn chót:</label>&ndash;&gt;-->
-<!--&lt;!&ndash;          <input type="date" id="payment-end" name="payment-end" required>&ndash;&gt;-->
-<!--&lt;!&ndash;        </div>&ndash;&gt;-->
-<!--&lt;!&ndash;        <br>&ndash;&gt;-->
-<!--&lt;!&ndash;      </div>&ndash;&gt;-->
-
-<!--&lt;!&ndash;      &lt;!&ndash; Buttons &ndash;&gt;&ndash;&gt;-->
-<!--&lt;!&ndash;      <button type="submit" class="submit-button">&ndash;&gt;-->
-<!--&lt;!&ndash;        <i class='bx bx-save'></i> Lưu&ndash;&gt;-->
-<!--&lt;!&ndash;      </button>&ndash;&gt;-->
-<!--&lt;!&ndash;      <button type="reset" class="submit-button">&ndash;&gt;-->
-<!--&lt;!&ndash;        <i class='bx bx-trash'></i> Xóa&ndash;&gt;-->
-<!--&lt;!&ndash;      </button>&ndash;&gt;-->
-<!--&lt;!&ndash;    </form>&ndash;&gt;-->
-<!--&lt;!&ndash;  </div>&ndash;&gt;-->
-<!--&lt;!&ndash;</div>&ndash;&gt;-->
-
-<!--&lt;!&ndash;&lt;!&ndash; Script &ndash;&gt;&ndash;&gt;-->
-<!--&lt;!&ndash;<script>&ndash;&gt;-->
-<!--&lt;!&ndash;  function togglePayment(isMandatory) {&ndash;&gt;-->
-<!--&lt;!&ndash;    const amountSection = document.getElementById("amount-section");&ndash;&gt;-->
-<!--&lt;!&ndash;    const voluntaryNote = document.getElementById("voluntary-note");&ndash;&gt;-->
-<!--&lt;!&ndash;    if (isMandatory) {&ndash;&gt;-->
-<!--&lt;!&ndash;      amountSection.classList.remove("hidden");&ndash;&gt;-->
-<!--&lt;!&ndash;      voluntaryNote.classList.add("hidden");&ndash;&gt;-->
-<!--&lt;!&ndash;    } else {&ndash;&gt;-->
-<!--&lt;!&ndash;      amountSection.classList.add("hidden");&ndash;&gt;-->
-<!--&lt;!&ndash;      voluntaryNote.classList.remove("hidden");&ndash;&gt;-->
-<!--&lt;!&ndash;    }&ndash;&gt;-->
-<!--&lt;!&ndash;  }&ndash;&gt;-->
-<!--&lt;!&ndash;</script>&ndash;&gt;-->
-<!--&lt;!&ndash;</body>&ndash;&gt;-->
-<!--&lt;!&ndash;<script src="js/menu-toggle.js"></script>&ndash;&gt;-->
-<!--&lt;!&ndash;</html>&ndash;&gt;-->
-
-<!--<!DOCTYPE html>-->
-<!--<html lang="vi" xmlns:th="http://www.w3.org/1999/xhtml">-->
-<!--<head>-->
-<!--  <title>Trang chủ</title>-->
-<!--  <meta charset="UTF-8">-->
-<!--  <meta name="viewport" content="width=device-width, initial-scale=1.0">-->
-<!--  <link rel="stylesheet" href="css/template.css">-->
-<!--  <link rel="stylesheet" href="css/quan-ly-khoan-thu-form.css">-->
-<!--  <link rel='stylesheet' href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css'>-->
-<!--  <style>-->
-<!--    .hidden {-->
-<!--      display: none;-->
-<!--    }-->
-
-
-
-
-<!--.form-control {-->
-<!--  width: 100%;-->
-<!--  max-width: 400px;-->
-<!--}-->
-
-<!--  </style>-->
-<!--</head>-->
-<!--<body>-->
-<!--&lt;!&ndash; Sidebar &ndash;&gt;-->
-<!--<div th:replace="~{/fragments/sidebar :: sidebar}" class="sidebar"> &lt;!&ndash; Sidebar placeholder &ndash;&gt; </div>-->
-
-<!--&lt;!&ndash; Main Content &ndash;&gt;-->
-<!--<div class="mainboard">-->
-<!--  <div class="main-content" id="maincontent">-->
-<!--    <h1>Quản lý khoản thu</h1>-->
-<!--    <br>-->
-<!--    <h2>Tạo khoản thu</h2>-->
-<!--    <br>-->
-<!--    <form method="post" th:action="@{/create}" th:object="${khoanthuDto}">-->
-<!--      <div class="row mb-3">-->
-<!--        <label for="tenkhoanthu" class="col-sm-4 col-form-label">Tên khoản thu mới</label>-->
-<!--        <div class="col-sm-8">-->
-<!--          <input type="text" id="tenkhoanthu" class="form-control" th:field="*{tenkhoanthu}">-->
-<!--          <p th:if="${#fields.hasErrors('tenkhoanthu')}" class="text-danger" th:errors="*{tenkhoanthu}"></p>-->
-<!--        </div>-->
-<!--      </div>-->
-
-<!--      <div class="row mb-3">-->
-<!--        <label for="sotien-input" class="col-sm-4 col-form-label">Số tiền</label>-->
-<!--        <div class="col-sm-8">-->
-<!--          <input class="form-control" type="number" min="0" step="1000" th:field="*{sotien}" id="sotien-input">-->
-<!--          <p th:if="${#fields.hasErrors('sotien')}" class="text-danger" th:errors="*{sotien}"></p>-->
-<!--        </div>-->
-<!--      </div>-->
-
-<!--      <div n')}" class="textclass="row mb-3">-->
-<!--        <label for="batbuoc-select" class="col-sm-4 col-form-label">Bắt buộc</label>-->
-<!--        <div class="col-sm-8">-->
-<!--          <select class="form-select" th:field="*{batbuoc}" id="batbuoc-select">-->
-<!--            <option value="Có">Có</option>-->
-<!--            <option value="Không">Không</option>-->
-<!--          </select>-->
-<!--          <p th:if="${#fields.hasErrors('batbuoc')}" class="text-danger" th:errors="*{batbuoc}"></p>-->
-<!--        </div>-->
-<!--      </div>-->
-
-<!--      <div class="row mb-3">-->
-<!--        <label for="hanchot" class="col-sm-4 col-form-label">Hạn chót</label>-->
-<!--        <div class="col-sm-8">-->
-<!--          <input id="hanchot" class="form-control" type="datetime-local" th:field="*{hanchot}"-->
-<!--                 min="${#temporals.format(#temporals.now(), 'yyyy-MM-dd\'T\'HH:mm')}">-->
-<!--          <p th:if="${#fields.hasErrors('hanchot')}" class="text-danger" th:errors="*{hanchot}"></p>-->
-<!--        </div>-->
-<!--      </div>-->
-
-<!--      <div class="row mb-3">-->
-<!--        <label for="nguoitao" class="col-sm-4 col-form-label">Người tạo</label>-->
-<!--        <div class="col-sm-8">-->
-<!--          <input type="text" id="nguoitao" class="form-control" th:field="*{nguoitao}">-->
-<!--          <p th:if="${#fields.hasErrors('nguoitao')}" class="text-danger" th:errors="*{nguoitao}"></p>-->
-<!--        </div>-->
-<!--      </div>-->
-
-<!--      <div class="row">-->
-<!--        <div class="col-sm-8 offset-sm-4">-->
-<!--          <button th:href="@{/khoanthu}" type="submit" class="btn btn-primary">Lưu khoản thu</button>-->
-<!--&lt;!&ndash;          <form method="get">&ndash;&gt;-->
-<!--&lt;!&ndash;            <button th:href="@{/khoanthu}" type="submit" class="btn btn-primary">Quay lại</button>&ndash;&gt;-->
-<!--&lt;!&ndash;          </form>&ndash;&gt;-->
-<!--        </div>-->
-<!--      </div>-->
-<!--    </form>-->
-<!--    <form method="get">-->
-<!--    <button th:href="@{/khoanthu}" type="submit" class="btn btn-primary">Quay lại</button>-->
-<!--  </form>-->
-
-<!--  </div>-->
-<!--</div>-->
-
-<!--<script>-->
-<!--  document.addEventListener("DOMContentLoaded", () => {-->
-<!--    const batBuocSelect = document.getElementById('batbuoc-select');-->
-<!--    const soTienInput = document.getElementById('sotien-input');-->
-
-<!--    batBuocSelect.addEventListener('change', () => {-->
-<!--      if (batBuocSelect.value === 'Không') {-->
-<!--        soTienInput.value = ''; // Clear input-->
-<!--        soTienInput.setAttribute('disabled', 'true'); // Disable input-->
-<!--      } else {-->
-<!--        soTienInput.removeAttribute('disabled'); // Enable input-->
-<!--      }-->
-<!--    });-->
-
-<!--    // Trigger change event to set correct state when the page loads-->
-<!--    batBuocSelect.dispatchEvent(new Event('change'));-->
-<!--  });-->
-<!--</script>-->
-
-<!--<script src="js/menu-toggle.js"></script>-->
-<!--</body>-->
-<!--</html>-->
-
 <!DOCTYPE html>
-<html lang="vi" xmlns:th="http://www.w3.org/1999/xhtml">
+<html lang="vi" xmlns:th="http://www.w3.org/1999/xhtml" xmlns:text-align="http://www.w3.org/1999/xhtml">
 <head>
   <title>Quản lý khoản thu</title>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="/css/template.css">
-  <link rel="stylesheet" href="/css/quan-ly-khoan-thu-form.css">
-  <link rel="stylesheet" href="/https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css">
+  <link rel="stylesheet" href="css/template.css">
+  <link rel="stylesheet" href="css/quan-ly-khoan-thu-form.css">
+  <link rel="stylesheet" href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css">
   <style>
-    /* Đảm bảo các nút có chiều rộng đều nhau */
-    .form-group {
-        display: flex;
-        gap: 10px; /* Khoảng cách giữa các nút */
-        width: 100%; /* Đảm bảo container bao trùm hết chiều rộng */
+    .hidden {
+      display: none;
     }
 
-    .btn {
-        flex: 1; /* Chia đều chiều rộng cho hai nút */
-        height: 40px; /* Chiều cao nút */
-        font-size: 18px; /* Cỡ chữ nút */
-        padding: 10px 20px; /* Khoảng cách xung quanh chữ */
-        border-radius: 5px; /* Bo góc cho nút */
-        border: none; /* Xóa viền mặc định */
+    /* Overlay loading */
+    #loading {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.5);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 9999;
     }
 
-    .btn-primary {
-        background-color: #4169E1; /* Màu nền xanh */
-        color: white; /* Màu chữ trắng */
+    /* Spinner hiệu ứng */
+    .spinner {
+      border: 6px solid #f3f3f3;
+      border-top: 6px solid #3498db;
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      animation: spin 1s linear infinite;
     }
 
-    .btn-secondary {
-        background-color: white; /* Màu nền trắng */
-        color: #4169E1; /* Màu chữ xanh */
-        border: 2px solid #4169E1; /* Viền xanh cho nút trắng */
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
     }
 
-    /* Hiệu ứng khi hover vào nút */
-    .btn-secondary:hover {
-        background-color: #4169E1; /* Chuyển nền sang xanh khi hover */
-        color: white; /* Chữ chuyển sang trắng */
+    /* Thông báo thành công */
+    #success-message {
+      position: fixed;
+      top: 20px;
+      right: 40%;
+      background-color: #4caf50;
+      color: white;
+      padding: 15px;
+      border-radius: 5px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+      display: none;
+      z-index: 10000;
     }
   </style>
 </head>
@@ -377,65 +60,76 @@
 <!-- Sidebar -->
 <div th:replace="~{/fragments/sidebar :: sidebar}" class="sidebar"></div>
 
+<!-- Loading Animation -->
+<div id="loading" style="display: none;">
+  <div class="spinner"></div>
+</div>
+
+
 <!-- Main Content -->
 <div class="mainboard">
+  <div class="header-content">
+    <h1>Quản lý khoản thu</h1> <br>
+  </div>
   <div class="main-content" id="maincontent">
-    <h1 class="text-center my-4" style="text-align: center; margin: 0 auto;">Quản lý khoản thu</h1>
-    <br>
     <h2>Tạo khoản thu</h2>
-    <br>
-    <form method="post" th:action="@{/create}" th:object="${khoanthuDto}">
+    <hr> <br>
+    <form method="post" th:action="@{/create}" th:object="${khoanthuDto}" onsubmit="showLoading()">
       <!-- Tên khoản thu -->
-      <div class="form-group">
-        <label for="tenkhoanthu" class="form-label">Tên khoản thu mới:</label>
-        <input type="text" id="tenkhoanthu" name="tenkhoanthu" class="form-control" th:field="*{tenkhoanthu}">
-        <p th:if="${#fields.hasErrors('tenkhoanthu')}" class="text-danger" th:errors="*{tenkhoanthu}"></p>
+      <div class="row mb-3">
+        <label for="tenkhoanthu" class="col-sm-4 col-form-label">Tên khoản thu mới</label>
+        <div class="col-sm-8">
+          <input type="text" id="tenkhoanthu" class="form-control" th:field="*{tenkhoanthu}">
+          <p th:if="${#fields.hasErrors('tenkhoanthu')}" class="text-danger" th:errors="*{tenkhoanthu}"></p>
+        </div>
       </div>
-      <br>
 
       <!-- Số tiền -->
-
-      <div class="form-group">
-        <label for="sotien-input" class="form-label">Số tiền:</label>
-        <input class="form-control" type="number" min="0" step="1000" id="sotien-input" name="sotien" th:field="*{sotien}">
-        <p th:if="${#fields.hasErrors('sotien')}" class="text-danger" th:errors="*{sotien}"></p>
+      <div class="row mb-3">
+        <label for="sotien-input" class="col-sm-4 col-form-label">Số tiền</label>
+        <div class="col-sm-8">
+          <input class="form-control" type="number" min="0" step="1000" th:field="*{sotien}" id="sotien-input">
+          <p th:if="${#fields.hasErrors('sotien')}" class="text-danger" th:errors="*{sotien}"></p>
+        </div>
       </div>
-      <br>
 
       <!-- Bắt buộc -->
-
-      <div class="form-group">
-        <label for="batbuoc-select" class="form-label">Bắt buộc:</label>
-        <select class="form-select" id="batbuoc-select" name="batbuoc" th:field="*{batbuoc}">
-          <option value="Có">Có</option>
-          <option value="Không">Không</option>
-        </select>
-        <p th:if="${#fields.hasErrors('batbuoc')}" class="text-danger" th:errors="*{batbuoc}"></p>
+      <div class="row mb-3">
+        <label for="batbuoc-select" class="col-sm-4 col-form-label">Bắt buộc</label>
+        <div class="col-sm-8">
+          <select class="form-select" th:field="*{batbuoc}" id="batbuoc-select">
+            <option value="Có">Có</option>
+            <option value="Không">Không</option>
+          </select>
+          <p th:if="${#fields.hasErrors('batbuoc')}" class="text-danger" th:errors="*{batbuoc}"></p>
+        </div>
       </div>
-      <br>
-
 
       <!-- Hạn chót -->
-      <div class="form-group">
-        <label for="hanchot" class="form-label">Hạn chót:</label>
-        <input id="hanchot" class="form-control" type="datetime-local" th:field="*{hanchot}"
-               min="${#temporals.format(#temporals.now(), 'yyyy-MM-dd\'T\'HH:mm')}">
-        <p th:if="${#fields.hasErrors('hanchot')}" class="text-danger" th:errors="*{hanchot}"></p>
+      <div class="row mb-3">
+        <label for="hanchot" class="col-sm-4 col-form-label">Hạn chót</label>
+        <div class="col-sm-8">
+          <input id="hanchot" class="form-control" type="datetime-local" th:field="*{hanchot}"
+                 min="${#temporals.format(#temporals.now(), 'yyyy-MM-dd\'T\'HH:mm')}">
+          <p th:if="${#fields.hasErrors('hanchot')}" class="text-danger" th:errors="*{hanchot}"></p>
+        </div>
       </div>
-      <br>
 
       <!-- Người tạo -->
-      <div class="form-group">
-        <label for="nguoitao" class="form-label">Người tạo:</label>
-        <input readonly type="text" id="nguoitao" name="nguoitao" class="form-control" th:field="*{nguoitao}">
-        <p th:if="${#fields.hasErrors('nguoitao')}" class="text-danger" th:errors="*{nguoitao}"></p>
+      <div class="row mb-3">
+        <label for="nguoitao" class="col-sm-4 col-form-label">Người tạo</label>
+        <div class="col-sm-8">
+          <input type="text" id="nguoitao" class="form-control" th:field="*{nguoitao}">
+          <p th:if="${#fields.hasErrors('nguoitao')}" class="text-danger" th:errors="*{nguoitao}"></p>
+        </div>
       </div>
-      <br>
 
       <!-- Nút hành động -->
-      <div class="form-group">
-        <button type="submit" class="btn btn-primary">Lưu khoản thu</button>
-        <button type="button" onclick="window.location.href='/quan-ly-khoan-thu'" class="btn btn-secondary">Quay lại</button>
+      <div class="row">
+        <div class="col-sm-8 offset-sm-4">
+          <button class="btn" type="submit" onclick="showLoading()">Lưu khoản thu</button>
+          <button class="btn" type="button" onclick="window.location.href='/quan-ly-khoan-thu';">Quay lại</button>
+        </div>
       </div>
     </form>
   </div>
@@ -448,7 +142,7 @@
 
     batBuocSelect.addEventListener('change', () => {
       if (batBuocSelect.value === 'Không') {
-        soTienInput.value = ''; // Clear input
+        soTienInput.value = '0';
         soTienInput.setAttribute('disabled', 'true'); // Disable input
       } else {
         soTienInput.removeAttribute('disabled'); // Enable input
@@ -458,8 +152,11 @@
     // Trigger change event to set correct state when the page loads
     batBuocSelect.dispatchEvent(new Event('change'));
   });
+
 </script>
 
 <script src="js/menu-toggle.js"></script>
+<script src="js/loading.js"></script>
+
 </body>
 </html>

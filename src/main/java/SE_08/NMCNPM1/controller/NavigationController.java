@@ -16,24 +16,10 @@ public class NavigationController {
         return "thu-phi";
     }
 
-    @GetMapping("/thong-ke-dong-gop")
-    public String getTKDG() {
-        return "thong-ke-dong-gop";
-    }
 
     @GetMapping("/thong-tin-nhan-khau")
     public String getTTNK() {
         return "thong-tin-nhan-khau";
-    }
-
-    @GetMapping("/thong-tin-tai-khoan")
-    public String getTTTK() {
-        return "thong-tin-tai-khoan";
-    }
-
-    @GetMapping("/tao-tai-khoan")
-    public String getTaoTK() {
-        return "tao-tai-khoan";
     }
 
     @GetMapping("/logout")

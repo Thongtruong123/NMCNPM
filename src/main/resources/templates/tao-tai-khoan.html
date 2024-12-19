@@ -1,50 +1,76 @@
 <!DOCTYPE html>
-<html lang="vi">
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
 <head>
   <title> Trang chủ </title>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="css/template.css">
-  <link rel="stylesheet" href="css/tao-tai-khoan-form.css">
+  <link rel="stylesheet" href="/css/template.css">
+  <link rel="stylesheet" href="/css/tao-tai-khoan-form.css">
   <link rel='stylesheet' href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css'>
 </head>
 <body>
-  <div th:replace="~{/fragments/sidebar :: sidebar}" class="sidebar"> <!-- Sidebar placeholder --> </div>
+<div th:replace="~{/fragments/sidebar :: sidebar}" class="sidebar"> <!-- Sidebar placeholder --> </div>
 
-  <div class="mainboard">
-    <div class="main-content" id="maincontent">
-      <h1> Tạo tài khoản </h1> <br> <br>
+<div class="mainboard">
+  <div class="main-content" id="maincontent">
+    <h1> Tạo tài khoản </h1> <br> <br>
 
-      <form>
-        <div class="ten">
-          <label for="ten"> Tên </label> <br>
-          <input type="text" id="ten" name="ten" required>
-        </div>
-        <div class="ho">
-          <label for="ho"> Họ </label> <br>
-          <input type="text" id="ho" name="ho" required>
-        </div> <br>
-        <label for="username"> Tên tài khoản </label> <br>
-        <input type="text" id="username" name="username" required> <br>
-        <label for="email"> Email </label> <br>
-        <input type="email" id="email" name="email" required> <br>
-        <label for="sdt"> Số điện thoại </label> <br>
-        <input type="tel" id="sdt" name="sdt" required> <br>
-        <label for="password"> Mật khẩu </label> <br>
-        <input type="password" id="password" name="password" required> <br>
-        <label for="role"> Chức vụ </label> <br>
-        <input class="role" list="role-list" id="role" name="role" required> <br>
-        <datalist id="role-list">
-          <option> Quản lý tầng </option>
-          <option> Quản lý tòa </option>
-          <option> Admin </option>
-        </datalist>
-        <button type="submit" class="register-button"> Đăng ký </button>
-      </form>
+    <form th:action="@{/quan-ly-tai-khoan/register}" method="post" th:object="${RegisterFormDTO}">
+      <div class="ten">
+        <label for="ten"> Tên </label> <br>
+        <input type="text" id="ten" th:field="*{first_name}" required>
+      </div>
+
+      <div class="ho">
+        <label for="ho"> Họ </label> <br>
+        <input type="text" id="ho" th:field="*{last_name}" required>
+      </div> <br>
+
+      <label for="username"> Tên tài khoản </label> <br>
+      <input type="text" id="username" th:field="*{username}" required>
+      <span th:if="${usernameError}" th:text="${usernameError}" class="alert"></span>
+      <br>
+
+      <label for="email"> Email </label> <br>
+      <input type="email" id="email" th:field="*{email}" required>
+      <span th:if="${#fields.hasErrors('email')}" th:errors="*{email}" class="alert"></span>
+      <br>
+
+      <label for="sdt"> Số điện thoại </label> <br>
+      <input type="tel" id="sdt" th:field="*{phone_number}" required>
+      <span th:if="${#fields.hasErrors('phone_number')}" th:errors="*{phone_number}" class="alert"></span>
+      <br>
+
+      <label for="password"> Mật khẩu </label> <br>
+      <input type="password" id="password" th:field="*{password}" required> <br>
+
+      <label for="role">Chức vụ</label><br>
+      <select name="role" id="role" th:field="*{role}" required>
+        <option value="LOW_MANAGER" th:text="'Quản lý cấp thấp'" th:selected="${RegisterFormDTO.role == 'LOW_MANAGER'}"></option>
+        <option value="HIGH_MANAGER" th:text="'Quản lý cấp cao'" th:selected="${RegisterFormDTO.role == 'HIGH_MANAGER'}"></option>
+        <option value="ADMIN" th:text="'Quản trị viên'" th:selected="${RegisterFormDTO.role == 'ADMIN'}"></option>
+      </select>
+      <button type="button" th:onclick="|window.location.href='@{/quan-ly-tai-khoan}'|" class="redirect-button">Quay lại</button>
+      <button type="submit" class="register-button"> Tạo tài khoản </button>
+    </form>
+  </div>
+
+  <div class="popup" id="popup" th:if="${registrationSuccess}">
+    <div class="overlay"></div>
+    <div class="popup-content">
+      <h1> Đăng ký thành công</h1> <br>
+      <p> Bạn đã tạo tài khoản [[${RegisterFormDTO.username}]] thành công</p> <br>
+      <div class="popup-redirect">
+        <a th:href="@{/quan-ly-tai-khoan/tao-tai-khoan}"> Đăng ký tiếp</a>
+        <a th:href="@{/quan-ly-tai-khoan}"> Quay lại</a>
+      </div>
     </div>
   </div>
+</div>
 
 </body>
 
-<script src="js/menu-toggle.js"> </script>
+<script src="/js/menu-toggle.js"> </script>
+<script src="/js/popup-toggle.js"></script>
+
 </html>
