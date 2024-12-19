@@ -11,4 +11,6 @@ import java.util.List;
 public interface THONGKE extends JpaRepository<TK_KHOANTHU, Integer> {
     @Query(value = "SELECT * FROM THONGKE_BY_KHOANTHU", nativeQuery = true)
     List <TK_KHOANTHU> findByFee_id(@Param("fee_id") int fee_id);
+
+
 }

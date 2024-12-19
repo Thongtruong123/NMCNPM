@@ -2,6 +2,8 @@ package SE_08.NMCNPM1.model;
 
 import jakarta.persistence.*;
 import java.lang.String;
+import java.time.LocalDateTime;
+import java.util.Date;
 
 @Entity
 public class TK_KHOANTHU {
@@ -9,6 +11,8 @@ public class TK_KHOANTHU {
     private int fee_id;
     private Integer TIENDANOP;
     private String tenkhoanthu;
+    private String ngaytao;
+    private String loaikhoanthu;
     private Integer TONGPHAITHU;
     private int HODANOP;
     private int HOPHAITHU;
@@ -41,6 +45,14 @@ public class TK_KHOANTHU {
     public String getNAME() {
 
         return tenkhoanthu;
+    }
+
+    public String getNgaytao() {
+        return ngaytao;
+    }
+
+    public String getLoaikhoanthu() {
+        return loaikhoanthu;
     }
 
 }

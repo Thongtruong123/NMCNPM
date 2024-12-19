@@ -30,73 +30,81 @@
     margin-bottom: 15px;
 }
 
-.container {
+.upper-container {
     display: flex;
+    height: 60%;
+    margin-bottom: 15px;
 }
 
-.left-column {
-    width: 25%;
-    height: 250px;
+.upper-table {
+    width: 22%;
     border-radius: 10px;
     background-color: white;
     padding: 10px;
     overflow-y: auto;
 }
 
-.chart-container {
-    width: 25%;
-    height: 250px;
-    border-radius: 10px;
-    background-color: white;
-    padding: 10px;
-    margin-left: 10px;
-}
-
-.text-container {
-    width: 50%;
-    height: 250px;
-    padding: 60px 100px 60px 30px;
-    margin-left: 10px;
-    font-size: 20px;
-    border-radius: 10px;
-    background-color: white;
-}
-
-.text-container p {
-    display: flex;
-    justify-content: space-between;
-}
-
-.table-khoanthu {
+.upper-table .table-khoanthu {
     width: 100%;
     border-collapse: collapse;
 }
 
-.table-khoanthu th,td {
+.upper-table .table-khoanthu th,td {
     padding: 10px;
     text-align: left;
     border-bottom: 2px solid #000000;
 }
 
-.table-khoanthu th {
-    font-size: 18px;
+.upper-table .table-khoanthu th {
+    font-size: 16px;
     font-weight: bold;
 }
 
-.table-khoanthu tbody tr {
+.upper-table .table-khoanthu tbody tr {
     cursor: pointer;
     font-size: 14px;
 }
 
-/*
-.drop_down_list_khoanthu{
-    width: 200px;
-    height: 40px;
-    overflow: auto;
-    font-size: 16px;
-    text-align: center;
-    margin-top: 10px;
-    border-radius: 5px;
-    cursor: pointer;
-    border: 1px solid #000;
-}*/
+.upper-chart1 {
+    width: 54%;
+    border-radius: 10px;
+    background-color: white;
+    padding: 10px;
+    margin-left: 15px;
+}
+
+.upper-chart2 {
+    width: 22%;
+    padding: 10px;
+    margin-left: 15px;
+    border-radius: 10px;
+    background-color: white;
+}
+
+.lower-container {
+    display: flex;
+    height: 105%;
+}
+
+.lower-table {
+    width: 77%;
+    border-radius: 10px;
+    background-color: white;
+    padding: 10px;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+.lower-chart {
+    width: 22%;
+    border-radius: 10px;
+    background-color: white;
+    padding: 10px;
+    margin-left: 15px;
+    overflow-y: auto;
+}
+
+.lower-chart p {
+    display: flex;
+    justify-content: space-between;
+}
