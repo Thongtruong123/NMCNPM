@@ -9,8 +9,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -30,6 +29,10 @@ public class THONGKEController {
         id = id > 0 ? id : 0;
         List <TK_KHOANTHU> records = tkKhoanthuRepo.findByFee_id(id);
         List < TK_CANHO> payments = tkCanhoRepo.findByFee_id(id);
+
+        records.sort(Comparator.comparing(this::getStatusPriority));
+
+
         model.addAttribute("records", records);
         model.addAttribute("payments", payments);
         model.addAttribute("id", id);
@@ -41,6 +44,7 @@ public class THONGKEController {
             model.addAttribute("name", record.getNAME());
             model.addAttribute("hophaithu", record.getHOPHAITHU());
             model.addAttribute("hodanop", record.getHODANOP());
+            model.addAttribute("hanchot", record.getHanchot());
         }
         else{
             model.addAttribute("tiendanop", 0);
@@ -54,5 +58,25 @@ public class THONGKEController {
         String recordsJson = objectMapper.writeValueAsString(records);
         model.addAttribute("recordsJson", recordsJson);
         return "thong-ke-dong-gop";
+    }
+
+    private String getStatus(TK_KHOANTHU record) {
+        if (record.getHanchot() != null && record.getHanchot().before(new java.util.Date())) {
+            return "Kết thúc";
+        } else if (Objects.equals(record.getTIENDANOP(), record.getTONGPHAITHU())) {
+            return "Hoàn thành";
+        } else {
+            return "Diễn ra";
+        }
+    }
+
+    private int getStatusPriority(TK_KHOANTHU record) {
+        String status = getStatus(record);
+        return switch (status) {
+            case "Diễn ra" -> 1;
+            case "Hoàn thành" -> 2;
+            case "Kết thúc" -> 3;
+            default -> Integer.MAX_VALUE;
+        };
     }
 }

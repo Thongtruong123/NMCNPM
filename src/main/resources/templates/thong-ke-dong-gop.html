@@ -30,6 +30,7 @@
           <tr>
             <th>#</th>
             <th>Chọn Khoản Thu</th>
+            <th>Trạng thái</th>
           </tr>
           </thead>
           <tbody>
@@ -39,6 +40,12 @@
                 onclick="selectRecord(this, '${stat.index}')">
               <td th:text="${stat.index + 1}"></td> <!-- Chỉ số tăng dần -->
               <td th:text="${record.getNAME()}"></td>
+              <td th:text="${record.getHanchot() != null
+                    && record.getHanchot().before(new java.util.Date()) ? 'Kết thúc'
+                    : (record.getTIENDANOP() == record.getTONGPHAITHU() ? 'Hoàn thành' : 'Diễn ra')}"
+                  th:style="${record.getHanchot() != null && record.getHanchot().before(new java.util.Date()) ? 'color: grey;'
+                    : (record.getTIENDANOP() == record.getTONGPHAITHU() ? 'color: green;' : 'color: red;')}">
+              </td>
             </tr>
           </th:block>
           </tbody>
@@ -67,7 +74,7 @@
             <th>Chủ căn hộ </th>
             <th>Đã đóng</th>
             <th>Tổng cần đóng</th>
-            <th>Ngày đóng</th>
+            <th>Thời gian đóng </th>
           </tr>
           </thead>
           <tbody>
@@ -92,6 +99,7 @@
         <p>Tổng tiền đã nộp: <span th:text="${tiendanop} + ' VNĐ'"></span></p>
         <p>Tổng tiền chưa nộp: <span th:text="${tongphaithu}-${tiendanop} + ' VNĐ'"></span></p>
         <p>Tổng tiền phải thu: <span th:text="${tongphaithu} + ' VNĐ'"></span></p>
+        <p>Hạn chót: <span th:text="${hanchot}"></span> </p>
       </div>
     </div>
   </div>

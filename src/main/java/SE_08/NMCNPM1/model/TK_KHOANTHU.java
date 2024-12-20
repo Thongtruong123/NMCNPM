@@ -2,6 +2,8 @@ package SE_08.NMCNPM1.model;
 
 import jakarta.persistence.*;
 import java.lang.String;
+import java.util.Date;
+
 @Entity
 public class TK_KHOANTHU {
     @Id
@@ -9,6 +11,7 @@ public class TK_KHOANTHU {
     private Integer TIENDANOP;
     private String tenkhoanthu;
     private String ngaytao;
+    private Date hanchot;
     private String loaikhoanthu;
     private Integer TONGPHAITHU;
     private int HODANOP;
@@ -50,6 +53,10 @@ public class TK_KHOANTHU {
 
     public String getLoaikhoanthu() {
         return loaikhoanthu;
+    }
+
+    public Date getHanchot() {
+        return hanchot;
     }
 
 }
