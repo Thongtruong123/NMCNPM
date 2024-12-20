@@ -59,7 +59,28 @@
     </div>
 
     <div class="lower-container">
-      <div class="lower-table"></div>
+      <div class="lower-table">
+        <table class="table-canho">
+          <thead>
+          <tr>
+            <th>Số phòng</th>
+            <th>Chủ căn hộ </th>
+            <th>Đã đóng</th>
+            <th>Tổng cần đóng</th>
+            <th>Ngày đóng</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr th:each="payment : ${payments}">
+            <td th:text="${payment.id.room_number}"></td>
+            <td th:text="${payment.owner_name}"></td>
+            <td class="money" th:text="${payment.paid}"></td>
+            <td class="money" th:text="${payment.required}"></td>
+            <td th:text="${#temporals.format(payment.created_at, 'yyyy-MM-dd HH:mm:ss')}"></td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
       <div class="lower-chart">
         <div style="height: 70%; width: 100%; display: flex; justify-content: center;">
           <canvas id="lowerChart"> </canvas>
@@ -287,9 +308,10 @@
     var filteredData = records.filter(function (item) {
       return item.ngaytao && item.ngaytao === selectedMonth;
     });
-    var title = "Thống kê khoản thu " + selectedMonth;
-    renderUpperChart1(filteredData, title);
-    renderUpperChart2(filteredData, title);
+    var title1 = "Thống kê khoản thu " + selectedMonth;
+    var title2 = "Thống kê các loại khoản thu " + selectedMonth;
+    renderUpperChart1(filteredData, title1);
+    renderUpperChart2(filteredData, title2);
   }
   document.addEventListener('DOMContentLoaded', function() {
     var storedMonth = localStorage.getItem('selectedMonth');
@@ -344,6 +366,15 @@
       }
     });
   }
+</script>
+<script>
+  document.querySelectorAll('.money').forEach(function(cell) {
+      var amount = parseInt(cell.textContent.trim(), 10);
+      if (!isNaN(amount)) {
+          var formattedAmount = amount.toLocaleString();
+          cell.textContent = formattedAmount;
+      }
+  });
 </script>
 </body>
 </html>

@@ -2,9 +2,6 @@ package SE_08.NMCNPM1.model;
 
 import jakarta.persistence.*;
 import java.lang.String;
-import java.time.LocalDateTime;
-import java.util.Date;
-
 @Entity
 public class TK_KHOANTHU {
     @Id
