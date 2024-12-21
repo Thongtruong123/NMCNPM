@@ -1,74 +1,44 @@
 package SE_08.NMCNPM1.controller;
+
 import SE_08.NMCNPM1.model.Khoanthu;
 import SE_08.NMCNPM1.model.KhoanthuDTO;
-import SE_08.NMCNPM1.service.KhoanThuService;
+import SE_08.NMCNPM1.repository.KhoanThuRepository;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
-/**
- * The type Khoan thu controller.
- */
 @Controller
+
 public class KhoanThuController {
 
     @Autowired
-    private KhoanThuService repo;
+    private KhoanThuRepository repo;
 
-    /**
-     * Show khoanthu list string.
-     *
-     * @param model   the model
-     * @param keyword the keyword
-     * @param sort    the sort
-     * @param page    the page
-     * @return the string
-     */
-    @GetMapping("/quan-ly-khoan-thu")
-    public String showKhoanthuList(Model model,
-                                   @RequestParam(value = "keyword", required = false) String keyword,
-                                   @RequestParam(value = "sort", required = false) String sort,
-                                   @RequestParam(value = "page", defaultValue = "0") int page) { // Nhận số trang từ yêu cầu
+    @GetMapping({"/quan-ly-khoan-thu"})
+    public String showKhoanthuList(Model model) {
+        // Lấy danh sách Khoanthu từ database
+        List<Khoanthu> ds_khoanthu = repo.findAll(Sort.by(Sort.Direction.DESC, "ngaytao"));
 
-        // Tạo Pageable với thông tin phân trang và sắp xếp
-        Pageable pageable = PageRequest.of(
-                page,
-                7,
-                Sort.by(sort != null && !sort.isEmpty() ? sort : "id").ascending()
-        );
-
-
-        // Lấy danh sách Khoanthu theo keyword và phân trang
-        Page<Khoanthu> pageResult = repo.listAll(keyword, pageable);
-        List<Khoanthu> khoanthuList = pageResult.getContent();
-
-        // Gửi dữ liệu vào model
-        model.addAttribute("khoanthu_list", khoanthuList);
-        model.addAttribute("totalPages", pageResult.getTotalPages());
-        model.addAttribute("currentPage", page);
-        model.addAttribute("keyword", keyword);
-        model.addAttribute("sort", sort);
-
+        // Kiểm tra và log kết quả
+        if (ds_khoanthu.isEmpty()) {
+            System.out.println("Không có dữ liệu trong bảng ");
+        } else {
+            System.out.println("Danh sách Khoan Thu đã được lấy từ cơ sở dữ liệu.");
+            System.out.println("Danh sách Khoanthu: " + ds_khoanthu);  // Log toàn bộ danh sách
+        }
+        System.out.println(ds_khoanthu);
+        model.addAttribute("khoanthu_list", ds_khoanthu);
         return "quan-ly-khoan-thu";
     }
 
-    /**
-     * Show create page string.
-     *
-     * @param model the model
-     * @return the string
-     */
     @GetMapping("/create")
     public String showCreatePage(Model model) {
         System.out.println("Truy cập vào trang tạo mới Khoan Thu.");
@@ -78,24 +48,14 @@ public class KhoanThuController {
         model.addAttribute("khoanthuDto", khoanthuDto);
         System.out.println("Thêm đối tượng khoanthuDto vào model: " + khoanthuDto);
 
-
         return "form-qlkt";
     }
 
-    /**
-     * Create khoan thu string.
-     *
-     * @param khoanthuDto        the khoanthu dto
-     * @param result             the result
-     * @param model              the model
-     * @param redirectAttributes the redirect attributes
-     * @return the string
-     */
     @PostMapping("/create")
     public String createKhoanThu(
             @Valid @ModelAttribute("khoanthuDto") KhoanthuDTO khoanthuDto,  // Đảm bảo tên khớp với model
             BindingResult result,
-            Model model, RedirectAttributes redirectAttributes) {
+            Model model) {
 
         // Kiểm tra lỗi nhập liệu và log thông tin
         if (result.hasErrors()) {
@@ -125,18 +85,17 @@ public class KhoanThuController {
         repo.save(khoanthu);
 
         System.out.println("Khoan Thu đã được lưu vào cơ sở dữ liệu.");
-        redirectAttributes.addFlashAttribute("createsuccess", "Tạo khoản thu thành công!");
         return "redirect:/quan-ly-khoan-thu";
 
     }
 
-    /**
-     * Show edit page string.
-     *
-     * @param model the model
-     * @param id    the id
-     * @return the string
-     */
+    // Xử lý nút Cancel
+//    @GetMapping("/cancel")
+//    public String cancelCreate() {
+//        System.out.println("Người dùng hủy việc tạo Khoan Thu.");
+//        // Chuyển hướng về danh sách khoản thu
+//        return "redirect:/khoanthu";
+//    }
     @GetMapping("/edit")
     public String showEditPage(
             Model model,
@@ -144,7 +103,7 @@ public class KhoanThuController {
     ) {
         try {
             // Tìm khoản thu theo ID sử dụng Optional
-            Khoanthu khoanthu = repo.findById(id);  // Chuyển từ Optional sang Khoanthu nếu tìm thấy
+            Khoanthu khoanthu = repo.findById(id).orElse(null);  // Chuyển từ Optional sang Khoanthu nếu tìm thấy
 
             if (khoanthu == null) {
                 // Nếu không tìm thấy, chuyển hướng về trang quản lý khoản thu
@@ -160,35 +119,25 @@ public class KhoanThuController {
             khoanthuDto.setNguoitao(khoanthu.getNguoitao());
 
             // Đưa DTO vào model để render form
-            model.addAttribute("khoanthu_edit", khoanthuDto);
+            model.addAttribute("khoanthuDto", khoanthuDto);
             model.addAttribute("id", id); // Truyền ID để sử dụng trong form
-            return "edit-qlkt";
+            return "form-qlkt";
         } catch (Exception ex) {
             System.out.println("Exception: " + ex.getMessage());
             return "redirect:/quan-ly-khoan-thu";
         }
     }
 
-    /**
-     * Update khoanthu string.
-     *
-     * @param model              the model
-     * @param id                 the id
-     * @param khoanthu_edit      the khoanthu edit
-     * @param result             the result
-     * @param redirectAttributes the redirect attributes
-     * @return the string
-     */
     @PostMapping("/edit")
     public String updateKhoanthu(
             Model model,
             @RequestParam int id,
-            @Valid @ModelAttribute("khoanthu_edit") KhoanthuDTO khoanthu_edit,
-            BindingResult result, RedirectAttributes redirectAttributes) {
+            @Valid @ModelAttribute("khoanthuDto") KhoanthuDTO khoanthuDto,
+            BindingResult result) {
         try {
             // Tìm khoản thu theo ID
-            Optional<Khoanthu> optionalKhoanthu = Optional.ofNullable(repo.findById(id));
-            if (optionalKhoanthu.isEmpty()) {
+            Optional<Khoanthu> optionalKhoanthu = repo.findById(id);
+            if (optionalKhoanthu.isPresent()) {
                 // Nếu không tìm thấy, chuyển hướng về trang quản lý khoản thu
                 return "redirect:/quan-ly-khoan-thu";
             }
@@ -199,42 +148,37 @@ public class KhoanThuController {
             // Kiểm tra lỗi validate
             if (result.hasErrors()) {
                 // Trả lại form với lỗi
-                model.addAttribute("id", id);
-                model.addAttribute("khoanthu_edit", khoanthu_edit);
-                return "edit-qlkt";
+                model.addAttribute("id", id); // Đảm bảo ID vẫn có trong model
+                return "form-qlkt";
             }
 
             // Cập nhật dữ liệu từ DTO sang Entity
-            khoanthu.setTenkhoanthu(khoanthu_edit.getTenkhoanthu());
-            khoanthu.setSotien(khoanthu_edit.getSotien());
-            khoanthu.setBatbuoc(khoanthu_edit.getBatbuoc());
-            khoanthu.setHanchot(khoanthu_edit.getHanchot());
-            khoanthu.setNguoitao(khoanthu_edit.getNguoitao());
+            khoanthu.setTenkhoanthu(khoanthuDto.getTenkhoanthu());
+            khoanthu.setSotien(khoanthuDto.getSotien());
+            khoanthu.setBatbuoc(khoanthuDto.getBatbuoc());
+            khoanthu.setHanchot(khoanthuDto.getHanchot());
+            khoanthu.setNguoitao(khoanthuDto.getNguoitao());
 
             // Lưu vào cơ sở dữ liệu
             repo.save(khoanthu);
-            System.out.println("Khoan Thu đã sửa va và được lưu vào cơ sở dữ liệu.");
-            redirectAttributes.addFlashAttribute("editsuccess", "Sửa khoản thu thành công!");
-            return "redirect:/quan-ly-khoan-thu";
+            System.out.println("Khoan Thu đã được lưu vào cơ sở dữ liệu.");
+
+            return "redirect:/quan-ly-khoan-thu";  // Chuyển hướng về trang quản lý khoản thu
         } catch (Exception ex) {
             System.out.println("Exception: " + ex.getMessage());
             return "redirect:/quan-ly-khoan-thu";
         }
     }
 
-
     @GetMapping("/delete")
-    public String deleteKhoanthu(@RequestParam int id, RedirectAttributes redirectAttributes) {
-        Optional<Khoanthu> khoanthu = Optional.ofNullable(repo.findById(id)); // Tìm khoản thu trước khi xóa
-        if (khoanthu.isPresent()) {
-            repo.deleteById(id);
-            // Thêm thông báo xóa thành công
-            redirectAttributes.addFlashAttribute("deletesuccess", "Khoản thu '" + khoanthu.get().getTenkhoanthu() + "' đã được xóa!");
-        } else {
-            redirectAttributes.addFlashAttribute("deletesuccess", "Không tìm thấy khoản thu cần xóa!");
-        }
+    public String deleteKhoanthu(
+            @RequestParam int id
+    ){
+
+        repo.deleteById(id);
+
+
         return "redirect:/quan-ly-khoan-thu";
     }
-
 
 }

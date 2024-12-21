@@ -17,6 +17,7 @@
 }
 
 .upper {
+    height: 30%;
     width: 100%;
     min-width: 1000px;
     border-radius: 10px;
@@ -28,6 +29,7 @@
 }
 
 .upper .slider {
+    height: 75%;
     width: 100%;
     overflow: hidden;
     position: relative;
@@ -37,11 +39,12 @@
 .upper .slider .slider-list {
     display: flex;
     transition: transform 0.5s ease;
+    height: 100%
 }
 
 .upper .slider .slider-list li {
     width: calc((100% - 60px) / 3);
-    height: 180px;
+    height: 100%;
     list-style: none;
     text-align: center;
     padding: 20px;
@@ -171,23 +174,27 @@
     background-color: white;
     padding: 20px;
     margin-left: 15px;
-    overflow: auto;
 }
 
-.right .news {
-    display: flex;
-    text-decoration: none;
-    margin: 10px auto;
-    color: black;
+.right #calendar {
+    width: 100%;
+    height: 100%;
 }
 
-.right .news img {
-    width: 250px;
-    object-fit: cover;
-    margin-right: 20px;
-    border-radius: 10px;
+.event-start {
+    background-color: blue !important;  /* Màu nền xanh */
+    color: white !important;            /* Màu chữ trắng */
 }
 
-.right .news h2 {
-    margin-bottom: 10px;
+/* Màu xanh lá cho ngày kết thúc */
+.event-end {
+    background-color: green !important;  /* Màu nền xanh lá */
+    color: white !important;            /* Màu chữ trắng */
+    overflow: hidden !important;
+}
+
+.event-start-end {
+    background: linear-gradient(to right, blue, green) !important; /* Gradient từ blue sang green */
+    color: white !important;  /* Màu chữ trắng */
+    overflow: hidden !important;
 }
