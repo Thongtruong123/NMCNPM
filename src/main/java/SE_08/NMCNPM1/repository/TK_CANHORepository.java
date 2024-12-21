@@ -13,6 +13,6 @@ public interface TK_CANHORepository extends JpaRepository<TK_CANHO, TK_CANHO.TKC
     @Query(value = "SELECT * FROM THONGKE_BY_CANHO WHERE fee_id = ?1", nativeQuery = true)
     List<TK_CANHO> findByFee_id(@Param("fee_id") int fee_id);
 
-    @Query(value = "SELECT * FROM THONGKE_BY_CANHO WHERE room_number = ?1", nativeQuery = true)
-    List<TK_CANHO> findByRoom_number(@Param("room_number") String room_number);
+    @Query(value = "SELECT * FROM THONGKE_BY_CANHO WHERE room_number = ?1 ORDER BY hanchot DESC", nativeQuery = true)
+    List<TK_CANHO> findByRoom_numberOrderByHanchotDesc(@Param("room_number") String room_number);
 }

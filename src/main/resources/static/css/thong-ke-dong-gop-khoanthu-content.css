@@ -17,22 +17,59 @@
 }
 
 .main-content {
-    height: 50%;
+    height: 95%;
     width: 100%;
     min-width: 500px;
     z-index: -1;
 }
 
-.main-content .top {
+.top {
+    position: relative;
     border-radius: 10px;
     background-color: white;
     padding: 20px;
     margin-bottom: 15px;
 }
 
+.top .btn {
+    display: flex;
+}
+
+.top .btn a {
+    text-decoration: none;
+    display: block;
+    margin-right: 70px;
+    color: black;
+}
+
+.top .btn .khoanthu-btn {
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.top::after {
+    content: "";
+    background-color: black;
+    width: 97%;
+    position: absolute;
+    bottom: 10px;
+    height: 1px;
+}
+
+.top .slider {
+    position: absolute;
+    height: 5px;
+    width: 155px;
+    z-index: 1;
+    left: 20px;
+    bottom: 10px;
+    background-color: black;
+    border-radius: 10px;
+}
+
 .upper-container {
     display: flex;
-    height: 60%;
+    height: 32%;
     margin-bottom: 15px;
 }
 
@@ -83,7 +120,7 @@
 
 .lower-container {
     display: flex;
-    height: 105%;
+    height: 57%;
 }
 
 .lower-table {

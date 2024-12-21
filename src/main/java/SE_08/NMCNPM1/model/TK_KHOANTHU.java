@@ -8,12 +8,12 @@ import java.util.Date;
 public class TK_KHOANTHU {
     @Id
     private int fee_id;
-    private Integer TIENDANOP;
+    private Long TIENDANOP;
     private String tenkhoanthu;
     private String ngaytao;
     private Date hanchot;
     private String loaikhoanthu;
-    private Integer TONGPHAITHU;
+    private Long TONGPHAITHU;
     private int HODANOP;
     private int HOPHAITHU;
 
@@ -32,12 +32,12 @@ public class TK_KHOANTHU {
         return fee_id;
     }
 
-    public Integer getTIENDANOP() {
+    public Long getTIENDANOP() {
 
         return TIENDANOP;
     }
 
-    public Integer getTONGPHAITHU() {
+    public Long getTONGPHAITHU() {
 
         return TONGPHAITHU;
     }

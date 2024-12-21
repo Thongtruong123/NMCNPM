@@ -48,8 +48,8 @@ public class TK_CANHO {
 
     private String owner_name;
     private String fee_name;
-    private int paid;
-    private int required;
+    private Long paid;
+    private Long required;
     private LocalDateTime created_at;
     private LocalDateTime hanchot;
 
@@ -57,7 +57,7 @@ public class TK_CANHO {
         return id;
     }
 
-    public int getPaid() {
+    public Long getPaid() {
         return paid;
     }
 
@@ -69,7 +69,7 @@ public class TK_CANHO {
         return fee_name;
     }
 
-    public int getRequired() {
+    public Long getRequired() {
         return required;
     }
 
