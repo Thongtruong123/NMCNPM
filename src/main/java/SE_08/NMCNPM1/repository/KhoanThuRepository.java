@@ -25,7 +25,7 @@ public interface KhoanThuRepository extends PagingAndSortingRepository<Khoanthu,
 
     void deleteById(int id);
 
-    List<Khoanthu> findTop5ByHanchotGreaterThanOrderByHanchotAsc(LocalDateTime currentDate);
+    List<Khoanthu> findTop10ByHanchotGreaterThanOrderByHanchotAsc(LocalDateTime currentDate);
 
     List<Khoanthu> findAll(Sort sort);
 
