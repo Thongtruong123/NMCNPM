@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Trang chủ</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/template.css">
+    <link rel="stylesheet" href="/css/thong-ke-dong-gop-canho-content.css">
+    <link rel='stylesheet' href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css'>
+</head>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
+
+
+<body>
+<div th:replace="~{/fragments/sidebar :: sidebar}" class="sidebar"> <!-- Sidebar placeholder --> </div>
+
+<div class="mainboard">
+    <div class="header-content">
+        <h1> Thống kê đóng góp </h1> <br>
+    </div>
+    <div class="top">
+        <div class="btn">
+            <a th:href="@{'/thong-ke-dong-gop/khoan-thu?id=' + ${session.tkid != null ? session.tkid : 0}}" class="khoanthu-btn">Theo khoản thu</a>
+            <a th:href="@{/thong-ke-dong-gop/can-ho}" class="canho-btn">Theo căn hộ</a>
+        </div>
+        <div class="slider"></div>
+    </div>
+    <div class="search">
+        <form th:action="@{/thong-ke-dong-gop/can-ho/search}" method="POST">
+            <label for="room_number">Nhập căn hộ: </label>
+            <input type="text" id="room_number" name="room_number" required>
+            <button type="submit">Thống kê</button>
+        </form>
+    </div>
+    <div th:if="${errorMessage != null}">
+        <p th:text="${message}" class="alert"></p>
+    </div>
+    <div th:if="${errorMessage == null && room_number != null}" class="main-content">
+        <h2>Danh sách các khoản thu của căn hộ <span th:text="${room_number}"></span> </h2>
+        <br>
+        <ul class="list-khoanthu">
+            <li th:each="payment: ${payments}">
+                <h3 th:text="${payment.fee_name}"></h3>
+                <p> Tổng số tiền cần đóng: <span th:text="${payment.required}" class="money"></span> VNĐ</p>
+                <p> Số tiền đã đóng: <span th:text="${payment.paid}" class="money"></span> VNĐ</p>
+                <p>
+                    <!-- Nếu payment.created_at không null -->
+                    <span th:if="${payment.created_at != null}"
+                          th:text="'Đã đóng vào: ' + ${#temporals.format(payment.created_at, 'yyyy-MM-dd HH:mm:ss')}"
+                          style="color: green;"></span>
+
+                    <!-- Nếu payment.created_at là null và payment.hanchot < ngày hôm nay -->
+                    <span th:if="${payment.created_at == null and payment.hanchot != null and payment.hanchot.isBefore(T(java.time.LocalDateTime).now())}"
+                          th:text="'Chưa đóng, đã quá hạn vào ' + ${#temporals.format(payment.hanchot, 'yyyy-MM-dd HH:mm:ss')}"
+                          style="color: grey;"></span>
+
+                    <!-- Nếu payment.created_at là null và payment.hanchot không quá hạn -->
+                    <span th:if="${payment.created_at == null and payment.hanchot != null and payment.hanchot.isAfter(T(java.time.LocalDateTime).now())}"
+                          th:text="'Hạn chót: ' + ${#temporals.format(payment.hanchot, 'yyyy-MM-dd HH:mm:ss')}"
+                          style="color: red;"></span>
+                </p>
+                <hr>
+            </li>
+        </ul>
+    </div>
+</div>
+
+<script src="/js/menu-toggle.js"></script>
+<script>
+    document.querySelectorAll('.money').forEach(function(cell) {
+        var amount = parseInt(cell.textContent.trim(), 10);
+        if (!isNaN(amount)) {
+            var formattedAmount = amount.toLocaleString();
+            cell.textContent = formattedAmount;
+        }
+    });
+</script>
+</body>
+</html>

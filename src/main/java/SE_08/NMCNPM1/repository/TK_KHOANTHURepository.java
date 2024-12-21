@@ -8,7 +8,7 @@ import org.springframework.data.repository.query.Param;
 import java.util.List;
 
 @Repository
-public interface THONGKE extends JpaRepository<TK_KHOANTHU, Integer> {
+public interface TK_KHOANTHURepository extends JpaRepository<TK_KHOANTHU, Integer> {
     @Query(value = "SELECT * FROM THONGKE_BY_KHOANTHU", nativeQuery = true)
     List <TK_KHOANTHU> findByFee_id(@Param("fee_id") int fee_id);
 }

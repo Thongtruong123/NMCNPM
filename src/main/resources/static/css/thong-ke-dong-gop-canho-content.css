@@ -1,0 +1,129 @@
+.mainboard {
+    position: relative;
+    top: 0;
+    left: 120px;
+    height: 100vh;
+    transition: all 0.5s ease;
+    width: calc(100% - 120px);
+    padding: 20px;
+    align-items: center;
+    justify-content: center;
+    background-color: #ADD8E6;
+}
+
+.header-content {
+    width: 100%;
+    min-width: 500px;
+}
+
+.top {
+    position: relative;
+    border-radius: 10px;
+    background-color: white;
+    padding: 20px;
+    margin-bottom: 15px;
+}
+
+.top .btn {
+    display: flex;
+}
+
+.top .btn a {
+    text-decoration: none;
+    display: block;
+    margin-right: 70px;
+    color: black;
+}
+
+.top .btn .canho-btn {
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.top::after {
+    content: "";
+    background-color: black;
+    width: 97%;
+    position: absolute;
+    bottom: 10px;
+    height: 1px;
+}
+
+.top .slider {
+    position: absolute;
+    height: 5px;
+    width: 125px;
+    z-index: 1;
+    left: 200px;
+    bottom: 10px;
+    background-color: black;
+    border-radius: 10px;
+}
+
+.search {
+    height: 10%;
+    width: 100%;
+    min-width: 500px;
+    z-index: -1;
+    border-radius: 10px;
+    background-color: white;
+    padding: 20px;
+    margin-bottom: 15px;
+    display: flex;
+}
+
+.search label {
+    font-size: 18px;
+}
+
+.search input {
+    font-size: 16px;
+    height: 35px;
+    width: 300px;
+    padding: 5px 10px;
+    border-radius: 5px;
+    border-color: #DCDCDC;
+    margin-left: 50px;
+}
+
+.search button {
+    background: linear-gradient(to right, #007e99, #005f6b);
+    height: 35px;
+    color: white;
+    font-size: 18px;
+    font-weight: bold;
+    border: none;
+    border-radius: 5px;
+    padding: 5px 10px;
+    margin-left: 50px;
+    cursor: pointer;
+}
+
+.alert {
+    font-color: red;
+}
+
+.main-content {
+    height: 75%;
+    width: 100%;
+    min-width: 500px;
+    z-index: -1;
+    border-radius: 10px;
+    background-color: white;
+    padding: 20px;
+    overflow-y: auto;
+}
+
+.main-content ul {
+    margin-left: 30px;
+}
+
+.main-content li {
+    margin-top: 15px;
+}
+
+.main-content p, h3 {
+    line-height: 1.4;
+}
+
+

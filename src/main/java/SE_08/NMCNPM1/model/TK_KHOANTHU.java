@@ -2,14 +2,18 @@ package SE_08.NMCNPM1.model;
 
 import jakarta.persistence.*;
 import java.lang.String;
+import java.util.Date;
 
 @Entity
 public class TK_KHOANTHU {
     @Id
     private int fee_id;
-    private int TIENDANOP;
+    private Long TIENDANOP;
     private String tenkhoanthu;
-    private int TONGPHAITHU;
+    private String ngaytao;
+    private Date hanchot;
+    private String loaikhoanthu;
+    private Long TONGPHAITHU;
     private int HODANOP;
     private int HOPHAITHU;
 
@@ -28,12 +32,12 @@ public class TK_KHOANTHU {
         return fee_id;
     }
 
-    public int getTIENDANOP() {
+    public Long getTIENDANOP() {
 
         return TIENDANOP;
     }
 
-    public int getTONGPHAITHU() {
+    public Long getTONGPHAITHU() {
 
         return TONGPHAITHU;
     }
@@ -41,6 +45,18 @@ public class TK_KHOANTHU {
     public String getNAME() {
 
         return tenkhoanthu;
+    }
+
+    public String getNgaytao() {
+        return ngaytao;
+    }
+
+    public String getLoaikhoanthu() {
+        return loaikhoanthu;
+    }
+
+    public Date getHanchot() {
+        return hanchot;
     }
 
 }
