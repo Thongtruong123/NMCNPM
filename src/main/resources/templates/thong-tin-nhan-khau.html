@@ -1,23 +1,175 @@
 <!DOCTYPE html>
-<html lang="vi">
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
 <head>
   <title> Trang chủ </title>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="css/template.css">
-  <link rel="stylesheet" href="css/thong-tin-nhan-khau-content.css">
+  <link rel="stylesheet" href="css/quan-ly-khoan-thu-content.css">
   <link rel='stylesheet' href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css'>
+
+
+  <style>
+    /* Spinner styling */
+    .spinner {
+        border: 4px solid #f3f3f3; /* Light grey */
+        border-top: 4px solid #3498db; /* Blue */
+        border-radius: 50%;
+        width: 20px;
+        height: 20px;
+        animation: spin 1s linear infinite;
+
+        margin-left: 10px;
+    }
+
+    @keyframes spin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+    }
+
+    /* Disable button while loading */
+    .loading {
+        pointer-events: none;
+        background-color: #bdc3c7;
+    }
+  </style>
+
 </head>
 <body>
-  <div th:replace="~{/fragments/sidebar :: sidebar}" class="sidebar"> <!-- Sidebar placeholder --> </div>
+<div th:replace="~{/fragments/sidebar :: sidebar}" class="sidebar"> <!-- Sidebar placeholder --> </div>
 
-  <div class="mainboard">
+  <div class="mainboard"> <!-- Mở div mainboard -->
+
+    <div class="header-content">
+      <h1> Quản lý nhân khẩu </h1> <br>
+    </div>
+
     <div class="main-content" id="maincontent">
-      <h1> Thông tin nhân khẩu </h1>
+      <h2 class="text-center my-4">Danh sách nhân khẩu</h2>
+      <br> <hr>
+    <div class="searchbar" style="display: flex; justify-content: center; width: 100%;">
+      <form method="get" action="/thong-tin-nhan-khau" style="display: flex; align-items: center; width: 90%;">
+        <input type="search" placeholder="Tìm kiếm nhân khẩu" id="keyword" name="keyword" th:value="${nhankhau_keyword}" required style="flex: 3; width: 90%; padding: 5px 10px;">
+        <button class="search-button" type="submit" style="padding: 5px 10px; margin-left: 10px;">
+          <i class='bx bx-search'></i>
+        </button>
+      </form>
+    </div>
+    <br>
+    <a th:href="@{/thong-tin-nhan-khau/create}" title="Tạo nhân khẩu mới" style="text-decoration: none; padding: 10px 20px; background: linear-gradient(to right, #007e99, #005f6b); color: white; border-radius: 5px; display: inline-block;">
+      Tạo nhân khẩu
+    </a>
+      <br>
+
+    <div>
+      <table class="payment-table">
+        <thead>
+        <tr>
+          <th>Phòng</th>
+          <th>Họ và tên</th>
+          <th>Giới tính</th>
+          <th>Vai trò</th>
+          <th>Số điện thoại</th>
+          <th>Ngày sinh</th>
+          <th>Quê quán</th>
+          <th>Thường trú</th>
+          <th>Tạm trú</th>
+          <th>Hành động</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="nhankhau : ${nhankhau_list}">
+          <td th:text="${nhankhau.id.roomNumber}"></td>
+          <td th:text="${nhankhau.id.hoten}"></td>
+          <td th:text="${nhankhau.gioitinh}"></td>
+          <td th:text="${nhankhau.vaitro}"></td>
+          <td th:text="${nhankhau.sodienthoai}"></td>
+          <td th:text="${nhankhau.ngaysinh}"></td>
+          <td th:text="${nhankhau.quequan}"></td>
+          <td th:text="${nhankhau.thuongtru}"></td>
+          <td th:text="${nhankhau.tamtru}"></td>
+          <td>
+            <a th:href="@{/thong-tin-nhan-khau/edit(room_number=${nhankhau.id.roomNumber}, hoten=${nhankhau.id.hoten})}"
+               style="display: inline-block; padding: 8px 16px; color: white; background-color:#2ecc71; text-decoration: none; border-radius: 4px; text-align: center;">
+              <i class='bx bxs-edit-alt' style="color: white;"></i> Sửa
+            </a>
+            <a th:href="@{/thong-tin-nhan-khau/delete(room_number=${nhankhau.id.roomNumber}, hoten=${nhankhau.id.hoten})}"
+               th:onclick="|return confirm('Bạn có chắc chắn muốn xóa nhân khẩu này không?');|"
+               style="display: inline-block; padding: 8px 16px; color: white; background-color: #e74c3c; text-decoration: none; border-radius: 4px; text-align: center;">
+              <i class='bx bxs-trash-alt' style="color: white;"></i> Xóa
+            </a>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Phân trang -->
+    <div class="pagination-container" style="margin-top: 20px; display: flex; justify-content: center;">
+      <ul class="pagination" style="list-style: none; display: flex; gap: 5px;">
+        <!-- Nút Previous -->
+        <li th:classappend="${nhankhau_currentPage == 0} ? 'disabled' : ''">
+          <a th:href="@{/thong-tin-nhan-khau(page=${nhankhau_currentPage - 1}, keyword=${nhankhau_keyword}, sort=${nhankhau_sort})}"
+             th:if="${nhankhau_currentPage > 0}" style="text-decoration: none; padding: 8px 12px; background: #3498db; color: white; border-radius: 4px;">Trang trước</a>
+          <span th:if="${nhankhau_currentPage == 0}" style="padding: 8px 12px; background: #bdc3c7; color: white; border-radius: 4px; cursor: not-allowed;">Trang trước</span>
+        </li>
+
+        <!-- Số trang -->
+        <li th:each="i : ${#numbers.sequence(0, nhankhau_totalPages - 1)}"
+            th:classappend="${i == nhankhau_currentPage} ? 'active' : ''"
+            onclick="changeColor(this)">
+          <a th:href="@{/thong-tin-nhan-khau(page=${i}, keyword=${nhankhau_keyword}, sort=${nhankhau_sort})}"
+             th:text="${i + 1}" class="page-link"
+             style="text-decoration: none; padding: 8px 12px; background: #2ecc71; color: white; border-radius: 4px;">
+          </a>
+        </li>
+
+        <!-- Nút Next -->
+        <li th:classappend="${nhankhau_currentPage == nhankhau_totalPages - 1} ? 'disabled' : ''">
+          <a th:href="@{/thong-tin-nhan-khau(page=${nhankhau_currentPage + 1}, keyword=${nhankhau_keyword}, sort=${nhankhau_sort})}"
+             th:if="${nhankhau_currentPage < nhankhau_totalPages - 1}" style="text-decoration: none; padding: 8px 12px; background: #3498db; color: white; border-radius: 4px;">Trang sau</a>
+          <span th:if="${nhankhau_currentPage == nhankhau_totalPages - 1}" style="padding: 8px 12px; background: #bdc3c7; color: white; border-radius: 4px; cursor: not-allowed;">Trang sau</span>
+        </li>
+      </ul>
+    </div>
+
+    <div style="display: flex; justify-content: flex-end;">
+      Trang: <span th:text="${nhankhau_currentPage + 1}"></span>
     </div>
   </div>
+</div>
 
-</body>
+<script src="js/loading.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<!-- Hiển thị pop-up thông báo -->
+<script th:if="${editsuccess_nhankhau}" type="text/javascript">
+  Swal.fire({
+      title: 'Thành công!',
+      text: 'Sửa nhân khẩu thành công!',
+      icon: 'success',
+      confirmButtonText: 'OK'
+  });
+</script>
+
+<script th:if="${createsuccess_nhankhau}" type="text/javascript">
+  Swal.fire({
+      title: 'Thành công!',
+      text: 'Tạo nhân khẩu mới thành công!',
+      icon: 'success',
+      confirmButtonText: 'OK'
+  });
+</script>
+
+<script th:if="${deletesuccess_nhankhau}" type="text/javascript">
+  Swal.fire({
+      title: 'Thành công!',
+      text: 'Xóa nhân khẩu thành công!',
+      icon: 'success',
+      confirmButtonText: 'OK'
+  });
+</script>
 
 <script src="js/menu-toggle.js"> </script>
+
+</body>
 </html>

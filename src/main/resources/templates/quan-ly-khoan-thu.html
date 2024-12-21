@@ -94,6 +94,7 @@
                             <i class='bx bxs-edit-alt' style="color: white;"></i> Sửa
                         </a>
                         <a th:href="@{/delete(id=${khoanthu.id})}"
+                           th:onclick="|return confirm('Bạn có chắc chắn muốn xóa khoản thu này không?');|"
                            style="display: inline-block; padding: 8px 16px; color: white; background-color: #e74c3c; text-decoration: none; border-radius: 4px; text-align: center;">
                             <i class='bx bxs-trash-alt' style="color: white;"></i> Xóa
                         </a>

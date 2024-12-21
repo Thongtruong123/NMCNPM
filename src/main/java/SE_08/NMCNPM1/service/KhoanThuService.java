@@ -18,7 +18,6 @@ public class KhoanThuService {
     @Autowired
     private KhoanThuRepository khoanThuRepository;
 
-    // Tìm thông tin KhoanThu theo ID
     public Khoanthu findById(int id) {
         Optional<Khoanthu> optionalKhoanThu = khoanThuRepository.findById(id);
         return optionalKhoanThu.orElse(null); // Trả về null nếu không tìm thấy
@@ -28,7 +27,7 @@ public class KhoanThuService {
         if (keyword != null && !keyword.isEmpty()) {
             return khoanThuRepository.search(keyword, pageable);
         }
-        // Nếu không có từ khóa, trả về danh sách theo phân trang và sắp xếp.
+
         return khoanThuRepository.findAll(pageable);
     }
 
