@@ -9,21 +9,21 @@
     <link rel="stylesheet" href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css">
     <style>
         .form-group {
-            display: flex;           /* Sử dụng flexbox để các phần tử nằm ngang */
-            align-items: center;     /* Canh giữa các phần tử con theo chiều dọc */
-            margin-bottom: 15px;     /* Khoảng cách giữa các phần tử */
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
         }
 
         .form-label {
-            width: 400px;            /* Đặt độ rộng cố định cho nhãn */
-            margin-right: 15px;      /* Khoảng cách giữa nhãn và ô nhập */
-            text-align: right;       /* Canh chữ của nhãn sang phải */
+            width: 400px;
+            margin-right: 15px;
+            text-align: right;
         }
 
         .form-control {
-            flex: 1;                 /* Ô nhập sẽ chiếm phần còn lại của không gian */
-            padding: 8px;            /* Padding trong ô nhập */
-            font-size: 1rem;         /* Kích thước chữ trong ô nhập */
+            flex: 1;
+            padding: 8px;
+            font-size: 1rem;
         }
     </style>
 </head>
@@ -33,49 +33,73 @@
 
 <!-- Main Content -->
 <div class="mainboard">
+
+    <div class="header-content">
+        <h1>Quản lý khoản thu</h1> <br>
+    </div>
+
     <div class="main-content" id="maincontent">
-        <h1 class="text-center my-4" style="text-align: center; margin: 0 auto;">Chỉnh sửa khoản thu</h1>
-        <br>
-        <br>
-        <form action="#" th:action="@{/edit(id=${khoanthu_edit.id})}" th:object="${khoanthu_edit}" method="post">
+        <h2> Chỉnh sửa khoản thu</h2>
+        <hr> <br>
+
+
+        <form action="#" th:action="@{/edit(id=${id})}" th:object="${khoanthu_edit}" method="post">
             <!-- Tên khoản thu -->
-            <div class="form-group">
-                <label for="tenkhoanthu" class="form-label">Tên khoản thu:</label>
-                <input type="text" id="tenkhoanthu" class="form-control" th:field="*{tenkhoanthu}">
+            <div class="row mb-3">
+                <label for="tenkhoanthu" class="form-label">Tên khoản thu</label>
+                <div class="col-sm-8">
+                    <input type="text" id="tenkhoanthu" class="form-control" th:field="*{tenkhoanthu}">
+                </div>
             </div>
 
             <!-- Số tiền -->
-            <div class="form-group">
-                <label for="sotien-input" class="form-label">Số tiền:</label>
-                <input class="form-control" type="number" min="0" step="1000" th:field="*{sotien}" id="sotien-input">
+            <div class="row mb-3">
+                <label for="sotien-input" class="form-label">Số tiền</label>
+                <div class="col-sm-8">
+                    <input class="form-control" type="number" min="0" step="1000" th:field="*{sotien}" id="sotien-input">
+                </div>
             </div>
 
             <!-- Bắt buộc -->
-            <div class="form-group">
-                <label for="batbuoc-select" class="form-label">Bắt buộc:</label>
-                <select class="form-select" th:field="*{batbuoc}" id="batbuoc-select">
-                    <option value="Có">Có</option>
-                    <option value="Không">Không</option>
-                </select>
+            <div class="row mb-3">
+                <label for="batbuoc-select" class="form-label">Bắt buộc</label>
+                <div class="col-sm-8">
+                    <select class="form-select" th:field="*{batbuoc}" id="batbuoc-select">
+                        <option value="Có">Có</option>
+                        <option value="Không">Không</option>
+                    </select>
+                </div>
             </div>
 
             <!-- Hạn chót -->
-            <div class="form-group">
-                <label for="hanchot" class="form-label">Hạn chót:</label>
-                <input id="hanchot" class="form-control" type="datetime-local" th:field="*{hanchot}"
-                       min="${#temporals.format(#temporals.now(), 'yyyy-MM-dd\'T\'HH:mm')}">
+            <div class="row mb-3">
+                <label for="hanchot" class="form-label">Hạn chót</label>
+                <div class="col-sm-8">
+                    <input id="hanchot" class="form-control" type="datetime-local"
+                           th:field="*{hanchot}">
+                </div>
+
             </div>
 
+
+
+
+
             <!-- Người tạo -->
-            <div class="form-group">
-                <label for="nguoitao" class="form-label">Người tạo:</label>
-                <input readonly type="text" id="nguoitao" class="form-control" th:field="*{nguoitao}">
+            <div class="row mb-3">
+                <label for="nguoitao" class="form-label">Người tạo</label>
+                <div class="col-sm-8">
+                    <input type="text" id="nguoitao" class="form-control" th:field="*{nguoitao}">
+                </div>
             </div>
 
             <!-- Nút hành động -->
-            <div class="form-group">
-                <button type="submit" class="btn btn-primary">Lưu khoản thu</button>
-                <button type="button" onclick="window.location.href='/quan-ly-khoan-thu'" class="btn btn-secondary">Quay lại</button>
+            <div class="row">
+                <div class="col-sm-8 offset-sm-4">
+                    <button class="btn" type="submit" onclick="showLoading()">Lưu khoản thu</button>
+                    <button class="btn" type="button" onclick="window.location.href='/quan-ly-khoan-thu'">Quay lại</button>
+
+                </div>
             </div>
         </form>
     </div>
@@ -88,7 +112,7 @@
 
         batBuocSelect.addEventListener('change', () => {
             if (batBuocSelect.value === 'Không') {
-                soTienInput.value = ''; // Clear input
+                soTienInput.value = '0';
                 soTienInput.setAttribute('disabled', 'true'); // Disable input
             } else {
                 soTienInput.removeAttribute('disabled'); // Enable input
@@ -100,6 +124,7 @@
     });
 </script>
 
+<script src="js/loading.js"></script>
 <script src="js/menu-toggle.js"></script>
 </body>
 </html>

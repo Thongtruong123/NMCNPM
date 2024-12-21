@@ -56,15 +56,28 @@
     font-weight: bold;
     border: none;
     border-radius: 5px;
-    padding: 5px 10px;
-    margin-left: 10px;
     cursor: pointer;
 }
 
 .payment-table {
     width: 100%;
     border-collapse: collapse;
-    margin-top: 20px;
+    margin-top: 10px;
+}
+.payment-table th, .payment-table td {
+    text-align: center; /* Căn giữa nội dung */
+    padding: 10px; /* Thêm khoảng cách giữa nội dung và viền */
+    border-bottom: 2px solid #000000;
+}
+
+.payment-table th {
+    background-color: rgba(169, 169, 169, 1); /* Màu nền cho tiêu đề */
+    font-weight: bold; /* Đậm tiêu đề */
+    font-size: 18px;
+}
+
+.payment-table tbody tr:hover {
+    background-color: #f9f9f9; /* Hiệu ứng khi rê chuột */
 }
 
 thead {
@@ -73,17 +86,6 @@ thead {
     z-index: 1;
     background-color: rgba(169, 169, 169, 1); /* Màu xám đậm */
     color: white; /* Đặt màu chữ thành trắng cho dễ đọc */
-}
-
-th,td {
-    padding: 10px;
-    text-align: left;
-    border-bottom: 2px solid #000000;
-}
-
-th {
-    font-size: 18px;
-    font-weight: bold;
 }
 
 .create-button {
@@ -115,3 +117,15 @@ td .delete-button {
     border-radius: 4px;
     text-align: center;
 }
+
+.notification {
+     margin-bottom: 15px;
+     color: white;
+     background-color: #4caf50;
+     padding: 10px;
+     border-radius: 4px;
+     text-align : center
+ }
+
+
+
