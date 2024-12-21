@@ -7,168 +7,77 @@
     <link rel="stylesheet" href="css/quan-ly-khoan-thu-content.css">
     <link rel='stylesheet' href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css'>
     <title>Quan ly Khoan thu</title>
-
-    <style>
-        /* Spinner styling */
-        .spinner {
-            border: 4px solid #f3f3f3; /* Light grey */
-            border-top: 4px solid #3498db; /* Blue */
-            border-radius: 50%;
-            width: 20px;
-            height: 20px;
-            animation: spin 1s linear infinite;
-
-            margin-left: 10px;
-        }
-
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-
-        /* Disable button while loading */
-        .loading {
-            pointer-events: none;
-            background-color: #bdc3c7;
-        }
-    </style>
-
 </head>
 <body>
 
 <div th:replace="~{/fragments/sidebar :: sidebar}" class="sidebar"> <!-- Sidebar placeholder --> </div>
-
-<div class="mainboard"> <!-- Mở div mainboard -->
-
+<!--<div class="container">-->
+<div class="mainboard">
     <div class="header-content">
         <h1> Quản lý khoản thu </h1> <br>
     </div>
-
     <div class="main-content" id="maincontent">
         <h2 class="text-center my-4">Danh sách khoản thu</h2>
         <hr>
-
-        <!-- Form tìm kiếm -->
         <div class="searchbar" style="display: flex; justify-content: center; width: 100%;">
-            <form method="get" action="/quan-ly-khoan-thu" style="display: flex; align-items: center; width: 90%;">
-                <input type="search" placeholder="Tìm kiếm" id="keyword" name="keyword" th:value="${keyword}" required style="flex: 3; width: 90%; padding: 5px 10px;">
-                <button class="search-button" type="submit" style="padding: 5px 10px; margin-left: 10px;">
-                    <i class='bx bx-search'></i>
-                </button>
-            </form>
+            <input type="search" placeholder="Tìm kiếm" id="keyword" name="keyword" required>
+            <button type="submit" style=""> <i class='bx bx-search'></i> </button>
         </div>
         <br>
 
-        <!-- Liên kết tạo khoản thu -->
-        <a th:href="@{/create}" title="Tạo khoản thu mới" style="text-decoration: none; padding: 10px 20px; background: linear-gradient(to right, #007e99, #005f6b); color: white; border-radius: 5px; display: inline-block;">
-            Tạo khoản thu
-        </a>
+        <a th:href="@{/create}" class="create-button">Tạo khoản thu</a>
 
-        <!-- Bảng danh sách khoản thu -->
-        <div>
-            <table class="payment-table">
-                <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Tên khoản thu</th>
-                    <th>Số tiền</th>
-                    <th>Ngày tạo</th>
-                    <th>Hạn chót</th>
-                    <th>Bắt buộc</th>
-                    <th>Người tạo</th>
-                    <th>Hành động</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr th:each="khoanthu : ${khoanthu_list}">
-                    <td th:text="${khoanthu.id}"></td>
-                    <td th:text="${khoanthu.tenkhoanthu}"></td>
-                    <td th:text="${khoanthu.sotien} + ' VNĐ'"></td>
-                    <td th:text="${#temporals.format(khoanthu.ngaytao, 'yyyy-MM-dd HH:mm:ss')}"></td>
-                    <td th:text="${#temporals.format(khoanthu.hanchot, 'yyyy-MM-dd HH:mm:ss')}"></td>
-                    <td th:text="${khoanthu.batbuoc == 'Có' ? 'Có' : 'Không'}"></td>
-                    <td th:text="${khoanthu.nguoitao}"></td>
-                    <td>
-                        <a th:href="@{/edit(id=${khoanthu.id})}"
-                           style="display: inline-block; padding: 8px 16px; color: white; background-color:#2ecc71; text-decoration: none; border-radius: 4px; text-align: center;">
-                            <i class='bx bxs-edit-alt' style="color: white;"></i> Sửa
-                        </a>
-                        <a th:href="@{/delete(id=${khoanthu.id})}"
-                           style="display: inline-block; padding: 8px 16px; color: white; background-color: #e74c3c; text-decoration: none; border-radius: 4px; text-align: center;">
-                            <i class='bx bxs-trash-alt' style="color: white;"></i> Xóa
-                        </a>
-                    </td>
-                </tr>
-                </tbody>
-            </table>
-        </div>
+        <table class="payment-table">
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>Tên khoản thu</th>
+                <th>Số tiền</th>
+                <th>Ngày tạo</th>
+                <th>Hạn chót</th>
+                <th>Bắt buộc</th>
+                <th>Người tạo</th>
+                <th>Hành động</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="khoanthu, stat : ${khoanthu_list}">
+                <td th:text="${stat.index + 1}"></td>
+                <td th:text="${khoanthu.tenkhoanthu}"></td>
+                <td class="money" th:text="${khoanthu.sotien}"></td>
 
-        <!-- Phân trang -->
-        <div class="pagination-container" style="margin-top: 20px; display: flex; justify-content: center;">
-            <ul class="pagination" style="list-style: none; display: flex; gap: 5px;">
-                <!-- Nút Previous -->
-                <li th:classappend="${currentPage == 0} ? 'disabled' : ''">
-                    <a th:href="@{/quan-ly-khoan-thu(page=${currentPage - 1}, keyword=${keyword}, sort=${sort})}"
-                       th:if="${currentPage > 0}" style="text-decoration: none; padding: 8px 12px; background: #3498db; color: white; border-radius: 4px;">Trang trước</a>
-                    <span th:if="${currentPage == 0}" style="padding: 8px 12px; background: #bdc3c7; color: white; border-radius: 4px; cursor: not-allowed;">Trang trước</span>
-                </li>
+                <td th:text="${#temporals.format(khoanthu.ngaytao, 'yyyy-MM-dd HH:mm:ss')}"></td>
+                <td th:text="${#temporals.format(khoanthu.hanchot, 'yyyy-MM-dd HH:mm:ss')}"></td>
 
-                <!-- Số trang -->
-                <li th:each="i : ${#numbers.sequence(0, totalPages - 1)}"
-                    th:classappend="${i == currentPage} ? 'active' : ''"
-                    onclick="changeColor(this)">
-                    <a th:href="@{/quan-ly-khoan-thu(page=${i}, keyword=${keyword}, sort=${sort})}"
-                       th:text="${i + 1}" class="page-link"
-                       style="text-decoration: none; padding: 8px 12px; background: #2ecc71; color: white; border-radius: 4px;">
+                <td th:text="${khoanthu.batbuoc == 'Có' ? 'Có' : 'Không'}"></td>
+                <td th:text="${khoanthu.nguoitao}"></td>
+                <td>
+                    <a th:href="@{/edit(id=${khoanthu.id})}" class="edit-button">
+                        <i class='bx bxs-edit-alt' style="color: white;"></i>
+                        Sửa
                     </a>
-                </li>
-
-                <!-- Nút Next -->
-                <li th:classappend="${currentPage == totalPages - 1} ? 'disabled' : ''">
-                    <a th:href="@{/quan-ly-khoan-thu(page=${currentPage + 1}, keyword=${keyword}, sort=${sort})}"
-                       th:if="${currentPage < totalPages - 1}" style="text-decoration: none; padding: 8px 12px; background: #3498db; color: white; border-radius: 4px;">Trang sau</a>
-                    <span th:if="${currentPage == totalPages - 1}" style="padding: 8px 12px; background: #bdc3c7; color: white; border-radius: 4px; cursor: not-allowed;">Trang sau</span>
-                </li>
-            </ul>
-        </div>
-
-        <div style="display: flex; justify-content: flex-end;">
-            Trang: <span th:text="${currentPage + 1}"></span>
-        </div>
+                    <a th:href="@{/delete(id=${khoanthu.id})}" class="delete-button"
+                       onclick="return confirm('Bạn có chắc chắn muốn xóa khoản thu này không?')">
+                        <i class='bx bxs-trash-alt' style="color: white;"></i>
+                        Xóa
+                    </a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
     </div>
 </div>
-
-<script src="js/loading.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-<!-- Hiển thị pop-up thông báo -->
-<script th:if="${editsuccess}" type="text/javascript">
-    Swal.fire({
-        title: 'Thành công!',
-        text: 'Sửa khoản thu thành công!',
-        icon: 'success',
-        confirmButtonText: 'OK'
+<script>
+    document.querySelectorAll('.money').forEach(function(cell) {
+        var amount = parseInt(cell.textContent.trim(), 10);
+        if (!isNaN(amount)) {
+            var formattedAmount = amount.toLocaleString();
+            cell.textContent = formattedAmount;
+        }
     });
 </script>
-
-<script th:if="${createsuccess}" type="text/javascript">
-    Swal.fire({
-        title: 'Thành công!',
-        text: 'Tạo khoản thu thành công!',
-        icon: 'success',
-        confirmButtonText: 'OK'
-    });
-</script>
-
-<script th:if="${deletesuccess}" type="text/javascript">
-    Swal.fire({
-        title: 'Thành công!',
-        text: 'Xóa khoản thu thành công!',
-        icon: 'success',
-        confirmButtonText: 'OK'
-    });
-</script>
-
-<script src="js/menu-toggle.js"> </script>
-
 </body>
+<script src="js/menu-toggle.js"> </script>
 </html>
+
+
