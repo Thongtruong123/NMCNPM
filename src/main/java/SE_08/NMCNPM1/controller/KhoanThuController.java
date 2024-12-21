@@ -1,5 +1,4 @@
 package SE_08.NMCNPM1.controller;
-
 import SE_08.NMCNPM1.model.Khoanthu;
 import SE_08.NMCNPM1.model.KhoanthuDTO;
 import SE_08.NMCNPM1.service.KhoanThuService;
@@ -14,21 +13,28 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * The type Khoan thu controller.
+ */
 @Controller
-
 public class KhoanThuController {
 
     @Autowired
     private KhoanThuService repo;
 
-
-
-
+    /**
+     * Show khoanthu list string.
+     *
+     * @param model   the model
+     * @param keyword the keyword
+     * @param sort    the sort
+     * @param page    the page
+     * @return the string
+     */
     @GetMapping("/quan-ly-khoan-thu")
     public String showKhoanthuList(Model model,
                                    @RequestParam(value = "keyword", required = false) String keyword,
@@ -48,15 +54,21 @@ public class KhoanThuController {
         List<Khoanthu> khoanthuList = pageResult.getContent();
 
         // Gửi dữ liệu vào model
-        model.addAttribute("khoanthu_list", khoanthuList);             // Danh sách khoản thu
-        model.addAttribute("totalPages", pageResult.getTotalPages());  // Tổng số trang
-        model.addAttribute("currentPage", page);                      // Trang hiện tại
-        model.addAttribute("keyword", keyword);                       // Từ khóa tìm kiếm (nếu có)
-        model.addAttribute("sort", sort);                             // Sắp xếp (nếu có)
+        model.addAttribute("khoanthu_list", khoanthuList);
+        model.addAttribute("totalPages", pageResult.getTotalPages());
+        model.addAttribute("currentPage", page);
+        model.addAttribute("keyword", keyword);
+        model.addAttribute("sort", sort);
 
         return "quan-ly-khoan-thu";
     }
 
+    /**
+     * Show create page string.
+     *
+     * @param model the model
+     * @return the string
+     */
     @GetMapping("/create")
     public String showCreatePage(Model model) {
         System.out.println("Truy cập vào trang tạo mới Khoan Thu.");
@@ -70,6 +82,15 @@ public class KhoanThuController {
         return "form-qlkt";
     }
 
+    /**
+     * Create khoan thu string.
+     *
+     * @param khoanthuDto        the khoanthu dto
+     * @param result             the result
+     * @param model              the model
+     * @param redirectAttributes the redirect attributes
+     * @return the string
+     */
     @PostMapping("/create")
     public String createKhoanThu(
             @Valid @ModelAttribute("khoanthuDto") KhoanthuDTO khoanthuDto,  // Đảm bảo tên khớp với model
@@ -109,6 +130,13 @@ public class KhoanThuController {
 
     }
 
+    /**
+     * Show edit page string.
+     *
+     * @param model the model
+     * @param id    the id
+     * @return the string
+     */
     @GetMapping("/edit")
     public String showEditPage(
             Model model,
@@ -141,6 +169,16 @@ public class KhoanThuController {
         }
     }
 
+    /**
+     * Update khoanthu string.
+     *
+     * @param model              the model
+     * @param id                 the id
+     * @param khoanthu_edit      the khoanthu edit
+     * @param result             the result
+     * @param redirectAttributes the redirect attributes
+     * @return the string
+     */
     @PostMapping("/edit")
     public String updateKhoanthu(
             Model model,
@@ -161,8 +199,8 @@ public class KhoanThuController {
             // Kiểm tra lỗi validate
             if (result.hasErrors()) {
                 // Trả lại form với lỗi
-                model.addAttribute("id", id); // Đảm bảo ID vẫn có trong model
-                model.addAttribute("khoanthu_edit", khoanthu_edit);  // Đảm bảo DTO cũng có trong model
+                model.addAttribute("id", id);
+                model.addAttribute("khoanthu_edit", khoanthu_edit);
                 return "edit-qlkt";
             }
 

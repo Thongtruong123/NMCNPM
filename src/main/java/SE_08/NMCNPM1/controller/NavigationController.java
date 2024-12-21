@@ -17,10 +17,10 @@ public class NavigationController {
     }
 
 
-    @GetMapping("/thong-tin-nhan-khau")
-    public String getTTNK() {
-        return "thong-tin-nhan-khau";
-    }
+//    @GetMapping("/thong-tin-nhan-khau")
+//    public String getTTNK() {
+//        return "thong-tin-nhan-khau";
+//    }
 
     @GetMapping("/logout")
     public String getDX() {
