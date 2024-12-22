@@ -1,9 +1,10 @@
 .mainboard {
     position: relative;
     top: 0;
-    left: 100px;
+    left: 120px;
+    height: 100vh;
     transition: all 0.5s ease;
-    width: calc(100% - 100px);
+    width: calc(100% - 120px);
     padding: 20px;
     align-items: center;
     justify-content: center;
@@ -11,9 +12,66 @@
 }
 
 .main-content {
-    height: 100%;
-    width: 100%;
+    min-width: 500px;
     border-radius: 10px;
     background-color: white;
     padding: 20px;
+    z-index: -1;
+    overflow: auto;
+    display: flex;
 }
+
+.avatar-container {
+    width: 35%;
+    min-width: 500px;
+    margin-top: 50px;
+    margin-left: 50px;
+    padding: 20px;
+    border-radius: 10px;
+}
+
+.avatar {
+    width: 300px;
+    height: 300px;
+    border-radius: 10px;
+    border: 2px solid #ccc;
+    object-fit: cover;
+}
+
+.info-container {
+    width: 65%;
+    min-width: 800px;
+    margin-top: 50px;
+}
+
+.info-item {
+    margin: 10px 0;
+}
+
+label {
+    display: inline-block;
+    width: 150px;
+}
+
+input {
+    width: 50%;
+    padding: 5px;
+    height: 35px;
+    margin: 3px auto;
+    font-size: 16px;
+}
+
+button, .avatar-button {
+    background: linear-gradient(to right, #007e99, #005f6b);
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 18px;
+    font-weight: bold;
+    margin-top: 10px;
+    padding: 10px 20px;
+    width: auto;
+    cursor: pointer;
+
+}
+

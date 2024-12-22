@@ -2,11 +2,9 @@ package SE_08.NMCNPM1.controller;
 
 import SE_08.NMCNPM1.model.Khoanthu;
 import SE_08.NMCNPM1.model.KhoanthuDTO;
-import SE_08.NMCNPM1.repository.KhoanthuRepository;
-import SE_08.NMCNPM1.service.KhoanthuService;
+import SE_08.NMCNPM1.repository.KhoanThuRepository;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -22,14 +20,12 @@ import java.util.Optional;
 public class KhoanThuController {
 
     @Autowired
-    private KhoanthuService khoanthuService;
-    @Autowired
-    private KhoanthuRepository repo;
+    private KhoanThuRepository repo;
 
-        @GetMapping({"/quan-ly-khoan-thu"})
+    @GetMapping({"/quan-ly-khoan-thu"})
     public String showKhoanthuList(Model model) {
         // Lấy danh sách Khoanthu từ database
-        List<Khoanthu> ds_khoanthu = repo.findAll(Sort.by(Sort.Direction.ASC, "id"));
+        List<Khoanthu> ds_khoanthu = repo.findAll(Sort.by(Sort.Direction.DESC, "ngaytao"));
 
         // Kiểm tra và log kết quả
         if (ds_khoanthu.isEmpty()) {
@@ -38,49 +34,10 @@ public class KhoanThuController {
             System.out.println("Danh sách Khoan Thu đã được lấy từ cơ sở dữ liệu.");
             System.out.println("Danh sách Khoanthu: " + ds_khoanthu);  // Log toàn bộ danh sách
         }
-
+        System.out.println(ds_khoanthu);
         model.addAttribute("khoanthu_list", ds_khoanthu);
         return "quan-ly-khoan-thu";
     }
-//    @GetMapping({"/quan-ly-khoan-thu", "/quan-ly-khoan-thu/page/{pageNo}"})
-//    public String showKhoanthuList(
-//            @PathVariable Optional<Integer> pageNo,
-//            @RequestParam Optional<String> sortField,
-//            @RequestParam Optional<String> sortDir,
-//            Model model) {
-//
-//        // Lấy giá trị mặc định nếu không có tham số
-//        int currentPage = pageNo.orElse(1);  // Mặc định trang đầu tiên
-//        String sortBy = sortField.orElse("id");  // Mặc định sắp xếp theo id
-//        String direction = sortDir.orElse("asc");  // Mặc định sắp xếp theo hướng tăng dần
-//        int pageSize = 8;  // Kích thước trang
-//
-//        // Lấy dữ liệu phân trang
-//        Page<Khoanthu> page = khoanthuService.findPaginated(currentPage, pageSize, sortBy, direction);
-//        List<Khoanthu> dsKhoanthu = page.getContent();  // Danh sách dữ liệu của trang hiện tại
-//
-//        // Thêm thông tin phân trang vào model
-//        model.addAttribute("currentPage", currentPage);
-//        model.addAttribute("totalPages", page.getTotalPages());
-//        model.addAttribute("totalItems", page.getTotalElements());
-//
-//        model.addAttribute("sortField", sortBy);
-//        model.addAttribute("sortDir", direction);
-//        model.addAttribute("reverseSortDir", direction.equals("asc") ? "desc" : "asc");
-//
-//        // Thêm danh sách Khoanthu vào model
-//        model.addAttribute("khoanthu_list", dsKhoanthu);
-//
-//        // Log thông tin (nếu cần)
-//        if (dsKhoanthu.isEmpty()) {
-//            System.out.println("Không có dữ liệu trong bảng.");
-//        } else {
-//            System.out.println("Danh sách Khoan Thu đã được lấy từ cơ sở dữ liệu.");
-//            System.out.println("Danh sách Khoanthu: " + dsKhoanthu);
-//        }
-//
-//        return "quan-ly-khoan-thu";  // Trả về view "quan-ly-khoan-thu"
-//    }
 
     @GetMapping("/create")
     public String showCreatePage(Model model) {
@@ -114,6 +71,7 @@ public class KhoanThuController {
         LocalDateTime ngaytao = LocalDateTime.now();
 
         Khoanthu khoanthu = new Khoanthu();
+
         khoanthu.setTenkhoanthu(khoanthuDto.getTenkhoanthu());
         khoanthu.setSotien(khoanthuDto.getSotien());
         khoanthu.setBatbuoc(khoanthuDto.getBatbuoc());
@@ -163,7 +121,7 @@ public class KhoanThuController {
             // Đưa DTO vào model để render form
             model.addAttribute("khoanthuDto", khoanthuDto);
             model.addAttribute("id", id); // Truyền ID để sử dụng trong form
-            return "edit-qlkt";
+            return "form-qlkt";
         } catch (Exception ex) {
             System.out.println("Exception: " + ex.getMessage());
             return "redirect:/quan-ly-khoan-thu";
@@ -179,7 +137,7 @@ public class KhoanThuController {
         try {
             // Tìm khoản thu theo ID
             Optional<Khoanthu> optionalKhoanthu = repo.findById(id);
-            if (optionalKhoanthu.isEmpty()) {
+            if (optionalKhoanthu.isPresent()) {
                 // Nếu không tìm thấy, chuyển hướng về trang quản lý khoản thu
                 return "redirect:/quan-ly-khoan-thu";
             }
@@ -191,7 +149,7 @@ public class KhoanThuController {
             if (result.hasErrors()) {
                 // Trả lại form với lỗi
                 model.addAttribute("id", id); // Đảm bảo ID vẫn có trong model
-                return "edit-qlkt";
+                return "form-qlkt";
             }
 
             // Cập nhật dữ liệu từ DTO sang Entity
@@ -215,12 +173,12 @@ public class KhoanThuController {
     @GetMapping("/delete")
     public String deleteKhoanthu(
             @RequestParam int id
-    ) {
+    ){
 
         repo.deleteById(id);
 
 
         return "redirect:/quan-ly-khoan-thu";
     }
-}
 
+}

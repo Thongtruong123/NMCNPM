@@ -4,7 +4,7 @@ import java.sql.*;
 
 public class TestDBConnection {
     public static void main(String[] args) {
-        String url = "jdbc:mysql://localhost:3306/mysqldb";
+        String url = "jdbc:mysql://localhost:3306/thuphichungcu";
         String user = "root";
         String password = "";
         try {

@@ -8,37 +8,22 @@
     <link rel="stylesheet" href="css/quan-ly-khoan-thu-form.css">
     <link rel="stylesheet" href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css">
     <style>
-        /* Đảm bảo các nút có chiều rộng đều nhau */
         .form-group {
             display: flex;
-            gap: 10px; /* Khoảng cách giữa các nút */
-            width: 100%; /* Đảm bảo container bao trùm hết chiều rộng */
+            align-items: center;
+            margin-bottom: 15px;
         }
 
-        .btn {
-            flex: 1; /* Chia đều chiều rộng cho hai nút */
-            height: 40px; /* Chiều cao nút */
-            font-size: 18px; /* Cỡ chữ nút */
-            padding: 10px 20px; /* Khoảng cách xung quanh chữ */
-            border-radius: 5px; /* Bo góc cho nút */
-            border: none; /* Xóa viền mặc định */
+        .form-label {
+            width: 400px;
+            margin-right: 15px;
+            text-align: right;
         }
 
-        .btn-primary {
-            background-color: #4169E1; /* Màu nền xanh */
-            color: white; /* Màu chữ trắng */
-        }
-
-        .btn-secondary {
-            background-color: white; /* Màu nền trắng */
-            color: #4169E1; /* Màu chữ xanh */
-            border: 2px solid #4169E1; /* Viền xanh cho nút trắng */
-        }
-
-        /* Hiệu ứng khi hover vào nút */
-        .btn-secondary:hover {
-            background-color: #4169E1; /* Chuyển nền sang xanh khi hover */
-            color: white; /* Chữ chuyển sang trắng */
+        .form-control {
+            flex: 1;
+            padding: 8px;
+            font-size: 1rem;
         }
     </style>
 </head>
@@ -48,58 +33,73 @@
 
 <!-- Main Content -->
 <div class="mainboard">
+
+    <div class="header-content">
+        <h1>Quản lý khoản thu</h1> <br>
+    </div>
+
     <div class="main-content" id="maincontent">
-        <h1 class="text-center my-4">Chỉnh sửa khoản thu</h1>
-        <br>
-        <form th:action="@{/edit(id=${id})}" th:object="${khoanthuDto}" method="post">
+        <h2> Chỉnh sửa khoản thu</h2>
+        <hr> <br>
+
+
+        <form action="#" th:action="@{/edit(id=${id})}" th:object="${khoanthu_edit}" method="post">
             <!-- Tên khoản thu -->
-            <div class="form-group">
-                <label for="tenkhoanthu" class="form-label">Tên khoản thu:</label>
-                <input type="text" id="tenkhoanthu" name="tenkhoanthu" class="form-control" th:field="*{tenkhoanthu}">
-                <p th:if="${#fields.hasErrors('tenkhoanthu')}" class="text-danger" th:errors="*{tenkhoanthu}"></p>
+            <div class="row mb-3">
+                <label for="tenkhoanthu" class="form-label">Tên khoản thu</label>
+                <div class="col-sm-8">
+                    <input type="text" id="tenkhoanthu" class="form-control" th:field="*{tenkhoanthu}">
+                </div>
             </div>
-            <br>
 
             <!-- Số tiền -->
-            <div class="form-group">
-                <label for="sotien-input" class="form-label">Số tiền:</label>
-                <input class="form-control" type="number" min="0" step="1000" id="sotien-input" name="sotien" th:field="*{sotien}">
-                <p th:if="${#fields.hasErrors('sotien')}" class="text-danger" th:errors="*{sotien}"></p>
+            <div class="row mb-3">
+                <label for="sotien-input" class="form-label">Số tiền</label>
+                <div class="col-sm-8">
+                    <input class="form-control" type="number" min="0" step="1000" th:field="*{sotien}" id="sotien-input">
+                </div>
             </div>
-            <br>
 
             <!-- Bắt buộc -->
-            <div class="form-group">
-                <label for="batbuoc-select" class="form-label">Bắt buộc:</label>
-                <select class="form-select" id="batbuoc-select" name="batbuoc" th:field="*{batbuoc}">
-                    <option value="Có">Có</option>
-                    <option value="Không">Không</option>
-                </select>
-                <p th:if="${#fields.hasErrors('batbuoc')}" class="text-danger" th:errors="*{batbuoc}"></p>
+            <div class="row mb-3">
+                <label for="batbuoc-select" class="form-label">Bắt buộc</label>
+                <div class="col-sm-8">
+                    <select class="form-select" th:field="*{batbuoc}" id="batbuoc-select">
+                        <option value="Có">Có</option>
+                        <option value="Không">Không</option>
+                    </select>
+                </div>
             </div>
-            <br>
 
             <!-- Hạn chót -->
-            <div class="form-group">
-                <label for="hanchot" class="form-label">Hạn chót:</label>
-                <input id="hanchot" class="form-control" type="datetime-local" th:field="*{hanchot}"
-                       min="${#temporals.format(#temporals.now(), 'yyyy-MM-dd\'T\'HH:mm')}">
-                <p th:if="${#fields.hasErrors('hanchot')}" class="text-danger" th:errors="*{hanchot}"></p>
+            <div class="row mb-3">
+                <label for="hanchot" class="form-label">Hạn chót</label>
+                <div class="col-sm-8">
+                    <input id="hanchot" class="form-control" type="datetime-local"
+                           th:field="*{hanchot}">
+                </div>
+
             </div>
-            <br>
+
+
+
+
 
             <!-- Người tạo -->
-            <div class="form-group">
-                <label for="nguoitao" class="form-label">Người tạo:</label>
-                <input readonly type="text" id="nguoitao" name="nguoitao" class="form-control" th:field="*{nguoitao}">
-                <p th:if="${#fields.hasErrors('nguoitao')}" class="text-danger" th:errors="*{nguoitao}"></p>
+            <div class="row mb-3">
+                <label for="nguoitao" class="form-label">Người tạo</label>
+                <div class="col-sm-8">
+                    <input type="text" id="nguoitao" class="form-control" th:field="*{nguoitao}">
+                </div>
             </div>
-            <br>
 
             <!-- Nút hành động -->
-            <div class="form-group">
-                <button type="submit" class="btn btn-primary">Lưu khoản thu</button>
-                <button type="button" onclick="window.location.href='/quan-ly-khoan-thu'" class="btn btn-secondary">Quay lại</button>
+            <div class="row">
+                <div class="col-sm-8 offset-sm-4">
+                    <button class="btn" type="submit" onclick="showLoading()">Lưu khoản thu</button>
+                    <button class="btn" type="button" onclick="window.location.href='/quan-ly-khoan-thu'">Quay lại</button>
+
+                </div>
             </div>
         </form>
     </div>
@@ -112,7 +112,7 @@
 
         batBuocSelect.addEventListener('change', () => {
             if (batBuocSelect.value === 'Không') {
-                soTienInput.value = ''; // Clear input
+                soTienInput.value = '0';
                 soTienInput.setAttribute('disabled', 'true'); // Disable input
             } else {
                 soTienInput.removeAttribute('disabled'); // Enable input
@@ -124,6 +124,7 @@
     });
 </script>
 
+<script src="js/loading.js"></script>
 <script src="js/menu-toggle.js"></script>
 </body>
 </html>

@@ -13,7 +13,7 @@ public class KhoanthuDTO {
     private String tenkhoanthu;
 
     @NotNull(message = "Trường số tiền không được để trống")
-    @Min(value = 1, message = "Số tiền phải lớn hơn 0")
+    @Min(value = 0, message = "Số tiền phải lớn hơn hoặc bằng 0")
     private int sotien;
 
     @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss.SSSSSS", shape = JsonFormat.Shape.STRING)
@@ -27,6 +27,7 @@ public class KhoanthuDTO {
     private String nguoitao;
 
     // Getter và Setter
+
     public String getTenkhoanthu() {
         return tenkhoanthu;
     }
