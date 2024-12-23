@@ -5,18 +5,17 @@
     height: 100vh;
     transition: all 0.5s ease;
     width: calc(100% - 120px);
-    padding: 20px;
+    padding: 30px 350px 30px;
     align-items: center;
     justify-content: center;
     background-color: #ADD8E6;
 }
 
 .main-content {
-    height: 900px;
+    height: 100%;
     width: 700px;
     border-radius: 10px;
     background-color: white;
-    margin: 20px 350px;
     padding: 20px;
     z-index: -1;
     overflow: auto;
@@ -65,8 +64,7 @@ select {
 .redirect-button {
     display: inline-block;
     padding: 10px 20px;
-    width: 150px;
-    margin: 25px 10px 25px 300px;
+    margin: 25px 10px 25px 350px;
     border-radius: 10px;
     border: none;
     background: linear-gradient(to right, #007e99, #005f6b);
@@ -77,7 +75,8 @@ select {
 }
 
 .register-button {
-    width: 150px;
+    display: inline-block;
+    padding: 10px 20px;
     margin-top: 25px;
     margin-bottom: 25px;
     border-radius: 10px;

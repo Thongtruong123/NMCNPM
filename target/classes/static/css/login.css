@@ -3,8 +3,8 @@ body {
     margin: 0;
     height: 100vh;
     width: 100vw;
-    min-width: 1280px;
-    min-height: 800px;
+    min-width: 800px;
+    min-height: 500px;
     display: flex;
     background-color: #ADD8E6;;
     align-items: center;

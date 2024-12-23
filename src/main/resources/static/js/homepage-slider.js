@@ -5,7 +5,9 @@ let visibleItems = 3; // Giá trị mặc định
 
 function updateVisibleItems() {
     const sliderWidth = document.querySelector('.slider').offsetWidth;
-    if (sliderWidth <= 1200) {
+    if (sliderWidth <= 800) {
+        visibleItems = 1;
+    } else if (sliderWidth <= 1200) {
         visibleItems = 2;  // Hiển thị 2 phần tử khi chiều rộng slider <= 1200px
     } else {
         visibleItems = 3;  // Hiển thị 3 phần tử khi chiều rộng slider > 1200px

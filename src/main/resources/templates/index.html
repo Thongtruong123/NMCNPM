@@ -2,6 +2,7 @@
 <html lang="vi" xmlns:th="http://www.thymeleaf.org">
 <head>
     <title> Đăng nhập</title>
+    <link rel="icon" type="image/x-icon" href="/image/favicon.ico">
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/login.css">
@@ -21,9 +22,13 @@
         <h2 style="font-size: 40px; font-weight: bold;"> Đăng nhập </h2>
         <form id="login-form" th:action="@{/login}" method="post">
             <label for="username"> Tên tài khoản </label> <br> <br>
-            <input type="text" placeholder="Tài khoản" id="username" name="username" required> <br> <br>
+            <input type="text" placeholder="Tài khoản" id="username" name="username" required
+                   oninvalid="this.setCustomValidity('Vui lòng nhập tên tài khoản')"
+                   oninput="this.setCustomValidity('')"> <br> <br>
             <label for="password"> Mật khẩu </label> <br> <br>
-            <input type="password" placeholder="Mật khẩu" id="password" name="password" required> <br> <br>
+            <input type="password" placeholder="Mật khẩu" id="password" name="password" required
+                   oninvalid="this.setCustomValidity('Vui lòng nhập mật khẩu')"
+                   oninput="this.setCustomValidity('')"> <br> <br>
             <button type="submit" class="login-button"> Đăng nhập </button>
             <div th:if="${param.error}">
                 <p style="color:red;">Tên tài khoản hoặc mật khẩu sai</p>
