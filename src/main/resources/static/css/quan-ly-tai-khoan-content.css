@@ -5,7 +5,7 @@
     height: 100vh;
     transition: all 0.5s ease;
     width: calc(100% - 120px);
-    padding: 20px;
+    padding: 15px;
     align-items: center;
     justify-content: center;
     background-color: #ADD8E6;
@@ -22,7 +22,8 @@
     min-width: 500px;
     border-radius: 10px;
     background-color: white;
-    padding: 0 20px 20px 20px;
+    padding: 15px;
+    padding-top: 0;
     z-index: -1;
     overflow: auto;
 }
@@ -32,14 +33,14 @@
 }
 
 .register-button {
-    background: linear-gradient(to right, #FFD700, #FF8C00);
+    background: linear-gradient(to right, #007e99, #005f6b);
     height: 45px;
     padding: 10px 20px;
-    margin: 20px 800px 20px 0;
+    margin: 20px auto;
     border-radius: 5px;
     display: inline-block;
     border: none;
-    color: #4169E1;
+    color: white;
     font-size: 18px;
     font-weight: bold;
     cursor: pointer;
@@ -48,6 +49,7 @@
 .user-table {
     width: 100%;
     border-collapse: collapse;
+    table-layout: fixed;
 }
 
 thead {
@@ -59,20 +61,23 @@ thead {
 }
 
 th,td {
+    width: 135px;
     padding: 10px;
     text-align: left;
-    border: 1px solid #000000;
+    border-bottom: 2px solid #000000;
+    word-wrap: break-word;
 }
 
 th {
     font-size: 18px;
     font-weight: bold;
+    text-align: center;
 }
 
 .permissions {
     text-align: center;
     vertical-align: middle;
-    font-size: 24px;
+    font-size: 30px;
     font-weight: bold;
 }
 
@@ -95,4 +100,20 @@ th {
     height: 20px;
     width: 50px;
     cursor: pointer;
+}
+
+th:nth-child(6), td:nth-child(6) {
+  width: 110px;  /* Cột số 6 có chiều rộng cố định 100px */
+}
+
+th:nth-child(7), td:nth-child(7) {
+  width: 110px;  /* Cột số 7 có chiều rộng cố định 100px */
+}
+
+th:nth-child(8), td:nth-child(8) {
+  width: 110px;  /* Cột số 8 có chiều rộng cố định 100px */
+}
+
+th:nth-child(9), td:nth-child(9) {
+  width: 110px;  /* Cột số 9 có chiều rộng cố định 100px */
 }

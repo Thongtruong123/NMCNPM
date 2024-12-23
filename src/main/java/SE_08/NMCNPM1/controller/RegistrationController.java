@@ -20,6 +20,7 @@ public class RegistrationController {
     @GetMapping("/quan-ly-tai-khoan/tao-tai-khoan")
     public String registerForm(Model model) {
         model.addAttribute("RegisterFormDTO", new RegisterFormDTO());
+
         return "tao-tai-khoan";
     }
 
@@ -34,7 +35,7 @@ public class RegistrationController {
             return "tao-tai-khoan";
         }
         userService.registerNewUser(registerFormDTO);
-        model.addAttribute("registrationSuccess", "Đăng ký thành công!");
+        model.addAttribute("registrationSuccess", "Đăng ký tài khoản mới thành công!");
         return "tao-tai-khoan";
     }
 }

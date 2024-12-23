@@ -23,7 +23,7 @@
     <div class="main-content" id="maincontent">
         <h2>Tạo nhân khẩu mới</h2>
         <hr> <br>
-        <form method="post" action="/thong-tin-nhan-khau/create"  th:object="${nhankhauDto}">
+        <form method="post" th:action="@{/thong-tin-nhan-khau/create}"  th:object="${nhankhauDto}">
             <div class="row mb-3">
                 <label for="roomNumber" class="col-sm-4 col-form-label">Số phòng</label>
                 <div class="col-sm-8">

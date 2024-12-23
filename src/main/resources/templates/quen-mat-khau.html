@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Quên mật khẩu</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/quen-mat-khau.css">
+    <link rel='stylesheet' href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css'>
+
+</head>
+<body>
+
+  <div class="logo">
+    <i class='bx bx-moon'></i>
+    <span> Quản lý chung cư Bluemoon </span>
+  </div>
+
+  <div class="email-input">
+    <h2>Quên mật khẩu?</h2>
+    <div class="guide">
+      <p th:if="${message == null}"> Nhập email của bạn dưới đây và chúng tôi sẽ gửi mật khẩu mới đến cho bạn </p>
+      <p th:if="${message != null}"> Mật khẩu mới của bạn đã được gửi đến email. Nếu vẫn chưa nhận được, vui lòng nhập email lại lần nữa. </p>
+      <p th:if="${message != null}"> Lưu ý: Mật khẩu sử dụng được là mật khẩu trong email cuối cùng mà chúng tôi gửi đến cho bạn. </p>
+    </div>
+    <form id="email-form" th:action="@{/forgot-password}" method="post" class="form">
+      <label for="email"> Địa chỉ email: </label>
+      <input type="email" placeholder="Email" id="email" name="email" required>
+      <button type="submit" class="email-button"> Đổi mật khẩu </button>
+    </form>
+    <p th:if="${error != null}" th:text="${error}" style="color: red"></p>
+    <hr>
+    <a th:href="@{/index}" class="login"> Quay về đăng nhập </a>
+  </div>
+</body>
+</html>
