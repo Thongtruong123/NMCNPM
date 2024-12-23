@@ -22,6 +22,7 @@
 .upper {
     height: 30%;
     width: 100%;
+    min-height: 130px;
     min-width: 470px;
     border-radius: 10px;
     background-color: white;
@@ -96,7 +97,7 @@
     bottom: 0;
     left: 0;
     width: 100%;
-    height: 40%;
+    height: 90px;
     background: rgba(0, 0, 0, 0.5);
     color: white;
     padding: 10px;
@@ -190,13 +191,13 @@
 }
 
 .event-start {
-    background-color: blue !important;  /* Màu nền xanh */
+    background-color: #00aba9 !important;  /* Màu nền xanh */
     color: white !important;            /* Màu chữ trắng */
 }
 
 /* Màu xanh lá cho ngày kết thúc */
 .event-end {
-    background-color: green !important;  /* Màu nền xanh lá */
+    background-color: #b91d47 !important;  /* Màu nền xanh lá */
     color: white !important;            /* Màu chữ trắng */
     overflow: hidden !important;
 }
