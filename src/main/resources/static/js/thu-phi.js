@@ -76,7 +76,8 @@ document.querySelector('.generate-invoice-button').addEventListener('click', asy
     const roomNumber = document.getElementById('roomNumber').value.trim();
     const payerName = document.getElementById('payerName').value.trim();
     const phoneNumber = document.getElementById('phoneNumber').value.trim();
-    const totalAmount = parseFloat(document.getElementById('paymentAmount').value.replace(/\./g, '').replace(/,/g, '.'));
+    const totalAmount = parseInt(document.getElementById('paymentAmount').value.replace(/\./g, '').replace(/,/g, ''), 10);
+
 
     if (!roomNumber || !payerName || !phoneNumber || totalAmount <= 0) {
         alert("Vui lòng nhập đủ thông tin và chọn khoản cần thanh toán.");
@@ -176,7 +177,7 @@ function openInvoiceInNewPage(invoice) {
                     </div>
                     <div class="invoice-total">
                         <h3>Tổng Cộng</h3>
-                        <p>Tổng Tiền: ${(invoice.totalAmount * 1000).toLocaleString()} VNĐ</p>
+                        <p>Tổng Tiền: ${invoice.totalAmount.toLocaleString()} VNĐ</p>
                     </div>
                     <div class="invoice-signature">
                         <div class="signature-block">
