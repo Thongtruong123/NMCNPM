@@ -12,53 +12,74 @@
 <div th:replace="~{fragments/sidebar :: sidebar}" class="sidebar"> <!-- Sidebar placeholder --> </div>
 
 <div class="mainboard">
-  <div class="header-content">
-    <h1> Thông tin tài khoản </h1> <br>
-  </div>
-  <div class="main-content" id="maincontent">
-    <div class="avatar-container">
-      <!--        <form id="update-avatar" action="#" th:action="@{/update-avatar}" method="POST" enctype="multipart/form-data">-->
-      <!--          <img th:src="${currentAvatar}" class="avatar">-->
-      <!--          <br>-->
-      <!--          <label for="avatar" class="avatar-button"> Chọn ảnh </label>-->
-      <!--          <input type="file" id="avatar" name="avatar" accept="image/*" style="display: none;" onchange="updateAvatarName()">-->
-      <!--        </form>-->
-      <img th:src="${currentAvatar}" class="avatar">
+  <div class="info" id="info">
+    <h2> Thông tin tài khoản </h2> <hr>
+    <div class="container1">
+      <div class="avatar-container">
+        <img th:src="${currentAvatar}" class="avatar">
+      </div>
+      <div class="info-container">
+        <form th:action="@{/update-info}" th:object="${user}" method="post">
+          <div class="info-item">
+            <label for="username"> Tên tài khoản: </label>
+            <input type="text" th:field="*{username}" id="username" disabled>
+          </div>
+          <div class="info-item">
+            <label for="first_name"> Họ: </label>
+            <input type="text" th:field="*{first_name}" id="first_name" disabled>
+          </div>
+          <div class="info-item">
+            <label for="last_name"> Tên: </label>
+            <input type="text" th:field="*{last_name}" id="last_name" disabled>
+          </div>
+          <div class="info-item">
+            <label for="phone_number"> Số điện thoại: </label>
+            <input type="tel" th:field="*{phone_number}" id="phone_number" disabled>
+          </div>
+          <div class="info-item">
+            <label for="email"> Email: </label>
+            <input type="email" th:field="*{email}" id="email" disabled>
+          </div>
+          <div class="info-item">
+            <label for="role">Chức vụ:</label>
+            <span th:text="${user.role == 'ADMIN' ? 'Quản trị viên' :
+                      (user.role == 'HIGH_MANAGER' ? 'Quản lý cấp cao' :
+                      (user.role == 'LOW_MANAGER' ? 'Quản lý cấp thấp' : ''))}"
+                  class="role-input"></span>
+            <input type="hidden" th:field="*{role}" id="role"/>
+          </div>
+
+          <button class="info-button" type="button" id="editButton" onclick="enableEditing()"> Chỉnh sửa thông tin </button>
+          <button class="info-button" type="submit" id="saveButton" style="display: none;"> Lưu </button>
+          <br>
+          <p th:if="${message1 != null}" th:text="${message1}" style="color: green;"></p>
+          <p th:if="${error1 != null}" th:text="${error1}" style="color: red;"></p>
+        </form>
+      </div>
     </div>
+  </div>
 
-    <div class="info-container">
-      <form th:action="@{/update-info}" th:object="${user}" method="post">
-        <div class="info-item">
-          <label for="username"> Tên tài khoản: </label>
-          <input type="text" th:field="*{username}" id="username" disabled>
+  <div class="password">
+    <h2> Đổi mật khẩu </h2> <hr>
+    <div class="password-container">
+      <form th:action="@{/change-password}" th:object="${PasswordChangeDTO}" method="post">
+        <div class="password-item">
+          <label for="old_password"> Nhập mật khẩu cũ: </label>
+          <input type="password" th:field="*{old_password}" id="old_password" required>
         </div>
-        <div class="info-item">
-          <label for="first_name"> Họ: </label>
-          <input type="text" th:field="*{first_name}" id="first_name" disabled>
+        <div class="password-item">
+          <label for="new_password"> Nhập mật khẩu mới: </label>
+          <input type="password" th:field="*{new_password}" id="new_password" required>
         </div>
-        <div class="info-item">
-          <label for="last_name"> Tên: </label>
-          <input type="text" th:field="*{last_name}" id="last_name" disabled>
-        </div>
-        <div class="info-item">
-          <label for="phone_number"> Số điện thoại: </label>
-          <input type="tel" th:field="*{phone_number}" id="phone_number" disabled>
-        </div>
-        <div class="info-item">
-          <label for="email"> Email: </label>
-          <input type="email" th:field="*{email}" id="email" disabled>
-        </div>
-        <div class="info-item">
-          <label for="role">Chức vụ:</label>
-          <input type="text" id="role"
-                 th:value="${role == 'ADMIN' ? 'Quản trị viên' :
-                      (role == 'HIGH_MANAGER' ? 'Quản lý cấp cao' :
-                      (role == 'LOW_MANAGER' ? 'Quản lý cấp thấp' : ''))}"
-                 disabled />
+        <div class="password-item">
+          <label for="confirm_password"> Nhập lại mật khẩu mới: </label>
+          <input type="password" th:field="*{confirm_password}" id="confirm_password" required>
         </div>
 
-        <button class="info-button" type="button" id="editButton" onclick="enableEditing()"> Chỉnh sửa thông tin </button>
-        <button class="info-button" type="submit" id="saveButton" style="display: none;"> Lưu </button>
+        <button class="password-button" type="submit"> Đổi mật khẩu </button>
+        <br>
+        <p th:if="${message2 != null}" th:text="${message2}" style="color: green;"></p>
+        <p th:if="${error2 != null}" th:text="${error2}" style="color: red;"></p>
       </form>
     </div>
   </div>

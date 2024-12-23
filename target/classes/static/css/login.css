@@ -97,12 +97,10 @@ input {
 }
 
 .forgotpassword-button {
-    border: none;
-    background-color: transparent;
+    text-decoration: none;
     color: white;
     font-size: 14px;
-    cursor: pointer;
-    margin-top: 15px;
+    margin-top: 20px;
 }
 
 ::-webkit-scrollbar {

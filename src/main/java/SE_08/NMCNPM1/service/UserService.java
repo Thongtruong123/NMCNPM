@@ -12,6 +12,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -56,5 +57,15 @@ public class UserService implements UserDetailsService {
             throw new UsernameNotFoundException("User not found");
         }
         else return user;
+    }
+
+    @Transactional
+    public void changePassword(String username, String oldPassword, String newPassword) throws Exception {
+        User user = userRepository.findByUsername(username);
+        if (!passwordEncoder.matches(oldPassword, user.getPassword())) {
+            throw new Exception("Mật khẩu cũ sai");
+        }
+        user.setPassword(passwordEncoder.encode(newPassword));
+        userRepository.save(user);
     }
 }
