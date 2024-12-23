@@ -48,6 +48,7 @@
 .user-table {
     width: 100%;
     border-collapse: collapse;
+    table-layout: fixed;
 }
 
 thead {
@@ -59,14 +60,17 @@ thead {
 }
 
 th,td {
+    width: 135px;
     padding: 10px;
     text-align: left;
-    border: 1px solid #000000;
+    border-bottom: 2px solid #000000;
+    word-wrap: break-word;
 }
 
 th {
     font-size: 18px;
     font-weight: bold;
+    text-align: center;
 }
 
 .permissions {
@@ -95,4 +99,20 @@ th {
     height: 20px;
     width: 50px;
     cursor: pointer;
+}
+
+th:nth-child(6), td:nth-child(6) {
+  width: 110px;  /* Cột số 6 có chiều rộng cố định 100px */
+}
+
+th:nth-child(7), td:nth-child(7) {
+  width: 110px;  /* Cột số 7 có chiều rộng cố định 100px */
+}
+
+th:nth-child(8), td:nth-child(8) {
+  width: 110px;  /* Cột số 8 có chiều rộng cố định 100px */
+}
+
+th:nth-child(9), td:nth-child(9) {
+  width: 110px;  /* Cột số 9 có chiều rộng cố định 100px */
 }

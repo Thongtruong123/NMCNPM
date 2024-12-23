@@ -32,7 +32,7 @@
             <button type="submit">Thống kê</button>
         </form>
     </div>
-    <div th:if="${errorMessage != null}">
+    <div th:if="${errorMessage != null || room_number == null}">
         <p th:text="${message}" class="alert"></p>
     </div>
     <div th:if="${errorMessage == null && room_number != null}" class="main-content">
