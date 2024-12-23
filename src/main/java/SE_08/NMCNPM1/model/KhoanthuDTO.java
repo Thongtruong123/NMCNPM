@@ -2,6 +2,7 @@ package SE_08.NMCNPM1.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.Column;
+import jakarta.validation.constraints.Future;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
@@ -16,8 +17,9 @@ public class KhoanthuDTO {
     @Min(value = 0, message = "Số tiền phải lớn hơn hoặc bằng 0")
     private int sotien;
 
-    @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss.SSSSSS", shape = JsonFormat.Shape.STRING)
-
+    @JsonFormat(pattern = "dd-MM-yyyy")
+    @Future(message = "Hạn chót phải là ngày trong tương lai")
+    @NotNull(message = "Trường hạn chót không được để trống")
     private LocalDateTime hanchot;
 
     @NotEmpty(message = "Trường bắt buộc không được để trống")

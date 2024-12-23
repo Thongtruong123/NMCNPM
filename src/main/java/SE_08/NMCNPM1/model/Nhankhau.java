@@ -2,6 +2,7 @@ package SE_08.NMCNPM1.model;
 
 import jakarta.persistence.*;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 
 @Entity
@@ -15,7 +16,7 @@ public class Nhankhau {
     private String gioitinh;
 
     @Column(name = "ngaysinh")
-    private Date ngaysinh;
+    private LocalDateTime ngaysinh;
 
     @Column(name = "vaitro")
     private String vaitro;
@@ -34,7 +35,7 @@ public class Nhankhau {
 
     public Nhankhau() {}
 
-    public Nhankhau(NhankhauId id, String gioitinh, Date ngaysinh, String vaitro, String sodienthoai, String quequan, String thuongtru, String tamtru) {
+    public Nhankhau(NhankhauId id, String gioitinh, LocalDateTime ngaysinh, String vaitro, String sodienthoai, String quequan, String thuongtru, String tamtru) {
         this.id = id;
         this.gioitinh = gioitinh;
         this.ngaysinh = ngaysinh;
@@ -61,11 +62,11 @@ public class Nhankhau {
         this.gioitinh = gioitinh;
     }
 
-    public Date getNgaysinh() {
+    public LocalDateTime getNgaysinh() {
         return ngaysinh;
     }
 
-    public void setNgaysinh(Date ngaysinh) {
+    public void setNgaysinh(LocalDateTime ngaysinh) {
         this.ngaysinh = ngaysinh;
     }
 

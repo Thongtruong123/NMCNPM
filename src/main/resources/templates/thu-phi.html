@@ -33,8 +33,13 @@
         <input type="tel" id="phoneNumber" name="phoneNumber" placeholder="Nhập số điện thoại" required pattern="[0-9]{10}">
       </div>
       <div class="form-row">
-        <label for="roomNumber">Số phòng:</label>
+        <label for="roomNumber">Số phòng:<span style="color: red;">*</span></label>
         <input type="text" id="roomNumber" name="roomNumber" placeholder="Nhập số phòng" required>
+        <p>Sau khi nhập số phòng, hãy click nút <strong>Enter</strong> để hiển thị các thông tin phía dưới</p>
+      </div>
+      <div id="instruction">
+        <p>Nhấn nút <strong>Enter</strong> để hiển thị các trường thông tin bên dưới</p>
+        <br>
       </div>
       <div class="form-row">
         <label for="ownerName">Tên chủ hộ:</label>
