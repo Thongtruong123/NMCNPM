@@ -5,19 +5,24 @@
     height: 100vh;
     transition: all 0.5s ease;
     width: calc(100% - 120px);
-    padding: 20px;
+    padding: 15px;
     align-items: center;
     justify-content: center;
     background-color: #ADD8E6;
+    overflow: auto;
 }
 
-.main-content {
-    min-width: 500px;
+.info {
     border-radius: 10px;
     background-color: white;
-    padding: 20px;
+    padding: 15px;
+    padding-top: 20px;
+    margin-bottom: 15px;
     z-index: -1;
     overflow: auto;
+}
+
+.container1 {
     display: flex;
 }
 
@@ -26,7 +31,7 @@
     min-width: 500px;
     margin-top: 50px;
     margin-left: 50px;
-    padding: 20px;
+    padding: 15px;
     border-radius: 10px;
 }
 
@@ -48,7 +53,7 @@
     margin: 10px 0;
 }
 
-label {
+.info-item label {
     display: inline-block;
     width: 150px;
 }
@@ -58,6 +63,16 @@ input {
     padding: 5px;
     height: 35px;
     margin: 3px auto;
+    font-size: 16px;
+}
+
+.role-input {
+    display: inline-block;
+    height: 35px;
+    width: 50%;
+    padding: 5px;
+    border: 1px solid #ccc;
+    color: #555;
     font-size: 16px;
 }
 
@@ -72,6 +87,27 @@ button, .avatar-button {
     padding: 10px 20px;
     width: auto;
     cursor: pointer;
+}
 
+.password {
+    border-radius: 10px;
+    background-color: white;
+    padding: 15px;
+    padding-top: 20px;
+    z-index: -1;
+    overflow: auto;
+}
+
+.password-container {
+    min-width: 500px;
+    margin-top: 50px;
+    margin-left: 50px;
+    padding: 15px;
+    border-radius: 10px;
+}
+
+.password-item label {
+    display: inline-block;
+    width: 250px;
 }
 

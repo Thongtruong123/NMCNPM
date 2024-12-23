@@ -8,6 +8,7 @@ import SE_08.NMCNPM1.service.NewsService;
 import SE_08.NMCNPM1.service.WeatherService;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -15,6 +16,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import java.time.LocalDateTime;
+import java.time.ZoneOffset;
+import java.time.format.DateTimeFormatter;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -22,7 +26,6 @@ import java.util.Map;
 public class HomepageController {
 
     private final WeatherService weatherService;
-    private final NewsService newsService;
 
     @Autowired
     private KhoanThuRepository khoanThuRepository;
@@ -31,9 +34,8 @@ public class HomepageController {
     private InvoiceRepository invoiceRepository;
 
     @Autowired
-    public HomepageController(WeatherService weatherService, NewsService newsService) {
+    public HomepageController(WeatherService weatherService) {
         this.weatherService = weatherService;
-        this.newsService = newsService;
     }
 
     @GetMapping("/homepage")
@@ -48,15 +50,18 @@ public class HomepageController {
         model.addAttribute("backgroundColor", weatherService.getBackgroundColor());
         model.addAttribute("icon", weatherService.getIcon());
 
-        List<Map<String, String>> articles = newsService.getArticles();
-        model.addAttribute("articles", articles);
-
-        List<Khoanthu> top5khoanthu = khoanThuRepository.findTop5ByHanchotGreaterThanOrderByHanchotAsc(LocalDateTime.now());
+        List<Khoanthu> top5khoanthu = khoanThuRepository.findTop10ByHanchotGreaterThanOrderByHanchotAsc(LocalDateTime.now());
         model.addAttribute("top5khoanthu", top5khoanthu);
 
-        List<Invoice> top5hoadon = invoiceRepository.findTop5ByOrderByCreatedAtDesc();
+        List<Invoice> top5hoadon = invoiceRepository.findTop6ByOrderByCreatedAtDesc();
         model.addAttribute("top5hoadon", top5hoadon);
 
+        List<Khoanthu> allkhoanthu = khoanThuRepository.findAll(Sort.by(Sort.Direction.DESC, "ngaytao"));
+        allkhoanthu.removeIf(khoanthu -> khoanthu.getNgaytao() == null || khoanthu.getHanchot() == null);
+        for (Khoanthu khoanthu : allkhoanthu) {
+            System.out.println("abc " + khoanthu.getNgaytao());
+        }
+        model.addAttribute("allkhoanthu", allkhoanthu);
         return "homepage";
     }
 

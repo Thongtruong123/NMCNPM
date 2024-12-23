@@ -7,8 +7,7 @@ import org.springframework.context.annotation.ComponentScan;
 @SpringBootApplication
 
 public class Nmcnpm1Application {
-	public static void main(String[] args) {
-		SpringApplication.run(Nmcnpm1Application.class, args);
+	public static void main(String[] args) {SpringApplication.run(Nmcnpm1Application.class, args);
 	}
 
 }

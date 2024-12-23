@@ -9,11 +9,11 @@
   <link rel='stylesheet' href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css'>
 </head>
 <body>
-<div th:replace="~{/fragments/sidebar :: sidebar}" class="sidebar"> <!-- Sidebar placeholder --> </div>
+<div th:replace="~{fragments/sidebar :: sidebar}" class="sidebar"> <!-- Sidebar placeholder --> </div>
 
 <div class="mainboard">
   <div class="main-content" id="maincontent">
-    <h1> Tạo tài khoản </h1> <br> <br>
+    <h1> Tạo tài khoản </h1> <hr> <br>
 
     <form th:action="@{/quan-ly-tai-khoan/register}" method="post" th:object="${RegisterFormDTO}">
       <div class="ten">
@@ -55,18 +55,16 @@
     </form>
   </div>
 
-  <div class="popup" id="popup" th:if="${registrationSuccess}">
-    <div class="overlay"></div>
-    <div class="popup-content">
-      <h1> Đăng ký thành công</h1> <br>
-      <p> Bạn đã tạo tài khoản [[${RegisterFormDTO.username}]] thành công</p> <br>
-      <div class="popup-redirect">
-        <a th:href="@{/quan-ly-tai-khoan/tao-tai-khoan}"> Đăng ký tiếp</a>
-        <a th:href="@{/quan-ly-tai-khoan}"> Quay lại</a>
-      </div>
-    </div>
-  </div>
 </div>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script th:if="${registrationSuccess}" type="text/javascript">
+  Swal.fire({
+      title: 'Thành công!',
+      text: 'Tạo tài khoản mới thành công!',
+      icon: 'success',
+      confirmButtonText: 'OK'
+  });
+</script>
 
 </body>
 

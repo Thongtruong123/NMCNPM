@@ -28,6 +28,7 @@ public class SecurityConfig {
                 .authorizeHttpRequests(authorize -> authorize
                         .requestMatchers("/index", "/css/**", "/js/**", "/image/**").permitAll()
                         .requestMatchers("/quan-ly-tai-khoan").hasRole("ADMIN")
+                        .requestMatchers("/forgot-password").permitAll()
                         .requestMatchers("/api/**").authenticated()
                         .requestMatchers("/api/family/invoice").permitAll()
                         .anyRequest().authenticated()

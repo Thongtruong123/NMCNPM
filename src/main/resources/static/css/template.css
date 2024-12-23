@@ -68,6 +68,16 @@ body {
     margin-right: 5px;
 }
 
+.sidebar nav {
+    display: flex;
+    flex-direction: column;
+    height: 94%;
+}
+
+.sidebar .sidebar-divider {
+    flex: 1;
+}
+
 .sidebar ul li {
     position: relative;
     list-style-type: none;

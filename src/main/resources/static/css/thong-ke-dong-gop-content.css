@@ -1,58 +1,29 @@
 .mainboard {
     position: relative;
     top: 0;
-    left: 120px;
-    height: 100vh;
+    left: 100px;
     transition: all 0.5s ease;
-    width: calc(100% - 120px);
+    width: calc(100% - 100px);
     padding: 20px;
     align-items: center;
     justify-content: center;
     background-color: #ADD8E6;
 }
 
-.header-content {
-    width: 100%;
-    min-width: 500px;
-}
-
 .main-content {
-    height: 95%;
+    height: 100%;
     width: 100%;
-    min-width: 500px;
     border-radius: 10px;
     background-color: white;
     padding: 20px;
-    z-index: -1;
-    overflow: auto;
-}
-
-
-.container {
     display: flex;
     justify-content: space-between;
 }
 
-.chart-container {
-    width: 45%;
-    height: 300px;
-}
-
-.text-container {
-    width: 45%;
-    padding: 20px;
-    padding-top: 60px;
-    font-size: 24px;
-}
-
 .drop_down_list_khoanthu{
-    width: 200px;
-    height: 40px;
+    max-height: 40px;
     overflow: auto;
-    font-size: 16px;
-    text-align: center;
-    margin-top: 10px;
     border-radius: 5px;
     cursor: pointer;
-    border: 1px solid #000;
+    background-color: #a8a7a7;
 }
