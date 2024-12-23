@@ -10,6 +10,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,8 +18,11 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 /**
  * The type Nhan khau controller.
@@ -53,7 +57,7 @@ public class NhanKhauController {
         Page<Nhankhau> pageResult = repo.listAll(keyword, pageable);
         List<Nhankhau> nhankhauList = pageResult.getContent();
 
-        System.out.println("Số nhân khẩu: " + nhankhauList.size());
+        
         // Gửi dữ liệu vào model
         model.addAttribute("nhankhau_count", nhankhauList.size());
 
@@ -152,19 +156,8 @@ public class NhanKhauController {
                 return "redirect:/thong-tin-nhan-khau";
             }
 
-            NhankhauDTO nhankhauDto = new NhankhauDTO();
-            nhankhauDto.setRoomNumber(nhankhau.getId().getRoomNumber());
-            nhankhauDto.setHoten(nhankhau.getId().getHoten());
-            nhankhauDto.setGioitinh(nhankhau.getGioitinh());
-            nhankhauDto.setSodienthoai(nhankhau.getSodienthoai());
-            nhankhauDto.setVaitro(nhankhau.getVaitro());
-            nhankhauDto.setNgaysinh(nhankhau.getNgaysinh());
-            nhankhauDto.setQuequan(nhankhau.getQuequan());
-            nhankhauDto.setThuongtru(nhankhau.getThuongtru());
-            nhankhauDto.setTamtru(nhankhau.getTamtru());
+            NhankhauDTO nhankhauDto = getNhankhauDTO(nhankhau);
 
-
-            // Đưa DTO vào model để render form
             model.addAttribute("nhankhau_edit", nhankhauDto);
             model.addAttribute("room_number", room_number);
             model.addAttribute("hoten", hoten);
@@ -175,59 +168,94 @@ public class NhanKhauController {
         }
     }
 
+    private static NhankhauDTO getNhankhauDTO(Nhankhau nhankhau) {
+        NhankhauDTO nhankhauDto = new NhankhauDTO();
+        nhankhauDto.setRoomNumber(nhankhau.getId().getRoomNumber());
+        nhankhauDto.setHoten(nhankhau.getId().getHoten());
+        nhankhauDto.setGioitinh(nhankhau.getGioitinh());
+        nhankhauDto.setSodienthoai(nhankhau.getSodienthoai());
+        nhankhauDto.setVaitro(nhankhau.getVaitro());
+        nhankhauDto.setNgaysinh(nhankhau.getNgaysinh());
+        nhankhauDto.setQuequan(nhankhau.getQuequan());
+        nhankhauDto.setThuongtru(nhankhau.getThuongtru());
+        nhankhauDto.setTamtru(nhankhau.getTamtru());
+        return nhankhauDto;
+    }
+
     /**
      * Update nhan khau string.
      *
      * @param model              the model
      * @param room_number        the room number
      * @param hoten              the hoten
-     * @param nhankhau_edit      the nhankhau edit
+     * @param nhankhauDto      the nhankhau edit
      * @param result             the result
      * @param redirectAttributes the redirect attributes
      * @return the string
      */
     @PostMapping("/thong-tin-nhan-khau/edit")
+    @Transactional
     public String updateNhanKhau(
             Model model,
             @RequestParam String room_number,
             @RequestParam String hoten,
-            @Valid @ModelAttribute("nhankhau_edit") NhankhauDTO nhankhau_edit,
+            @Valid @ModelAttribute("nhankhauDto") NhankhauDTO nhankhauDto,
             BindingResult result, RedirectAttributes redirectAttributes) {
+
+        // Xử lý dữ liệu đầu vào
+        room_number = room_number.trim();
+        hoten = hoten.trim();
+
+        String[] parts = hoten.split(",");
+        hoten = Arrays.stream(parts)
+                .map(String::trim)
+                .distinct()
+                .collect(Collectors.joining(","));
+
+        System.out.println("Room number: " + room_number);
+        System.out.println("Ho ten: " + hoten);
+
         try {
             Optional<Nhankhau> optionalNhankhau = Optional.ofNullable(repo.findByRoomnumberAndHoten(room_number, hoten));
             if (optionalNhankhau.isEmpty()) {
+                System.out.print("Không tìm thấy dữ liệu.");
+                redirectAttributes.addFlashAttribute("error", "Không tìm thấy nhân khẩu!");
                 return "redirect:/thong-tin-nhan-khau";
             }
+
             Nhankhau nhankhau = optionalNhankhau.get();
 
             if (result.hasErrors()) {
-                System.out.println("Có lỗi khi sửa và được lưu vào cơ sở dữ liệu.");
+                System.out.println("Có lỗi khi sửa.");
+                result.getAllErrors().forEach(error -> System.out.println(error.getDefaultMessage()));
                 model.addAttribute("room_number", room_number);
                 model.addAttribute("hoten", hoten);
-                model.addAttribute("nhankhau_edit", nhankhau_edit);
                 return "edit_nhankhau";
             }
-            // Cập nhật dữ liệu từ DTO sang Entity
-            NhankhauId nhankhauId = new NhankhauId(nhankhau_edit.getRoomNumber(), nhankhau_edit.getHoten());
-            nhankhau.setId(nhankhauId);
-            nhankhau.setGioitinh(nhankhau_edit.getGioitinh());
-            nhankhau.setSodienthoai(nhankhau_edit.getSodienthoai());
-            nhankhau.setVaitro(nhankhau_edit.getVaitro());
-            nhankhau.setNgaysinh(nhankhau_edit.getNgaysinh());
-            nhankhau.setQuequan(nhankhau_edit.getQuequan());
-            nhankhau.setThuongtru(nhankhau_edit.getThuongtru());
-            nhankhau.setTamtru(nhankhau_edit.getTamtru());
+
+
+            nhankhau.setGioitinh(nhankhauDto.getGioitinh());
+            nhankhau.setSodienthoai(nhankhauDto.getSodienthoai());
+            nhankhau.setVaitro(nhankhauDto.getVaitro());
+            nhankhau.setNgaysinh(nhankhauDto.getNgaysinh());
+            nhankhau.setQuequan(nhankhauDto.getQuequan());
+            nhankhau.setThuongtru(nhankhauDto.getThuongtru());
+            nhankhau.setTamtru(nhankhauDto.getTamtru());
 
             System.out.println("Đang cập nhật nhân khẩu: " + nhankhau);
             repo.save(nhankhau);
             System.out.println("Nhân khẩu đã sửa và được lưu vào cơ sở dữ liệu.");
-            redirectAttributes.addFlashAttribute("editsuccess_nhankhau", "Sửa nhân khẩu thành công!");
+            redirectAttributes.addFlashAttribute("success", "Cập nhật thành công!");
             return "redirect:/thong-tin-nhan-khau";
-        } catch (Exception ex) {
-            System.out.println("Exception: " + ex.getMessage());
+
+        } catch (Exception e) {
+            System.out.println("Lỗi khi lưu: " + e.getMessage());
+            e.printStackTrace();
+            redirectAttributes.addFlashAttribute("error", "Có lỗi khi cập nhật!");
             return "redirect:/thong-tin-nhan-khau";
         }
     }
+
 
 
     /**

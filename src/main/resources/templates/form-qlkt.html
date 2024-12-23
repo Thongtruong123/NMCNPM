@@ -76,7 +76,7 @@
     <form method="post" th:action="@{/create}" th:object="${khoanthuDto}" onsubmit="showLoading()">
       <!-- Tên khoản thu -->
       <div class="row mb-3">
-        <label for="tenkhoanthu" class="col-sm-4 col-form-label">Tên khoản thu mới</label>
+        <label for="tenkhoanthu" class="col-sm-4 col-form-label">Tên khoản thu mới <span style="color: red;">*</span> </label>
         <div class="col-sm-8">
           <input type="text" id="tenkhoanthu" class="form-control" th:field="*{tenkhoanthu}">
           <p th:if="${#fields.hasErrors('tenkhoanthu')}" class="text-danger" th:errors="*{tenkhoanthu}"></p>
@@ -85,7 +85,7 @@
 
       <!-- Số tiền -->
       <div class="row mb-3">
-        <label for="sotien-input" class="col-sm-4 col-form-label">Số tiền</label>
+        <label for="sotien-input" class="col-sm-4 col-form-label">Số tiền <span style="color: red;">*</span> </label>
         <div class="col-sm-8">
           <input class="form-control" type="number" min="0" step="1000" th:field="*{sotien}" id="sotien-input">
           <p th:if="${#fields.hasErrors('sotien')}" class="text-danger" th:errors="*{sotien}"></p>
@@ -94,7 +94,7 @@
 
       <!-- Bắt buộc -->
       <div class="row mb-3">
-        <label for="batbuoc-select" class="col-sm-4 col-form-label">Bắt buộc</label>
+        <label for="batbuoc-select" class="col-sm-4 col-form-label">Bắt buộc <span style="color: red;">*</span> </label>
         <div class="col-sm-8">
           <select class="form-select" th:field="*{batbuoc}" id="batbuoc-select">
             <option value="Có">Có</option>
@@ -106,7 +106,7 @@
 
       <!-- Hạn chót -->
       <div class="row mb-3">
-        <label for="hanchot" class="col-sm-4 col-form-label">Hạn chót</label>
+        <label for="hanchot" class="col-sm-4 col-form-label">Hạn chót </label>
         <div class="col-sm-8">
           <input id="hanchot" class="form-control" type="datetime-local" th:field="*{hanchot}"
                  min="${#temporals.format(#temporals.now(), 'yyyy-MM-dd\'T\'HH:mm')}">
@@ -116,7 +116,7 @@
 
       <!-- Người tạo -->
       <div class="row mb-3">
-        <label for="nguoitao" class="col-sm-4 col-form-label">Người tạo</label>
+        <label for="nguoitao" class="col-sm-4 col-form-label">Người tạo <span style="color: red;">*</span> </label>
         <div class="col-sm-8">
           <input type="text" id="nguoitao" class="form-control" th:field="*{nguoitao}">
           <p th:if="${#fields.hasErrors('nguoitao')}" class="text-danger" th:errors="*{nguoitao}"></p>
