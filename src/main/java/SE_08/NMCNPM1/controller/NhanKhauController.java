@@ -188,21 +188,19 @@ public class NhanKhauController {
      * @param model              the model
      * @param room_number        the room number
      * @param hoten              the hoten
-     * @param nhankhauDto      the nhankhau edit
+     * @param nhankhau_edit     the nhankhau edit
      * @param result             the result
      * @param redirectAttributes the redirect attributes
      * @return the string
      */
     @PostMapping("/thong-tin-nhan-khau/edit")
-    @Transactional
     public String updateNhanKhau(
             Model model,
             @RequestParam String room_number,
             @RequestParam String hoten,
-            @Valid @ModelAttribute("nhankhauDto") NhankhauDTO nhankhauDto,
+            @Valid @ModelAttribute("nhankhau_edit") NhankhauDTO nhankhau_edit,
             BindingResult result, RedirectAttributes redirectAttributes) {
 
-        // Xử lý dữ liệu đầu vào
         room_number = room_number.trim();
         hoten = hoten.trim();
 
@@ -234,18 +232,18 @@ public class NhanKhauController {
             }
 
 
-            nhankhau.setGioitinh(nhankhauDto.getGioitinh());
-            nhankhau.setSodienthoai(nhankhauDto.getSodienthoai());
-            nhankhau.setVaitro(nhankhauDto.getVaitro());
-            nhankhau.setNgaysinh(nhankhauDto.getNgaysinh());
-            nhankhau.setQuequan(nhankhauDto.getQuequan());
-            nhankhau.setThuongtru(nhankhauDto.getThuongtru());
-            nhankhau.setTamtru(nhankhauDto.getTamtru());
+            nhankhau.setGioitinh(nhankhau_edit.getGioitinh());
+            nhankhau.setSodienthoai(nhankhau_edit.getSodienthoai());
+            nhankhau.setVaitro(nhankhau_edit.getVaitro());
+            nhankhau.setNgaysinh(nhankhau_edit.getNgaysinh());
+            nhankhau.setQuequan(nhankhau_edit.getQuequan());
+            nhankhau.setThuongtru(nhankhau_edit.getThuongtru());
+            nhankhau.setTamtru(nhankhau_edit.getTamtru());
 
             System.out.println("Đang cập nhật nhân khẩu: " + nhankhau);
             repo.save(nhankhau);
             System.out.println("Nhân khẩu đã sửa và được lưu vào cơ sở dữ liệu.");
-            redirectAttributes.addFlashAttribute("success", "Cập nhật thành công!");
+            redirectAttributes.addFlashAttribute("editsuccess_nhankhau", "Sửa nhân khẩu thành công!");
             return "redirect:/thong-tin-nhan-khau";
 
         } catch (Exception e) {

@@ -41,14 +41,15 @@
     <div class="main-content" id="maincontent">
         <h2> Chỉnh sửa khoản thu</h2>
         <hr> <br>
-
-
         <form action="#" th:action="@{/edit(id=${id})}" th:object="${khoanthu_edit}" method="post">
             <!-- Tên khoản thu -->
             <div class="row mb-3">
                 <label for="tenkhoanthu" class="form-label">Tên khoản thu <span style="color: red;">*</span> </label>
                 <div class="col-sm-8">
                     <input type="text" id="tenkhoanthu" class="form-control" th:field="*{tenkhoanthu}">
+                    <p th:if="${#fields.hasErrors('tenkhoanthu')}" class="text-danger">
+                        <span th:errors="*{tenkhoanthu}">Tên khoản thu không hợp lệ. Vui lòng kiểm tra lại.</span>
+                    </p>
                 </div>
             </div>
 
@@ -57,6 +58,9 @@
                 <label for="sotien-input" class="form-label">Số tiền <span style="color: red;">*</span> </label>
                 <div class="col-sm-8">
                     <input class="form-control" type="number" min="0" step="1000" th:field="*{sotien}" id="sotien-input">
+                    <p th:if="${#fields.hasErrors('sotien')}" class="text-danger">
+                        <span th:errors="*{sotien}">Số tiền không hợp lệ. Vui lòng kiểm tra lại.</span>
+                    </p>
                 </div>
             </div>
 
@@ -68,17 +72,21 @@
                         <option value="Có">Có</option>
                         <option value="Không">Không</option>
                     </select>
+                    <p th:if="${#fields.hasErrors('batbuoc')}" class="text-danger">
+                        <span th:errors="*{batbuoc}">Vui lòng chọn một lựa chọn cho trường này.</span>
+                    </p>
                 </div>
             </div>
 
             <!-- Hạn chót -->
             <div class="row mb-3">
-                <label for="hanchot" class="form-label">Hạn chót</label>
+                <label for="hanchot" class="form-label">Hạn chót <span style="color: red;">*</span> </label>
                 <div class="col-sm-8">
-                    <input id="hanchot" class="form-control" type="datetime-local"
-                           th:field="*{hanchot}">
+                    <input id="hanchot" class="form-control" type="datetime-local" th:field="*{hanchot}">
+                    <p th:if="${#fields.hasErrors('hanchot')}" class="text-danger">
+                        <span th:errors="*{hanchot}">Vui lòng chọn một ngày hợp lệ.</span>
+                    </p>
                 </div>
-
             </div>
 
 

@@ -1,10 +1,10 @@
 package SE_08.NMCNPM1.model;
 
-import jakarta.persistence.Column;
-import jakarta.validation.constraints.NotEmpty;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Pattern;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import jakarta.validation.constraints.*;
+import org.springframework.format.annotation.DateTimeFormat;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 
 public class NhankhauDTO {
@@ -17,17 +17,17 @@ public class NhankhauDTO {
     @NotEmpty(message = "Trường bắt buộc không được để trống")
     private String gioitinh;
 
+    @JsonFormat(pattern = "dd-MM-yyyy")
     @NotNull(message = "Trường ngày sinh không được để trống")
-    private Date ngaysinh;
+    @Past(message = "Ngày sinh phải là ngày trong quá khứ")
+    private LocalDateTime ngaysinh;
 
     @NotEmpty(message = "Trường vai trò không được để trống")
     private String vaitro;
 
-    @NotEmpty(message = "Trường số điện thoại không được để trống nếu nhập.")
-    @Pattern(regexp = "^0[0-9]{9}$", message = "Trường số điện thoại phải gồm 10 chữ số và bắt đầu bằng số 0.")
+    @NotEmpty
+    @Pattern(regexp = "^0[0-9]{9}$", message = "Trường số điện thoại (nếu nhập) phải gồm 10 chữ số và bắt đầu bằng số 0.")
     private String sodienthoai;
-
-
 
     @NotEmpty(message = "Trường quê quán không được để trống")
     private String quequan;
@@ -38,75 +38,76 @@ public class NhankhauDTO {
     @NotEmpty(message = "Trường tạm trú không được để trống")
     private String tamtru;
 
-    public @NotEmpty(message = "Trường số phòng không được để trống") String getRoomNumber() {
+    // Getter và Setter
+    public String getRoomNumber() {
         return roomNumber;
     }
 
-    public void setRoomNumber(@NotEmpty(message = "Trường số phòng không được để trống") String roomNumber) {
+    public void setRoomNumber(String roomNumber) {
         this.roomNumber = roomNumber;
     }
 
-    public @NotEmpty(message = "Trường họ và tên không được để trống") String getHoten() {
+    public String getHoten() {
         return hoten;
     }
 
-    public void setHoten(@NotEmpty(message = "Trường họ và tên không được để trống") String hoten) {
+    public void setHoten(String hoten) {
         this.hoten = hoten;
     }
 
-    public @NotEmpty(message = "Trường bắt buộc không được để trống") String getGioitinh() {
+    public String getGioitinh() {
         return gioitinh;
     }
 
-    public void setGioitinh(@NotEmpty(message = "Trường bắt buộc không được để trống") String gioitinh) {
+    public void setGioitinh(String gioitinh) {
         this.gioitinh = gioitinh;
     }
 
-    public @NotNull(message = "Trường ngày sinh không được để trống") Date getNgaysinh() {
+    public LocalDateTime getNgaysinh() {
         return ngaysinh;
     }
 
-    public void setNgaysinh(@NotNull(message = "Trường ngày sinh không được để trống") Date ngaysinh) {
+    public void setNgaysinh(LocalDateTime ngaysinh) {
         this.ngaysinh = ngaysinh;
     }
 
-    public @NotEmpty(message = "Trường vai trò không được để trống") String getVaitro() {
+    public String getVaitro() {
         return vaitro;
     }
 
-    public void setVaitro(@NotEmpty(message = "Trường vai trò không được để trống") String vaitro) {
+    public void setVaitro(String vaitro) {
         this.vaitro = vaitro;
     }
 
-    public @NotEmpty(message = "Trường số điện thoại không được để trống nếu nhập.") @Pattern(regexp = "^0[0-9]{9}$", message = "Trường số điện thoại phải gồm 10 chữ số và bắt đầu bằng số 0.") String getSodienthoai() {
+    public String getSodienthoai() {
         return sodienthoai;
     }
 
-    public void setSodienthoai(@NotEmpty(message = "Trường số điện thoại không được để trống nếu nhập.") @Pattern(regexp = "^0[0-9]{9}$", message = "Trường số điện thoại phải gồm 10 chữ số và bắt đầu bằng số 0.") String sodienthoai) {
+    public void setSodienthoai(String sodienthoai) {
         this.sodienthoai = sodienthoai;
     }
 
-    public @NotEmpty(message = "Trường quê quán không được để trống") String getQuequan() {
+    public String getQuequan() {
         return quequan;
     }
 
-    public void setQuequan(@NotEmpty(message = "Trường quê quán không được để trống") String quequan) {
+    public void setQuequan(String quequan) {
         this.quequan = quequan;
     }
 
-    public @NotEmpty(message = "Trường thường trú không được để trống") String getThuongtru() {
+    public String getThuongtru() {
         return thuongtru;
     }
 
-    public void setThuongtru(@NotEmpty(message = "Trường thường trú không được để trống") String thuongtru) {
+    public void setThuongtru(String thuongtru) {
         this.thuongtru = thuongtru;
     }
 
-    public @NotEmpty(message = "Trường tạm trú không được để trống") String getTamtru() {
+    public String getTamtru() {
         return tamtru;
     }
 
-    public void setTamtru(@NotEmpty(message = "Trường tạm trú không được để trống") String tamtru) {
+    public void setTamtru(String tamtru) {
         this.tamtru = tamtru;
     }
 }
