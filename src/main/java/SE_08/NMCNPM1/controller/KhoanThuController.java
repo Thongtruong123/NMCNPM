@@ -1,6 +1,8 @@
 package SE_08.NMCNPM1.controller;
+
 import SE_08.NMCNPM1.model.Khoanthu;
 import SE_08.NMCNPM1.model.KhoanthuDTO;
+import SE_08.NMCNPM1.repository.KhoanThuRepository;
 import SE_08.NMCNPM1.service.KhoanThuService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -169,16 +171,6 @@ public class KhoanThuController {
         }
     }
 
-    /**
-     * Update khoanthu string.
-     *
-     * @param model              the model
-     * @param id                 the id
-     * @param khoanthu_edit      the khoanthu edit
-     * @param result             the result
-     * @param redirectAttributes the redirect attributes
-     * @return the string
-     */
     @PostMapping("/edit")
     public String updateKhoanthu(
             Model model,
@@ -199,8 +191,8 @@ public class KhoanThuController {
             // Kiểm tra lỗi validate
             if (result.hasErrors()) {
                 // Trả lại form với lỗi
-                model.addAttribute("id", id);
-                model.addAttribute("khoanthu_edit", khoanthu_edit);
+                model.addAttribute("id", id); // Đảm bảo ID vẫn có trong model
+                model.addAttribute("khoanthu_edit", khoanthu_edit);  // Đảm bảo DTO cũng có trong model
                 return "edit-qlkt";
             }
 
@@ -222,19 +214,15 @@ public class KhoanThuController {
         }
     }
 
-
     @GetMapping("/delete")
-    public String deleteKhoanthu(@RequestParam int id, RedirectAttributes redirectAttributes) {
-        Optional<Khoanthu> khoanthu = Optional.ofNullable(repo.findById(id)); // Tìm khoản thu trước khi xóa
-        if (khoanthu.isPresent()) {
-            repo.deleteById(id);
-            // Thêm thông báo xóa thành công
-            redirectAttributes.addFlashAttribute("deletesuccess", "Khoản thu '" + khoanthu.get().getTenkhoanthu() + "' đã được xóa!");
-        } else {
-            redirectAttributes.addFlashAttribute("deletesuccess", "Không tìm thấy khoản thu cần xóa!");
-        }
+    public String deleteKhoanthu(
+            @RequestParam int id
+    ){
+
+        repo.deleteById(id);
+
+
         return "redirect:/quan-ly-khoan-thu";
     }
-
 
 }

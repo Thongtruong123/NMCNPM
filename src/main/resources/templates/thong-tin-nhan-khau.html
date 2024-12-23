@@ -104,36 +104,47 @@
       </table>
     </div>
 
-    <!-- Phân trang -->
-    <div class="pagination-container" style="margin-top: 20px; display: flex; justify-content: center;">
-      <ul class="pagination" style="list-style: none; display: flex; gap: 5px;">
-        <!-- Nút Previous -->
-        <li th:classappend="${nhankhau_currentPage == 0} ? 'disabled' : ''">
-          <a th:href="@{/thong-tin-nhan-khau(page=${nhankhau_currentPage - 1}, keyword=${nhankhau_keyword}, sort=${nhankhau_sort})}"
-             th:if="${nhankhau_currentPage > 0}" style="text-decoration: none; padding: 8px 12px; background: #3498db; color: white; border-radius: 4px;">Trang trước</a>
-          <span th:if="${nhankhau_currentPage == 0}" style="padding: 8px 12px; background: #bdc3c7; color: white; border-radius: 4px; cursor: not-allowed;">Trang trước</span>
-        </li>
+      <!-- Phân trang -->
+      <div class="pagination-container" style="margin-top: 20px; display: flex; justify-content: center;">
+        <ul class="pagination" style="list-style: none; display: flex; gap: 5px;">
+          <!-- Kiểm tra nếu có dữ liệu -->
+          <th:block th:if="${nhankhau_totalPages > 0}">
+            <!-- Nút Previous -->
+            <li th:classappend="${nhankhau_currentPage == 0} ? 'disabled' : ''">
+              <a th:href="@{/thong-tin-nhan-khau(page=${nhankhau_currentPage - 1}, keyword=${nhankhau_keyword}, sort=${nhankhau_sort})}"
+                 th:if="${nhankhau_currentPage > 0}" style="text-decoration: none; padding: 8px 12px; background: #3498db; color: white; border-radius: 4px;">Trang trước</a>
+              <span th:if="${nhankhau_currentPage == 0}" style="padding: 8px 12px; background: #bdc3c7; color: white; border-radius: 4px; cursor: not-allowed;">Trang trước</span>
+            </li>
 
-        <!-- Số trang -->
-        <li th:each="i : ${#numbers.sequence(0, nhankhau_totalPages - 1)}"
-            th:classappend="${i == nhankhau_currentPage} ? 'active' : ''"
-            onclick="changeColor(this)">
-          <a th:href="@{/thong-tin-nhan-khau(page=${i}, keyword=${nhankhau_keyword}, sort=${nhankhau_sort})}"
-             th:text="${i + 1}" class="page-link"
-             style="text-decoration: none; padding: 8px 12px; background: #2ecc71; color: white; border-radius: 4px;">
-          </a>
-        </li>
+            <!-- Số trang -->
+            <li th:each="i : ${#numbers.sequence(0, nhankhau_totalPages - 1)}"
+                th:classappend="${i == nhankhau_currentPage} ? 'active' : ''"
+                onclick="changeColor(this)">
+              <a th:href="@{/thong-tin-nhan-khau(page=${i}, keyword=${nhankhau_keyword}, sort=${nhankhau_sort})}"
+                 th:text="${i + 1}" class="page-link"
+                 style="text-decoration: none; padding: 8px 12px; background: #2ecc71; color: white; border-radius: 4px;">
+              </a>
+            </li>
 
-        <!-- Nút Next -->
-        <li th:classappend="${nhankhau_currentPage == nhankhau_totalPages - 1} ? 'disabled' : ''">
-          <a th:href="@{/thong-tin-nhan-khau(page=${nhankhau_currentPage + 1}, keyword=${nhankhau_keyword}, sort=${nhankhau_sort})}"
-             th:if="${nhankhau_currentPage < nhankhau_totalPages - 1}" style="text-decoration: none; padding: 8px 12px; background: #3498db; color: white; border-radius: 4px;">Trang sau</a>
-          <span th:if="${nhankhau_currentPage == nhankhau_totalPages - 1}" style="padding: 8px 12px; background: #bdc3c7; color: white; border-radius: 4px; cursor: not-allowed;">Trang sau</span>
-        </li>
-      </ul>
-    </div>
+            <!-- Nút Next -->
+            <li th:classappend="${nhankhau_currentPage == nhankhau_totalPages - 1} ? 'disabled' : ''">
+              <a th:href="@{/thong-tin-nhan-khau(page=${nhankhau_currentPage + 1}, keyword=${nhankhau_keyword}, sort=${nhankhau_sort})}"
+                 th:if="${nhankhau_currentPage < nhankhau_totalPages - 1}" style="text-decoration: none; padding: 8px 12px; background: #3498db; color: white; border-radius: 4px;">Trang sau</a>
+              <span th:if="${nhankhau_currentPage == nhankhau_totalPages - 1}" style="padding: 8px 12px; background: #bdc3c7; color: white; border-radius: 4px; cursor: not-allowed;">Trang sau</span>
+            </li>
+          </th:block>
 
-    <div style="display: flex; justify-content: flex-end;">
+          <!-- Trường hợp không có dữ liệu -->
+          <th:block th:if="${nhankhau_totalPages == 0}">
+            <li>
+              <span style="padding: 8px 12px; background: #bdc3c7; color: white; border-radius: 4px;">Không có dữ liệu</span>
+            </li>
+          </th:block>
+        </ul>
+      </div>
+
+
+      <div style="display: flex; justify-content: flex-end;">
       Trang: <span th:text="${nhankhau_currentPage + 1}"></span>
     </div>
   </div>
