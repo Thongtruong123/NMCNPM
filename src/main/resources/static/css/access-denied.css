@@ -24,13 +24,13 @@
 
 button {
     background: linear-gradient(to right, #007e99, #005f6b);
-        color: white;
-        border: none;
-        border-radius: 5px;
-        font-size: 18px;
-        font-weight: bold;
-        margin-top: 10px;
-        padding: 10px 20px;
-        width: auto;
-        cursor: pointer;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 18px;
+    font-weight: bold;
+    margin-top: 10px;
+    padding: 10px 20px;
+    width: auto;
+    cursor: pointer;
 }

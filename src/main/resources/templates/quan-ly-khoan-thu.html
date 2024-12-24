@@ -4,8 +4,8 @@
     <meta charset="utf-8">
     <link rel="icon" type="image/x-icon" href="/image/favicon.ico">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="css/template.css">
-    <link rel="stylesheet" href="css/quan-ly-khoan-thu-content.css">
+    <link rel="stylesheet" href="/css/template.css">
+    <link rel="stylesheet" href="/css/quan-ly-khoan-thu-content.css">
     <link rel='stylesheet' href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css'>
     <title>Quản lý khoản thu</title>
 
@@ -50,7 +50,7 @@
         <hr>
 
         <div class="searchbar" style="display: flex; justify-content: center; width: 100%;">
-            <form method="get" action="/quan-ly-khoan-thu" style="display: flex; align-items: center; width: 90%;">
+            <form method="get" th:action="@{/quan-ly-khoan-thu}" style="display: flex; align-items: center; width: 90%;">
                 <input type="search" placeholder="Tìm kiếm" id="keyword" name="keyword" th:value="${keyword}" required style="flex: 3; width: 90%; padding: 5px 10px;">
                 <button class="search-button" type="submit" style="padding: 5px 10px; margin-left: 10px;">
                     <i class='bx bx-search'></i>
@@ -172,7 +172,7 @@
     });
 </script>
 
-<script src="js/menu-toggle.js"> </script>
+<script src="/js/menu-toggle.js"> </script>
 
 </body>
 </html>
