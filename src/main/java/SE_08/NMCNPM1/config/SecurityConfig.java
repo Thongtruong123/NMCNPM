@@ -28,6 +28,7 @@ public class SecurityConfig {
                 .authorizeHttpRequests(authorize -> authorize
                         .requestMatchers("/index", "/css/**", "/js/**", "/image/**").permitAll()
                         .requestMatchers("/quan-ly-tai-khoan").hasRole("ADMIN")
+                        .requestMatchers("/create", "/edit", "/delete", "/thong-tin-nhan-khau/create", "/thong-tin-nhan-khau/edit", "/thong-tin-nhan-khau/delete").hasAnyRole("ADMIN", "HIGH_MANAGER")
                         .requestMatchers("/forgot-password").permitAll()
                         .requestMatchers("/api/**").authenticated()
                         .requestMatchers("/api/family/invoice").permitAll()
@@ -42,7 +43,8 @@ public class SecurityConfig {
                 .logout(logout -> logout
                         .logoutSuccessUrl("/index")
                         .permitAll()
-                );
+                )
+                .exceptionHandling().accessDeniedPage("/access-denied");
 
         return httpSecurity.build();
     }
