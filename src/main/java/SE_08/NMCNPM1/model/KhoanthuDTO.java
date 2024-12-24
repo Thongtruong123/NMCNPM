@@ -28,7 +28,17 @@ public class KhoanthuDTO {
     @NotEmpty(message = "Trường người tạo không được để trống")
     private String nguoitao;
 
+    @NotEmpty(message = "Trường loaikhoanthu không được để trống")
+    private String loaikhoanthu;
+
     // Getter và Setter
+    public String getLoaikhoanthu() {
+        return loaikhoanthu;
+    }
+
+    public void setLoaikhoanthu(String loaikhoanthu) {
+        this.loaikhoanthu = loaikhoanthu;
+    }
 
     public String getTenkhoanthu() {
         return tenkhoanthu;

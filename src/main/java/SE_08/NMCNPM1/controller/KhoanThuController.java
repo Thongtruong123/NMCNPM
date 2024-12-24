@@ -10,12 +10,16 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Optional;
 
@@ -70,9 +74,10 @@ public class KhoanThuController {
     @GetMapping("/create")
     public String showCreatePage(Model model) {
         System.out.println("Truy cập vào trang tạo mới Khoan Thu.");
-
+        String currentUsername = SecurityContextHolder.getContext().getAuthentication().getName();
         // Tạo đối tượng khoanthuDto mới và thêm vào model
         KhoanthuDTO khoanthuDto = new KhoanthuDTO();
+        khoanthuDto.setNguoitao(currentUsername);
         model.addAttribute("khoanthuDto", khoanthuDto);
         System.out.println("Thêm đối tượng khoanthuDto vào model: " + khoanthuDto);
 
@@ -114,6 +119,7 @@ public class KhoanThuController {
         khoanthu.setBatbuoc(khoanthuDto.getBatbuoc());
         khoanthu.setHanchot(khoanthuDto.getHanchot());
         khoanthu.setNguoitao(khoanthuDto.getNguoitao());
+        khoanthu.setLoaikhoanthu(khoanthuDto.getLoaikhoanthu());
         khoanthu.setNgaytao(ngaytao);
         System.out.println("Thông tin Khoan Thu: " + khoanthu);
 
@@ -150,7 +156,9 @@ public class KhoanThuController {
             khoanthuDto.setBatbuoc(khoanthu.getBatbuoc());
             khoanthuDto.setHanchot(khoanthu.getHanchot());
             khoanthuDto.setNguoitao(khoanthu.getNguoitao());
+            khoanthuDto.setLoaikhoanthu(khoanthu.getLoaikhoanthu());
 
+            model.addAttribute("hanchotformatted", khoanthu.getHanchot().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")));
             model.addAttribute("khoanthu_edit", khoanthuDto);
             model.addAttribute("id", id);
             return "edit-qlkt";
@@ -186,6 +194,7 @@ public class KhoanThuController {
             khoanthu.setBatbuoc(khoanthu_edit.getBatbuoc());
             khoanthu.setHanchot(khoanthu_edit.getHanchot());
             khoanthu.setNguoitao(khoanthu_edit.getNguoitao());
+            khoanthu.setLoaikhoanthu(khoanthu_edit.getLoaikhoanthu());
             repo.save(khoanthu);
             System.out.println("Khoan Thu đã sửa va và được lưu vào cơ sở dữ liệu.");
             redirectAttributes.addFlashAttribute("editsuccess", "Sửa khoản thu thành công!");

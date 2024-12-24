@@ -18,35 +18,49 @@
 
     <form th:action="@{/quan-ly-tai-khoan/register}" method="post" th:object="${RegisterFormDTO}">
       <div class="ten">
-        <label for="ten"> Tên </label> <br>
-        <input type="text" id="ten" th:field="*{first_name}" required>
+        <label for="ten"> Tên <span style="color: red;">*</span> </label> <br>
+        <input type="text" id="ten" th:field="*{first_name}" required
+               oninvalid="this.setCustomValidity('Vui lòng nhập tên')"
+               oninput="this.setCustomValidity('')">
       </div>
 
       <div class="ho">
-        <label for="ho"> Họ </label> <br>
-        <input type="text" id="ho" th:field="*{last_name}" required>
+        <label for="ho"> Họ <span style="color: red;">*</span></label> <br>
+        <input type="text" id="ho" th:field="*{last_name}" required
+               oninvalid="this.setCustomValidity('Vui lòng nhập họ')"
+               oninput="this.setCustomValidity('')">
       </div> <br>
 
-      <label for="username"> Tên tài khoản </label> <br>
-      <input type="text" id="username" th:field="*{username}" required>
+      <label for="username"> Tên tài khoản <span style="color: red;">*</span></label> <br>
+      <input type="text" id="username" th:field="*{username}" required
+             oninvalid="this.setCustomValidity('Vui lòng nhập tên tài khoản')"
+             oninput="this.setCustomValidity('')">
       <span th:if="${usernameError}" th:text="${usernameError}" class="alert"></span>
       <br>
 
-      <label for="email"> Email </label> <br>
-      <input type="email" id="email" th:field="*{email}" required>
+      <label for="email"> Email <span style="color: red;">*</span></label> <br>
+      <input type="email" id="email" th:field="*{email}" required
+             oninvalid="this.setCustomValidity('Vui lòng nhập email')"
+             oninput="this.setCustomValidity('')">
       <span th:if="${#fields.hasErrors('email')}" th:errors="*{email}" class="alert"></span>
       <br>
 
-      <label for="sdt"> Số điện thoại </label> <br>
-      <input type="tel" id="sdt" th:field="*{phone_number}" required>
+      <label for="sdt"> Số điện thoại <span style="color: red;">*</span></label> <br>
+      <input type="tel" id="sdt" th:field="*{phone_number}" required
+             oninvalid="this.setCustomValidity('Vui lòng nhập số điện thoại')"
+             oninput="this.setCustomValidity('')">
       <span th:if="${#fields.hasErrors('phone_number')}" th:errors="*{phone_number}" class="alert"></span>
       <br>
 
-      <label for="password"> Mật khẩu </label> <br>
-      <input type="password" id="password" th:field="*{password}" required> <br>
+      <label for="password"> Mật khẩu <span style="color: red;">*</span></label> <br>
+      <input type="password" id="password" th:field="*{password}" required
+             oninvalid="this.setCustomValidity('Vui lòng nhập mật khẩu')"
+             oninput="this.setCustomValidity('')"> <br>
 
-      <label for="role">Chức vụ</label><br>
-      <select name="role" id="role" th:field="*{role}" required>
+      <label for="role">Chức vụ <span style="color: red;">*</span></label><br>
+      <select name="role" id="role" th:field="*{role}" required
+              oninvalid="this.setCustomValidity('Vui lòng chọn chức vụ')"
+              oninput="this.setCustomValidity('')">
         <option value="LOW_MANAGER" th:text="'Quản lý cấp thấp'" th:selected="${RegisterFormDTO.role == 'LOW_MANAGER'}"></option>
         <option value="HIGH_MANAGER" th:text="'Quản lý cấp cao'" th:selected="${RegisterFormDTO.role == 'HIGH_MANAGER'}"></option>
         <option value="ADMIN" th:text="'Quản trị viên'" th:selected="${RegisterFormDTO.role == 'ADMIN'}"></option>

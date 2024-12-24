@@ -47,7 +47,7 @@
 
     <div class="main-content" id="maincontent">
       <h2 class="text-center my-4">Danh sách nhân khẩu</h2>
-      <br> <hr>
+      <hr>
     <div class="searchbar" style="display: flex; justify-content: center; width: 100%;">
       <form method="get" action="/thong-tin-nhan-khau" style="display: flex; align-items: center; width: 90%;">
         <input type="search" placeholder="Tìm kiếm nhân khẩu" id="keyword" name="keyword" th:value="${nhankhau_keyword}" required style="flex: 3; width: 90%; padding: 5px 10px;">
@@ -57,7 +57,7 @@
       </form>
     </div>
     <br>
-    <a th:href="@{/thong-tin-nhan-khau/create}" title="Tạo nhân khẩu mới" style="text-decoration: none; padding: 10px 20px; background: linear-gradient(to right, #007e99, #005f6b); color: white; border-radius: 5px; display: inline-block;">
+    <a th:href="@{/thong-tin-nhan-khau/create}" title="Tạo nhân khẩu mới" style="text-decoration: none; padding: 10px 20px; background: linear-gradient(to right, #007e99, #005f6b); color: white; border-radius: 5px; display: inline-block; font-weight: bold;">
       Tạo nhân khẩu
     </a>
       <br>

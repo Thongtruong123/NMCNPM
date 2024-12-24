@@ -76,4 +76,9 @@ input, select {
     cursor: pointer;
 }
 
+.text-danger {
+    color: red;
+    margin-bottom: 10px;
+}
+
 

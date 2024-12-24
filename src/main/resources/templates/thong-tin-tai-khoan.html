@@ -66,15 +66,21 @@
       <form th:action="@{/change-password}" th:object="${PasswordChangeDTO}" method="post">
         <div class="password-item">
           <label for="old_password"> Nhập mật khẩu cũ: </label>
-          <input type="password" th:field="*{old_password}" id="old_password" required>
+          <input type="password" th:field="*{old_password}" id="old_password" required
+                 oninvalid="this.setCustomValidity('Vui lòng nhập mật khẩu cũ')"
+                 oninput="this.setCustomValidity('')">
         </div>
         <div class="password-item">
           <label for="new_password"> Nhập mật khẩu mới: </label>
-          <input type="password" th:field="*{new_password}" id="new_password" required>
+          <input type="password" th:field="*{new_password}" id="new_password" required
+                 oninvalid="this.setCustomValidity('Vui lòng nhập mật khẩu mới')"
+                 oninput="this.setCustomValidity('')">
         </div>
         <div class="password-item">
           <label for="confirm_password"> Nhập lại mật khẩu mới: </label>
-          <input type="password" th:field="*{confirm_password}" id="confirm_password" required>
+          <input type="password" th:field="*{confirm_password}" id="confirm_password" required
+                 oninvalid="this.setCustomValidity('Vui lòng nhập lại mật khẩu mới')"
+                 oninput="this.setCustomValidity('')">
         </div>
 
         <button class="password-button" type="submit"> Đổi mật khẩu </button>
