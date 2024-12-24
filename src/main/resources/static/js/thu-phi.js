@@ -41,9 +41,11 @@ document.getElementById('roomNumber').addEventListener('keydown', async function
                     dueAmountsDiv.innerHTML += `
                         <div class="due-item">
                             <label for="${uniqueId}">
-                                Khoản thu: ${due.name} - ${due.amount.toLocaleString()} VNĐ
-                                <input type="checkbox" class="due-checkbox" id="${uniqueId}" data-id="${due.id}" data-fee-id="${due.feeId}" value="${due.amount}">
+                                <b>Khoản thu: ${due.name}</b> <br>
+                                ${due.ngaytao} - ${due.hanchot} <br>
+                                Số tiền: ${due.amount.toLocaleString()} VNĐ
                             </label>
+                            <input type="checkbox" class="due-checkbox" id="${uniqueId}" data-id="${due.id}" data-fee-id="${due.feeId}" value="${due.amount}">
                         </div>`;
                 });
             } else {
@@ -76,7 +78,8 @@ document.querySelector('.generate-invoice-button').addEventListener('click', asy
     const roomNumber = document.getElementById('roomNumber').value.trim();
     const payerName = document.getElementById('payerName').value.trim();
     const phoneNumber = document.getElementById('phoneNumber').value.trim();
-    const totalAmount = parseFloat(document.getElementById('paymentAmount').value.replace(/\./g, '').replace(/,/g, '.'));
+    const totalAmount = parseInt(document.getElementById('paymentAmount').value.replace(/\./g, '').replace(/,/g, ''), 10);
+
 
     if (!roomNumber || !payerName || !phoneNumber || totalAmount <= 0) {
         alert("Vui lòng nhập đủ thông tin và chọn khoản cần thanh toán.");
@@ -142,18 +145,18 @@ function openInvoiceInNewPage(invoice) {
                 <style>
                     body { font-family: Arial, sans-serif; padding: 20px; }
                     .invoice-container { max-width: 800px; margin: auto; border: 1px solid #ccc; padding: 20px; background-color: #fff; }
-                    h2 { text-align: center; }
+                    h1 { text-align: center; }
                     .invoice-info, .invoice-details, .invoice-total { margin-top: 20px; }
                     table { width: 100%; border-collapse: collapse; }
                     th, td { padding: 10px; border: 1px solid #ccc; }
-                    .invoice-signature { display: flex; justify-content: space-between; margin-top: 40px; }
-                    .signature-block { text-align: center; width: 40%; }
-                    .signature-line { border-top: 1px solid #000; margin-top: 40px; padding-top: 5px; }
+                    .invoice-signature { display: flex; justify-content: space-between;}
+                    .signature-block { text-align: center; width: 40%; height: 240px;}
                 </style>
             </head>
             <body>
                 <div class="invoice-container">
-                    <h2>Hóa Đơn Thu Phí Chung Cư</h2>
+                    <h3>Ban quản lý chung cư BlueMoon</h3>
+                    <h1>Hóa Đơn Thu Phí Chung Cư</h2>
                     <div class="invoice-info">
                         <p>Người nộp: ${invoice.payerName || "Không có"}</p>
                         <p>Số điện thoại: ${invoice.phoneNumber || "Không có"}</p>
@@ -176,14 +179,16 @@ function openInvoiceInNewPage(invoice) {
                     </div>
                     <div class="invoice-total">
                         <h3>Tổng Cộng</h3>
-                        <p>Tổng Tiền: ${(invoice.totalAmount * 1000).toLocaleString()} VNĐ</p>
+                        <p>Tổng Tiền: ${invoice.totalAmount.toLocaleString()} VNĐ</p>
                     </div>
                     <div class="invoice-signature">
                         <div class="signature-block">
-                            <p class="signature-line">Họ tên người nộp</p>
+                            <p>Người nộp</p>
+                            <i>(Ký, ghi rõ họ tên)</i>
                         </div>
                         <div class="signature-block">
-                            <p class="signature-line">Họ tên người tạo hóa đơn</p>
+                            <p>Người thu</p>
+                            <i>(Ký, ghi rõ họ tên)</i>
                         </div>
                     </div>
                 </div>

@@ -1,0 +1,78 @@
+body {
+    font-family: 'Helvetica';
+    margin: 0;
+    height: 100vh;
+    width: 100vw;
+    min-width: 400px;
+    min-height: 400px;
+    background: linear-gradient(to bottom, #00CED1, #191970);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.logo {
+    width: 300px;
+    color: #00CED1;
+    font-size: 28px;
+    font-weight: bold;
+    margin-top: 120px;
+    margin-bottom: 30px;
+    text-align: left;
+    display: flex;
+    color: white;
+}
+
+.logo i {
+    font-size: 40px;
+    margin-right: 5px;
+}
+
+.email-input {
+  background-color: white;
+  text-align: center;
+  width: 400px;
+  padding: 40px;
+  border-radius: 10px;
+}
+
+.guide {
+  text-align: left;
+}
+
+.form {
+    text-align: left;
+}
+
+label, input {
+    display: block;  /* Đặt cả label và input xuống dòng */
+    margin-bottom: 10px; /* Khoảng cách giữa các phần tử */
+}
+
+input {
+    font-size: 18px;
+    height: 40px;
+    width: 390px;
+    padding: 3px;
+    border-radius: 5px;
+    border-color: #DCDCDC;
+}
+
+.email-button {
+    display: inline-block;
+    padding: 10px 20px;
+    width: 400px;
+    border-radius: 10px;
+    border: none;
+    background: linear-gradient(to right, #007e99, #005f6b);
+    color: white;
+    font-size: 18px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.login {
+    color: black;
+}
+
+

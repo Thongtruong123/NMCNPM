@@ -75,7 +75,7 @@ function setBackgroundImage(item) {
             imageUrl = '/image/gui-xe.jpeg';
             break;
         default:
-                    console.log('Không tìm thấy loại khoản thu hợp lệ'); // Kiểm tra loại không hợp lệ
+             console.log('Không tìm thấy loại khoản thu hợp lệ'); // Kiểm tra loại không hợp lệ
 
     }
     item.style.backgroundImage = `url('${imageUrl}')`;

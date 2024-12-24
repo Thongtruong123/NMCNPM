@@ -13,6 +13,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -55,6 +56,8 @@ public class FamilyController {
                 dueDetails.put("invoiceId", due.getInvoiceId());
                 dueDetails.put("name", khoanThu != null ? khoanThu.getTenkhoanthu() : "Không xác định");
                 dueDetails.put("amount", khoanThu != null ? khoanThu.getSotien() : 0);
+                dueDetails.put("ngaytao", khoanThu != null ? khoanThu.getNgaytao().format(DateTimeFormatter.ofPattern("yyyy/MM/dd")) : 0);
+                dueDetails.put("hanchot", khoanThu != null ? khoanThu.getHanchot().format(DateTimeFormatter.ofPattern("yyyy/MM/dd")) : 0);
                 return dueDetails;
             }).collect(Collectors.toList());
 

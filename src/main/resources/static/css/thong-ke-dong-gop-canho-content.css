@@ -54,7 +54,7 @@
     height: 5px;
     width: 125px;
     z-index: 1;
-    left: 200px;
+    left: 195px;
     bottom: 10px;
     background-color: black;
     border-radius: 10px;
@@ -100,7 +100,12 @@
 }
 
 .alert {
-    font-color: red;
+    width: 100%;
+    min-width: 500px;
+    z-index: -1;
+    border-radius: 10px;
+    background-color: white;
+    padding: 15px;
 }
 
 .main-content {
