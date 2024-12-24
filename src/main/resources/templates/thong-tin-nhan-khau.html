@@ -5,8 +5,8 @@
   <link rel="icon" type="image/x-icon" href="/image/favicon.ico">
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="css/template.css">
-  <link rel="stylesheet" href="css/quan-ly-khoan-thu-content.css">
+  <link rel="stylesheet" href="/css/template.css">
+  <link rel="stylesheet" href="/css/quan-ly-khoan-thu-content.css">
   <link rel='stylesheet' href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css'>
 
 
@@ -49,7 +49,7 @@
       <h2 class="text-center my-4">Danh sách nhân khẩu</h2>
       <hr>
     <div class="searchbar" style="display: flex; justify-content: center; width: 100%;">
-      <form method="get" action="/thong-tin-nhan-khau" style="display: flex; align-items: center; width: 90%;">
+      <form method="get" th:action="@{/thong-tin-nhan-khau}" style="display: flex; align-items: center; width: 90%;">
         <input type="search" placeholder="Tìm kiếm nhân khẩu" id="keyword" name="keyword" th:value="${nhankhau_keyword}" required style="flex: 3; width: 90%; padding: 5px 10px;">
         <button class="search-button" type="submit" style="padding: 5px 10px; margin-left: 10px;">
           <i class='bx bx-search'></i>
@@ -181,7 +181,7 @@
   });
 </script>
 
-<script src="js/menu-toggle.js"> </script>
+<script src="/js/menu-toggle.js"> </script>
 
 </body>
 </html>
